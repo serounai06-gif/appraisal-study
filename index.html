@@ -880,16 +880,16 @@
         <span class="day-arrow closed" id="arrow-day2">▾</span>
       </div>
       <div class="day-children closed" id="day2">
-        <div class="nav-item coming" data-page="">
-          <div class="nav-dot" style="background:var(--border2)"></div>
+        <div class="nav-item" data-page="day2-factor">
+          <div class="nav-dot" style="background:var(--blue)"></div>
           요인비교표 보정 계산
         </div>
-        <div class="nav-item coming" data-page="">
-          <div class="nav-dot" style="background:var(--border2)"></div>
+        <div class="nav-item" data-page="day2-pricelist2">
+          <div class="nav-dot" style="background:var(--blue)"></div>
           공시지가기준법 실전
         </div>
-        <div class="nav-item coming" data-page="">
-          <div class="nav-dot" style="background:var(--border2)"></div>
+        <div class="nav-item" data-page="day2-land">
+          <div class="nav-dot" style="background:var(--blue)"></div>
           토지 평가 종합 문제
         </div>
       </div>
@@ -1553,6 +1553,176 @@
       </div>
     </div>
 
+    <!-- DAY 2 — 비교방식 심화 -->
+    <div class="page" id="page-day2-factor">
+      <div class="page-header">
+        <div class="page-tag">DAY 2 · 비교방식 심화</div>
+        <div class="page-title">요인비교표 보정 계산</div>
+        <div class="page-desc">지역요인과 개별요인을 세부 항목별로 쪼개서 비교하는 방법. 비교방식 계산의 핵심 파트예요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">지역요인 세부 항목</div>
+        <table class="study-table">
+          <thead><tr><th>항목</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td>가로조건</td><td>도로 폭·포장·계통</td></tr>
+            <tr><td>접근조건</td><td>교통시설·편의시설 접근성</td></tr>
+            <tr><td>환경조건</td><td>주변 환경·혐오시설 유무</td></tr>
+            <tr><td>행정조건</td><td>용도지역·지구·구역</td></tr>
+            <tr><td>기타조건</td><td>기타 지역 특성</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">개별요인 세부 항목</div>
+        <table class="study-table">
+          <thead><tr><th>항목</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td>가로조건</td><td>접면도로 폭·포장·방향</td></tr>
+            <tr><td>접근조건</td><td>역·버스정류장까지 거리</td></tr>
+            <tr><td>획지조건</td><td>면적·형상·고저·각지 여부</td></tr>
+            <tr><td>환경조건</td><td>주변 토지 이용 상황</td></tr>
+            <tr><td>행정조건</td><td>용도지역·건폐율·용적률</td></tr>
+            <tr><td>기타조건</td><td>기타 개별 특성</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">요인비교 계산 방법</div>
+        <div class="formula-block">
+          <div class="formula-label">개별요인 산식</div>
+          <div class="formula-text">
+            개별요인 <span class="op">= </span>가로조건 <span class="op">×</span> 접근조건 <span class="op">×</span> 획지조건<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="op">×</span> 환경조건 <span class="op">×</span> 행정조건 <span class="op">×</span> 기타조건
+          </div>
+        </div>
+        <div class="formula-block">
+          <div class="formula-label">요인비교치 — 핵심 공식</div>
+          <div class="formula-text">
+            요인비교치 <span class="op">= </span>대상 요인값 <span class="op">÷</span> 사례 요인값
+          </div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">가장 자주 틀리는 포인트</div>
+          항상 <strong>대상 ÷ 사례</strong> 순서! 사례 ÷ 대상으로 거꾸로 나누면 완전히 반대 결과가 나와요.
+        </div>
+        <div class="example">
+          <div class="example-label">계산 예시</div>
+          <div class="example-body">
+            대상: 가로 1.00 × 획지 1.05 × 환경 1.00 = <strong>1.050</strong><br>
+            사례: 가로 1.00 × 획지 1.00 × 환경 0.98 = <strong>0.980</strong><br><br>
+            개별요인 비교치 = 1.050 ÷ 0.980 = <strong class="hl">1.0714</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 요인비교표</div></div>
+        <textarea class="note-textarea" id="note-day2-factor" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day2-factor')">저장</button>
+        <div class="saved-notes" id="saved-day2-factor"></div>
+      </div>
+    </div>
+
+    <!-- DAY 2 — 공시지가기준법 실전 -->
+    <div class="page" id="page-day2-pricelist2">
+      <div class="page-header">
+        <div class="page-tag">DAY 2 · 비교방식 심화</div>
+        <div class="page-title">공시지가기준법 실전 — 그 밖의 요인</div>
+        <div class="page-desc">공시지가기준법에만 있는 특별한 보정치. 공시지가와 실제 시장가격의 격차를 메우는 역할을 해요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">그 밖의 요인이란?</div>
+        <p style="font-size:13.5px;color:var(--text2);line-height:1.8">
+          공시지가는 실제 시장가격보다 낮게 책정되는 경우가 많아요. 시점수정·지역요인·개별요인만으로는 이 격차를 다 메울 수 없을 때, <span class="hl">그 밖의 요인</span>으로 추가 보정합니다.
+        </p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">그 밖의 요인 산정 방법</div>
+        <div class="formula-block">
+          <div class="formula-label">역산 공식</div>
+          <div class="formula-text">
+            그 밖의 요인 <span class="op">= </span>거래사례비교법 비교가액<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="op">÷</span> (공시지가 <span class="op">×</span> 시점수정 <span class="op">×</span> 지역요인 <span class="op">×</span> 개별요인)
+          </div>
+        </div>
+        <div class="example">
+          <div class="example-label">계산 예시</div>
+          <div class="example-body">
+            거래사례비교법 비교가액: <strong>100,000,000원</strong><br>
+            공시지가 × 시점수정 × 지역·개별요인: <strong>90,000,000원</strong><br><br>
+            그 밖의 요인 = 100,000,000 ÷ 90,000,000 = <strong class="hl">1.111</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 그 밖의 요인</div></div>
+        <textarea class="note-textarea" id="note-day2-pricelist2" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day2-pricelist2')">저장</button>
+        <div class="saved-notes" id="saved-day2-pricelist2"></div>
+      </div>
+    </div>
+
+    <!-- DAY 2 — 토지 평가 종합 -->
+    <div class="page" id="page-day2-land">
+      <div class="page-header">
+        <div class="page-tag">DAY 2 · 비교방식 심화</div>
+        <div class="page-title">토지 평가 종합 — 시험 출제 패턴</div>
+        <div class="page-desc">토지 평가 문제는 항상 이 구조로 나와요. 흐름을 외워두면 어떤 문제도 길을 잃지 않아요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">토지 평가 3단계 흐름</div>
+        <div class="flow">
+          <div class="flow-item">
+            <div class="flow-num">01</div>
+            <div class="flow-content">
+              <div class="flow-name">공시지가기준법으로 비준가액 산정</div>
+              <div class="flow-desc">공시지가 × 시점수정 × 지역요인 × 개별요인 × 그 밖의 요인</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">02</div>
+            <div class="flow-content">
+              <div class="flow-name">거래사례비교법으로 비교가액 산정</div>
+              <div class="flow-desc">사례가액 × 사정보정 × 시점수정 × 지역요인 × 개별요인</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">03</div>
+            <div class="flow-content">
+              <div class="flow-name">시산가액 조정 → 최종 감정평가액 결정</div>
+              <div class="flow-desc">두 시산가액 비교 후 조정 근거 서술 → 최종가액 결정</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">시험 핵심 포인트 3가지</div>
+        <div class="cheat-warns">
+          <div class="cheat-warn">공시지가기준법은 토지 평가에서 <strong>반드시</strong> 적용 — 빠뜨리면 감점</div>
+          <div class="cheat-warn">요인비교는 항상 <strong>대상 ÷ 사례</strong> 순서 — 거꾸로 하면 완전히 틀림</div>
+          <div class="cheat-warn">시산가액 조정 근거 <strong>한 줄 서술</strong> 필수 — 계산만 하면 감점</div>
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 토지 평가 종합</div></div>
+        <textarea class="note-textarea" id="note-day2-land" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day2-land')">저장</button>
+        <div class="saved-notes" id="saved-day2-land"></div>
+      </div>
+    </div>
+
     <!-- ⑩ 용어정리 -->
     <div class="page" id="page-glossary">
       <div class="page-header">
@@ -1903,6 +2073,7 @@
     if (['sisan'].includes(id)) return 'var(--purple)';
     if (['cheatsheet'].includes(id)) return 'var(--red)';
     if (['glossary'].includes(id)) return 'var(--teal)';
+    if (['day2-factor','day2-pricelist2','day2-land'].includes(id)) return 'var(--blue)';
     return 'var(--accent)';
   }
 
