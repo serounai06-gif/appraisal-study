@@ -7,24 +7,24 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0e0f11;
-    --surface: #16181c;
-    --surface2: #1e2128;
-    --border: #2a2d35;
-    --border2: #363a45;
-    --text: #e8e6df;
-    --text2: #9a9890;
-    --text3: #5c5b57;
-    --blue: #4a8fff;
-    --blue-dim: #1a2d4a;
-    --teal: #3dbfa0;
-    --teal-dim: #0f2e26;
-    --amber: #f0a428;
-    --amber-dim: #2e2010;
-    --purple: #9b7ff0;
-    --purple-dim: #1e1535;
-    --red: #f05050;
-    --accent: #f0a428;
+    --bg: #fdf8f5;
+    --surface: #ffffff;
+    --surface2: #fef0f0;
+    --border: #f0e4dc;
+    --border2: #e8d4cc;
+    --text: #3d2e2e;
+    --text2: #7a6060;
+    --text3: #b8a0a0;
+    --blue: #7bafd4;
+    --blue-dim: #e8f2f9;
+    --teal: #7fc4b4;
+    --teal-dim: #e4f5f1;
+    --amber: #e8956d;
+    --amber-dim: #fdf0ea;
+    --purple: #b49fd4;
+    --purple-dim: #f0ecf9;
+    --red: #e87878;
+    --accent: #e8956d;
     --mono: 'JetBrains Mono', monospace;
     --serif: 'Noto Serif KR', serif;
     --sans: 'Noto Sans KR', sans-serif;
@@ -74,6 +74,52 @@
     grid-template-columns: 240px 1fr 280px;
     min-height: calc(100vh - 56px);
   }
+
+  /* ── DAY 토글 ── */
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+    border-radius: 6px;
+    margin: 0 6px;
+  }
+  .day-header:hover { background: var(--border); }
+  .day-badge {
+    font-size: 10px;
+    font-family: var(--mono);
+    font-weight: 700;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px 7px;
+    flex-shrink: 0;
+    letter-spacing: 0.5px;
+  }
+  .day-title {
+    font-size: 12px;
+    color: var(--text);
+    font-weight: 500;
+    flex: 1;
+    line-height: 1.3;
+  }
+  .day-arrow {
+    font-size: 12px;
+    color: var(--text3);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .day-arrow.closed { transform: rotate(-90deg); }
+  .day-children {
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    max-height: 600px;
+  }
+  .day-children.closed { max-height: 0; }
+  .day-children .nav-item { padding-left: 28px; font-size: 13px; }
 
   /* ── 사이드바 (왼쪽) ── */
   .sidebar {
@@ -378,7 +424,7 @@
     transition: all 0.15s;
     letter-spacing: 0.5px;
   }
-  .note-save:hover { background: var(--amber); color: var(--bg); }
+  .note-save:hover { background: var(--amber); color: #ffffff; }
   .saved-notes { margin-top: 14px; }
   .saved-note-item {
     background: var(--surface2);
@@ -606,6 +652,42 @@
     .flow-item { padding: 12px 14px; }
   }
 
+  /* ── 용어정리 전용 ── */
+  .glossary-list { display: flex; flex-direction: column; gap: 10px; }
+  .glossary-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    transition: border-color 0.15s;
+  }
+  .glossary-item:hover { border-color: var(--border2); }
+  .glossary-term {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .glossary-term.blue { color: var(--blue); }
+  .glossary-term.teal { color: var(--teal); }
+  .glossary-term.amber { color: var(--amber); }
+  .glossary-term.purple { color: var(--purple); }
+  .glossary-def {
+    font-size: 13.5px;
+    color: var(--text2);
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+  .glossary-ex {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text3);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 7px 12px;
+    line-height: 1.6;
+  }
+
   /* ── 핵심노트 전용 ── */
   .cheat-block {
     border-radius: 10px;
@@ -728,63 +810,60 @@
 
   <!-- 왼쪽 사이드바 -->
   <nav class="sidebar">
+
+    <!-- DAY 1 -->
     <div class="sidebar-section">
-      <div class="sidebar-label">기본 뼈대</div>
-      <div class="nav-item active" data-page="overview">
-        <div class="nav-dot" style="background:var(--accent)"></div>
-        개요 — 3방식 6방법
+      <div class="day-header" onclick="toggleDay('day1')">
+        <span class="day-badge">DAY 1</span>
+        <span class="day-title">뼈대 잡기 · 기초 개념</span>
+        <span class="day-arrow" id="arrow-day1">▾</span>
       </div>
-      <div class="nav-item" data-page="report-flow">
-        <div class="nav-dot" style="background:var(--text3)"></div>
-        감정평가서 작성 순서
+      <div class="day-children" id="day1">
+        <div class="nav-item" data-page="overview">
+          <div class="nav-dot" style="background:var(--accent)"></div>
+          3방식 6방법 개요
+        </div>
+        <div class="nav-item" data-page="report-flow">
+          <div class="nav-dot" style="background:var(--text3)"></div>
+          감정평가서 작성 순서
+        </div>
+        <div class="nav-item" data-page="comparison">
+          <div class="nav-dot" style="background:var(--blue)"></div>
+          거래사례비교법
+        </div>
+        <div class="nav-item" data-page="pricelist">
+          <div class="nav-dot" style="background:var(--blue)"></div>
+          공시지가기준법
+        </div>
+        <div class="nav-item" data-page="cost">
+          <div class="nav-dot" style="background:var(--teal)"></div>
+          원가법
+        </div>
+        <div class="nav-item" data-page="depreciation">
+          <div class="nav-dot" style="background:var(--teal)"></div>
+          감가수정 3법
+        </div>
+        <div class="nav-item" data-page="income">
+          <div class="nav-dot" style="background:var(--amber)"></div>
+          수익환원법
+        </div>
+        <div class="nav-item" data-page="sisan">
+          <div class="nav-dot" style="background:var(--purple)"></div>
+          시산가액 & 조정
+        </div>
       </div>
     </div>
-    <div class="nav-divider"></div>
-    <div class="sidebar-section">
-      <div class="sidebar-label">비교방식</div>
-      <div class="nav-item" data-page="comparison">
-        <div class="nav-dot" style="background:var(--blue)"></div>
-        거래사례비교법
-      </div>
-      <div class="nav-item" data-page="pricelist">
-        <div class="nav-dot" style="background:var(--blue)"></div>
-        공시지가기준법
-      </div>
-    </div>
-    <div class="nav-divider"></div>
-    <div class="sidebar-section">
-      <div class="sidebar-label">원가방식</div>
-      <div class="nav-item" data-page="cost">
-        <div class="nav-dot" style="background:var(--teal)"></div>
-        원가법
-      </div>
-      <div class="nav-item" data-page="depreciation">
-        <div class="nav-dot" style="background:var(--teal)"></div>
-        감가수정 3법
-      </div>
-    </div>
-    <div class="nav-divider"></div>
-    <div class="sidebar-section">
-      <div class="sidebar-label">수익방식</div>
-      <div class="nav-item" data-page="income">
-        <div class="nav-dot" style="background:var(--amber)"></div>
-        수익환원법
-      </div>
-    </div>
-    <div class="nav-divider"></div>
-    <div class="sidebar-section">
-      <div class="sidebar-label">핵심 개념</div>
-      <div class="nav-item" data-page="sisan">
-        <div class="nav-dot" style="background:var(--purple)"></div>
-        시산가액 & 조정
-      </div>
-    </div>
+
     <div class="nav-divider"></div>
     <div class="sidebar-section">
       <div class="sidebar-label">시험 직전</div>
       <div class="nav-item" data-page="cheatsheet">
         <div class="nav-dot" style="background:var(--red)"></div>
         ★ 핵심노트
+      </div>
+      <div class="nav-item" data-page="glossary">
+        <div class="nav-dot" style="background:var(--teal)"></div>
+        용어정리
       </div>
     </div>
   </nav>
@@ -1237,6 +1316,100 @@
       </div>
     </div>
 
+    <!-- ⑩ 용어정리 -->
+    <div class="page" id="page-glossary">
+      <div class="page-header">
+        <div class="page-tag">Glossary</div>
+        <div class="page-title">용어정리</div>
+        <div class="page-desc">공부하면서 나온 핵심 용어들을 모아뒀어요. 계속 추가됩니다.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">비교방식 용어</div>
+        <div class="glossary-list">
+          <div class="glossary-item">
+            <div class="glossary-term blue">사정보정 (事情補正)</div>
+            <div class="glossary-def">비정상적인 거래(급매·친족 거래·강매 등)를 정상 시장 거래 가격으로 되돌리는 작업. 정상 거래면 1.000, 급매로 10% 저가 거래 시 × 1.111.</div>
+            <div class="glossary-ex">예) 급매 9,000만 → 사정보정 후 정상가 1억 / 보정치 = 1억÷9,000만 = 1.111</div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-term blue">시점수정 (時點修正)</div>
+            <div class="glossary-def">사례 거래시점과 기준시점 사이의 지가 변동을 반영하는 작업. 지가변동률을 이용해 계산.</div>
+            <div class="glossary-ex">예) 3개월간 지가 3% 상승 → 시점수정치 = 1.030</div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-term blue">지역요인 (地域要因)</div>
+            <div class="glossary-def">사례 토지가 속한 지역과 대상 토지가 속한 지역 간의 환경적 차이를 비교·보정하는 요인.</div>
+            <div class="glossary-ex">예) 대상 지역이 사례 지역보다 5% 우세 → 지역요인 = 1.050</div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-term blue">개별요인 (個別要因)</div>
+            <div class="glossary-def">같은 지역 내에서 개별 획지(필지)의 특성 차이(형상·접면도로·방위 등)를 비교·보정하는 요인.</div>
+            <div class="glossary-ex">예) 대상이 사례보다 형상·도로조건이 5% 열등 → 개별요인 = 0.950</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">원가방식 용어</div>
+        <div class="glossary-list">
+          <div class="glossary-item">
+            <div class="glossary-term teal">재조달원가 (再調達原價)</div>
+            <div class="glossary-def">기준시점 현재 대상 물건을 새로 만드는 데 드는 비용. 원가법의 출발점. 직접법·간접법·단위비교법으로 산정.</div>
+            <div class="glossary-ex">예) 건물 200㎡, ㎡당 50만 원 → 재조달원가 = 1억 원</div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-term teal">감가수정 (減價修正)</div>
+            <div class="glossary-def">물리적 감가(노후화)·기능적 감가(구식화)·경제적 감가(외부 요인)를 반영해 재조달원가에서 가치 감소분을 차감하는 작업.</div>
+            <div class="glossary-ex">정액법 / 정률법 / 상환기금법 세 가지 방법으로 계산</div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-term teal">적산가액 (積算價額)</div>
+            <div class="glossary-def">원가법의 최종 결과값. 재조달원가에서 감가수정액을 뺀 금액.</div>
+            <div class="glossary-ex">예) 재조달원가 1억, 감가 25% → 적산가액 = 7,500만 원</div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-term teal">내용연수 (耐用年數)</div>
+            <div class="glossary-def">건물 등이 경제적으로 사용 가능한 총 기간. 감가수정 계산의 기준이 됨.</div>
+            <div class="glossary-ex">예) 철근콘크리트 건물 내용연수 = 40~50년</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">수익방식 용어</div>
+        <div class="glossary-list">
+          <div class="glossary-item">
+            <div class="glossary-term amber">순수익 / NOI (Net Operating Income)</div>
+            <div class="glossary-def">총수익에서 공실손실과 운영경비를 뺀 순영업수익. 수익환원법의 핵심 입력값.</div>
+            <div class="glossary-ex">PGI → −공실 → EGI → −운영경비 → NOI</div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-term amber">환원이율 (還元利率)</div>
+            <div class="glossary-def">순수익을 수익가액으로 변환하는 비율. 투자자의 요구수익률 개념. 높을수록 수익가액은 낮아짐.</div>
+            <div class="glossary-ex">예) NOI 500만, 환원이율 5% → 수익가액 = 1억 원</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">공통 용어</div>
+        <div class="glossary-list">
+          <div class="glossary-item">
+            <div class="glossary-term purple">시산가액 (試算價額)</div>
+            <div class="glossary-def">각 감정평가 방식을 적용해 일단 계산해 본 중간 가액. 최종 감정평가액이 아님. 3방식을 적용하면 3개의 시산가액이 나옴.</div>
+            <div class="glossary-ex">시산가액 조정 → 최종 감정평가액 결정</div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-term purple">기준시점 (基準時點)</div>
+            <div class="glossary-def">감정평가액을 결정하는 기준이 되는 날짜. 통상 감정평가 의뢰일 또는 현장조사 완료일.</div>
+            <div class="glossary-ex">시점수정은 사례 거래시점 → 기준시점으로 보정</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
     <!-- ⑨ 핵심노트 -->
     <div class="page" id="page-cheatsheet">
       <div class="page-header">
@@ -1332,9 +1505,9 @@
           <div class="cheat-step"><span class="step-num">02</span>대상물건 확인 및 조사 — 소재지·지목·면적·현장조사</div>
           <div class="cheat-step"><span class="step-num">03</span>자료수집 및 시장조사 — 공시지가·거래사례·비용자료</div>
           <div class="cheat-step"><span class="step-num">04</span>감정평가 방법 선정 — 주방법 + 다른방법</div>
-          <div class="cheat-step cheat-step-key"><span class="step-num" style="background:var(--accent);color:var(--bg)">05</span>방식 적용 (계산!) — 시산가액 산출</div>
-          <div class="cheat-step cheat-step-key"><span class="step-num" style="background:var(--accent);color:var(--bg)">06</span>시산가액 조정 — 가중치 근거 서술 필수!</div>
-          <div class="cheat-step cheat-step-key"><span class="step-num" style="background:var(--accent);color:var(--bg)">07</span>감정평가액 결정 — 단가 × 수량 = 최종가액</div>
+          <div class="cheat-step cheat-step-key"><span class="step-num" style="background:var(--accent);color:#ffffff">05</span>방식 적용 (계산!) — 시산가액 산출</div>
+          <div class="cheat-step cheat-step-key"><span class="step-num" style="background:var(--accent);color:#ffffff">06</span>시산가액 조정 — 가중치 근거 서술 필수!</div>
+          <div class="cheat-step cheat-step-key"><span class="step-num" style="background:var(--accent);color:#ffffff">07</span>감정평가액 결정 — 단가 × 수량 = 최종가액</div>
           <div class="cheat-step"><span class="step-num">08</span>감정평가 의견 — 근거·특이사항·조건 서술</div>
         </div>
       </div>
@@ -1448,6 +1621,14 @@
   document.getElementById('today-date').textContent =
     `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
 
+  // DAY 토글
+  function toggleDay(id) {
+    const children = document.getElementById(id);
+    const arrow = document.getElementById('arrow-' + id);
+    children.classList.toggle('closed');
+    arrow.classList.toggle('closed');
+  }
+
   // 페이지 전환
   function goPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -1469,6 +1650,7 @@
     if (['income'].includes(id)) return 'var(--amber)';
     if (['sisan'].includes(id)) return 'var(--purple)';
     if (['cheatsheet'].includes(id)) return 'var(--red)';
+    if (['glossary'].includes(id)) return 'var(--teal)';
     return 'var(--accent)';
   }
 
