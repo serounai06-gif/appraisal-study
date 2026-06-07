@@ -533,6 +533,79 @@
     letter-spacing: 0.8px;
   }
 
+  /* ── 모바일 반응형 ── */
+  @media (max-width: 768px) {
+    header { padding: 0 16px; }
+
+    .layout {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr;
+    }
+
+    .sidebar {
+      position: static;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      overflow-x: auto;
+      overflow-y: visible;
+    }
+
+    .sidebar-section {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 0;
+    }
+
+    .sidebar-label {
+      font-size: 9px;
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+
+    .nav-item {
+      padding: 6px 12px;
+      font-size: 12px;
+      white-space: nowrap;
+      border-left: none;
+      border-bottom: 2px solid transparent;
+    }
+    .nav-item.active {
+      border-left: none;
+      border-bottom-color: var(--accent);
+    }
+
+    .nav-divider { display: none; }
+
+    main {
+      padding: 24px 16px;
+      max-width: 100%;
+    }
+
+    .right-panel { display: none; }
+
+    .concept-grid {
+      grid-template-columns: 1fr;
+    }
+    .concept-card[style*="span 2"] {
+      grid-column: span 1;
+    }
+
+    .page-title { font-size: 22px; }
+
+    .study-table { font-size: 12px; }
+    .study-table th, .study-table td { padding: 8px 10px; }
+
+    .formula-text { font-size: 13px; }
+
+    .flow-item { padding: 12px 14px; }
+  }
+
   /* ── 스크롤바 ── */
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: transparent; }
