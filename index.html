@@ -606,6 +606,104 @@
     .flow-item { padding: 12px 14px; }
   }
 
+  /* ── 핵심노트 전용 ── */
+  .cheat-block {
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .cheat-tag {
+    font-size: 11px;
+    font-family: var(--mono);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 7px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .cheat-tag.blue { background: var(--blue-dim); color: var(--blue); }
+  .cheat-tag.teal { background: var(--teal-dim); color: var(--teal); }
+  .cheat-tag.amber { background: var(--amber-dim); color: var(--amber); }
+  .cheat-tag.purple { background: var(--purple-dim); color: var(--purple); }
+  .cheat-tag.gray { background: var(--surface2); color: var(--text2); }
+
+  .cheat-block.blue { border-color: var(--blue); }
+  .cheat-block.teal { border-color: var(--teal); }
+  .cheat-block.amber { border-color: var(--amber); }
+  .cheat-block.purple { border-color: var(--purple); }
+  .cheat-block.gray { border-color: var(--border2); }
+
+  .cheat-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .cheat-row:last-child { border-bottom: none; }
+  .cheat-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    white-space: nowrap;
+    min-width: 100px;
+    flex-shrink: 0;
+  }
+  .cheat-formula {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+
+  .cheat-steps { display: flex; flex-direction: column; gap: 4px; }
+  .cheat-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--text2);
+  }
+  .cheat-step-key {
+    background: var(--surface2);
+    border-color: var(--amber);
+    color: var(--text);
+  }
+  .step-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 4px;
+    padding: 2px 7px;
+    color: var(--text3);
+    flex-shrink: 0;
+  }
+
+  .cheat-warns { display: flex; flex-direction: column; gap: 6px; }
+  .cheat-warn {
+    padding: 10px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--red);
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+  .cheat-warn strong { color: var(--red); font-weight: 500; }
+
+  @media (max-width: 768px) {
+    .cheat-row { flex-direction: column; gap: 4px; }
+    .cheat-name { min-width: unset; }
+  }
+
   /* ── 스크롤바 ── */
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: transparent; }
@@ -679,6 +777,14 @@
       <div class="nav-item" data-page="sisan">
         <div class="nav-dot" style="background:var(--purple)"></div>
         시산가액 & 조정
+      </div>
+    </div>
+    <div class="nav-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">시험 직전</div>
+      <div class="nav-item" data-page="cheatsheet">
+        <div class="nav-dot" style="background:var(--red)"></div>
+        ★ 핵심노트
       </div>
     </div>
   </nav>
@@ -1131,6 +1237,134 @@
       </div>
     </div>
 
+    <!-- ⑨ 핵심노트 -->
+    <div class="page" id="page-cheatsheet">
+      <div class="page-header">
+        <div class="page-tag">시험 직전 최종 정리</div>
+        <div class="page-title">★ 핵심노트</div>
+        <div class="page-desc">시험 직전 5분, 이것만 보고 들어가세요. 키워드와 산식 위주로 압축했습니다.</div>
+      </div>
+
+      <!-- 3방식 산식 -->
+      <div class="section">
+        <div class="section-title">3방식 6방법 — 산식 압축</div>
+
+        <div class="cheat-block blue">
+          <div class="cheat-tag blue">① 비교방식</div>
+          <div class="cheat-row">
+            <span class="cheat-name">거래사례비교법</span>
+            <span class="cheat-formula">사례가액 × 사정보정 × 시점수정 × 지역요인 × 개별요인</span>
+          </div>
+          <div class="cheat-row">
+            <span class="cheat-name">공시지가기준법</span>
+            <span class="cheat-formula">공시지가 × 시점수정 × 지역요인 × 개별요인 × 그밖의요인</span>
+          </div>
+        </div>
+
+        <div class="cheat-block teal">
+          <div class="cheat-tag teal">② 원가방식</div>
+          <div class="cheat-row">
+            <span class="cheat-name">원가법</span>
+            <span class="cheat-formula">재조달원가 − 감가수정액 = 적산가액</span>
+          </div>
+          <div class="cheat-row">
+            <span class="cheat-name">적산법(임대료)</span>
+            <span class="cheat-formula">기초가액 × 기대이율 + 필요제경비</span>
+          </div>
+        </div>
+
+        <div class="cheat-block amber">
+          <div class="cheat-tag amber">③ 수익방식</div>
+          <div class="cheat-row">
+            <span class="cheat-name">수익환원법(직접)</span>
+            <span class="cheat-formula">NOI ÷ 환원이율(R) = 수익가액</span>
+          </div>
+          <div class="cheat-row">
+            <span class="cheat-name">NOI 산정</span>
+            <span class="cheat-formula">PGI → −공실 → EGI → −운영경비 → NOI</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 감가수정 3법 -->
+      <div class="section">
+        <div class="section-title">감가수정 3법 — 비교</div>
+        <div class="cheat-block teal">
+          <div class="cheat-row">
+            <span class="cheat-name">정액법</span>
+            <span class="cheat-formula">매년 동일 감가 / 감가율 = 경과연수 ÷ 내용연수</span>
+          </div>
+          <div class="cheat-row">
+            <span class="cheat-name">정률법</span>
+            <span class="cheat-formula">잔존가액 = 재조달원가 × (1−r)ⁿ / 초기 감가 많음</span>
+          </div>
+          <div class="cheat-row">
+            <span class="cheat-name">상환기금법</span>
+            <span class="cheat-formula">기금계수 이용 / 이자율 반영 / 가장 복잡</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 시산가액 조정 -->
+      <div class="section">
+        <div class="section-title">시산가액 조정 — 3가지 기준</div>
+        <div class="cheat-block purple">
+          <div class="cheat-row">
+            <span class="cheat-name">물건 성격</span>
+            <span class="cheat-formula">토지→비교방식 / 건물→원가방식 / 수익성→수익방식</span>
+          </div>
+          <div class="cheat-row">
+            <span class="cheat-name">자료 신뢰도</span>
+            <span class="cheat-formula">사례 수·시점 근접성·적정성이 높은 방식에 가중</span>
+          </div>
+          <div class="cheat-row">
+            <span class="cheat-name">평가 목적</span>
+            <span class="cheat-formula">담보→보수적 / 보상→시장가치 / 경매→실현가능가액</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 감정평가서 순서 -->
+      <div class="section">
+        <div class="section-title">감정평가서 작성 8단계</div>
+        <div class="cheat-steps">
+          <div class="cheat-step"><span class="step-num">01</span>기본사항 확인 — 의뢰인·목적·기준시점·대상물건</div>
+          <div class="cheat-step"><span class="step-num">02</span>대상물건 확인 및 조사 — 소재지·지목·면적·현장조사</div>
+          <div class="cheat-step"><span class="step-num">03</span>자료수집 및 시장조사 — 공시지가·거래사례·비용자료</div>
+          <div class="cheat-step"><span class="step-num">04</span>감정평가 방법 선정 — 주방법 + 다른방법</div>
+          <div class="cheat-step cheat-step-key"><span class="step-num" style="background:var(--accent);color:var(--bg)">05</span>방식 적용 (계산!) — 시산가액 산출</div>
+          <div class="cheat-step cheat-step-key"><span class="step-num" style="background:var(--accent);color:var(--bg)">06</span>시산가액 조정 — 가중치 근거 서술 필수!</div>
+          <div class="cheat-step cheat-step-key"><span class="step-num" style="background:var(--accent);color:var(--bg)">07</span>감정평가액 결정 — 단가 × 수량 = 최종가액</div>
+          <div class="cheat-step"><span class="step-num">08</span>감정평가 의견 — 근거·특이사항·조건 서술</div>
+        </div>
+      </div>
+
+      <!-- 자주 틀리는 포인트 -->
+      <div class="section">
+        <div class="section-title">시험장에서 자주 틀리는 것들</div>
+        <div class="cheat-warns">
+          <div class="cheat-warn">토지 평가 시 <strong>공시지가기준법은 필수</strong> — 빠뜨리면 감점</div>
+          <div class="cheat-warn"><strong>시산가액 ≠ 감정평가액</strong> — 조정 근거 서술 없으면 감점</div>
+          <div class="cheat-warn">정률법 공식: 잔존가액 = 재조달원가 × <strong>(1−r)ⁿ</strong> (n = 경과연수)</div>
+          <div class="cheat-warn">NOI 산정 순서: PGI → EGI → NOI (<strong>공실 빼고 경비 빼는 순서</strong> 주의)</div>
+          <div class="cheat-warn">시점수정: 지가 상승 3% → <strong>×1.03</strong> / 하락 3% → <strong>×0.97</strong></div>
+        </div>
+      </div>
+
+      <!-- 물건별 주 적용 방식 -->
+      <div class="section">
+        <div class="section-title">물건 유형별 주 적용 방식</div>
+        <div class="cheat-block gray">
+          <div class="cheat-row"><span class="cheat-name">토지</span><span class="cheat-formula hl-blue">공시지가기준법(필수) + 거래사례비교법</span></div>
+          <div class="cheat-row"><span class="cheat-name">건물</span><span class="cheat-formula hl-teal">원가법 주</span></div>
+          <div class="cheat-row"><span class="cheat-name">복합부동산</span><span class="cheat-formula">토지(비교) + 건물(원가) 합산</span></div>
+          <div class="cheat-row"><span class="cheat-name">임대료</span><span class="cheat-formula hl-teal">적산법 + 수익분석법</span></div>
+          <div class="cheat-row"><span class="cheat-name">수익성 부동산</span><span class="cheat-formula hl">수익환원법 주</span></div>
+        </div>
+      </div>
+
+    </div>
+
   </main>
 
   <!-- 오른쪽 패널 -->
@@ -1214,6 +1448,7 @@
     if (['cost','depreciation'].includes(id)) return 'var(--teal)';
     if (['income'].includes(id)) return 'var(--amber)';
     if (['sisan'].includes(id)) return 'var(--purple)';
+    if (['cheatsheet'].includes(id)) return 'var(--red)';
     return 'var(--accent)';
   }
 
