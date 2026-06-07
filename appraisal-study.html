@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>감정평가실무 학습노트</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0f11;
+    --surface: #16181c;
+    --surface2: #1e2128;
+    --border: #2a2d35;
+    --border2: #363a45;
+    --text: #e8e6df;
+    --text2: #9a9890;
+    --text3: #5c5b57;
+    --blue: #4a8fff;
+    --blue-dim: #1a2d4a;
+    --teal: #3dbfa0;
+    --teal-dim: #0f2e26;
+    --amber: #f0a428;
+    --amber-dim: #2e2010;
+    --purple: #9b7ff0;
+    --purple-dim: #1e1535;
+    --red: #f05050;
+    --accent: #f0a428;
+    --mono: 'JetBrains Mono', monospace;
+    --serif: 'Noto Serif KR', serif;
+    --sans: 'Noto Sans KR', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── 헤더 ── */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 100;
+  }
+  .logo {
+    font-family: var(--serif);
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: var(--text);
+  }
+  .logo span { color: var(--accent); }
+  .header-meta {
+    font-size: 12px;
+    color: var(--text3);
+    font-family: var(--mono);
+  }
+
+  /* ── 레이아웃 ── */
+  .layout {
+    display: grid;
+    grid-template-columns: 240px 1fr 280px;
+    min-height: calc(100vh - 56px);
+  }
+
+  /* ── 사이드바 (왼쪽) ── */
+  .sidebar {
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    position: sticky;
+    top: 56px;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+  }
+  .sidebar-section {
+    margin-bottom: 8px;
+  }
+  .sidebar-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text3);
+    padding: 0 20px 8px;
+    font-family: var(--mono);
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 20px;
+    cursor: pointer;
+    border-left: 2px solid transparent;
+    transition: all 0.15s;
+    color: var(--text2);
+    font-size: 13.5px;
+  }
+  .nav-item:hover { background: var(--surface); color: var(--text); }
+  .nav-item.active {
+    border-left-color: var(--accent);
+    background: var(--surface);
+    color: var(--text);
+  }
+  .nav-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .nav-item.active .nav-dot { background: var(--accent); }
+  .nav-divider { height: 1px; background: var(--border); margin: 12px 0; }
+
+  /* ── 메인 콘텐츠 ── */
+  main {
+    padding: 40px 48px;
+    max-width: 780px;
+  }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .page-header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .page-tag {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--accent);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .page-title {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+  }
+  .page-desc {
+    color: var(--text2);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  /* ── 개념 카드 ── */
+  .concept-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .concept-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .concept-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+  }
+  .concept-card.blue::before { background: var(--blue); }
+  .concept-card.teal::before { background: var(--teal); }
+  .concept-card.amber::before { background: var(--amber); }
+  .concept-card.purple::before { background: var(--purple); }
+  .concept-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-1px);
+  }
+  .card-label {
+    font-size: 10px;
+    font-family: var(--mono);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .card-label.blue { color: var(--blue); }
+  .card-label.teal { color: var(--teal); }
+  .card-label.amber { color: var(--amber); }
+  .card-label.purple { color: var(--purple); }
+  .card-title {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .card-body {
+    font-size: 12.5px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+  .card-formula {
+    margin-top: 10px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+  }
+
+  /* ── 섹션 ── */
+  .section {
+    margin-bottom: 32px;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── 흐름도 (텍스트) ── */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 20px;
+  }
+  .flow-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 2px;
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+  .flow-item:hover { border-color: var(--border2); background: var(--surface2); }
+  .flow-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    background: var(--amber-dim);
+    border: 1px solid var(--amber);
+    border-radius: 4px;
+    padding: 2px 7px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .flow-arrow {
+    text-align: center;
+    color: var(--text3);
+    font-size: 16px;
+    line-height: 1;
+    padding: 2px 0;
+    margin-left: 28px;
+  }
+  .flow-content {}
+  .flow-name { font-weight: 500; font-size: 14px; margin-bottom: 3px; }
+  .flow-desc { font-size: 12.5px; color: var(--text2); }
+
+  /* ── 공식 블록 ── */
+  .formula-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 14px 0;
+  }
+  .formula-label {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--text3);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  .formula-text {
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--accent);
+    line-height: 1.8;
+  }
+  .formula-text .op { color: var(--text2); }
+
+  /* ── 예시 박스 ── */
+  .example {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 14px 0;
+  }
+  .example-label {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--teal);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  .example-body { font-size: 13.5px; color: var(--text2); line-height: 1.8; }
+  .example-body strong { color: var(--text); font-weight: 500; }
+
+  /* ── 노트 (나의 학습 메모) ── */
+  .note-area {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 28px;
+  }
+  .note-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .note-title {
+    font-size: 12px;
+    font-family: var(--mono);
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .note-textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 13.5px;
+    line-height: 1.7;
+    resize: vertical;
+    min-height: 100px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .note-textarea:focus { border-color: var(--accent); }
+  .note-textarea::placeholder { color: var(--text3); }
+  .note-save {
+    margin-top: 10px;
+    background: var(--amber-dim);
+    border: 1px solid var(--amber);
+    color: var(--amber);
+    border-radius: 6px;
+    padding: 7px 16px;
+    font-size: 12px;
+    font-family: var(--mono);
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.5px;
+  }
+  .note-save:hover { background: var(--amber); color: var(--bg); }
+  .saved-notes { margin-top: 14px; }
+  .saved-note-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.6;
+    position: relative;
+  }
+  .note-date {
+    font-size: 10px;
+    font-family: var(--mono);
+    color: var(--text3);
+    margin-bottom: 4px;
+  }
+  .note-del {
+    position: absolute;
+    top: 8px; right: 10px;
+    background: none;
+    border: none;
+    color: var(--text3);
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    transition: color 0.15s;
+  }
+  .note-del:hover { color: var(--red); }
+
+  /* ── 오른쪽 패널 (요약 카드) ── */
+  .right-panel {
+    border-left: 1px solid var(--border);
+    padding: 24px 20px;
+    position: sticky;
+    top: 56px;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+  }
+  .panel-title {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+  .quick-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .quick-card-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text2);
+    margin-bottom: 6px;
+  }
+  .quick-card-val {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    line-height: 1.7;
+  }
+  .progress-wrap { margin-bottom: 20px; }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text3);
+    font-family: var(--mono);
+    margin-bottom: 5px;
+  }
+  .progress-bar {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.5s ease;
+  }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+  .tag {
+    font-size: 11px;
+    font-family: var(--mono);
+    padding: 3px 9px;
+    border-radius: 4px;
+    border: 1px solid;
+  }
+  .tag.blue { color: var(--blue); border-color: var(--blue); background: var(--blue-dim); }
+  .tag.teal { color: var(--teal); border-color: var(--teal); background: var(--teal-dim); }
+  .tag.amber { color: var(--amber); border-color: var(--amber); background: var(--amber-dim); }
+  .tag.purple { color: var(--purple); border-color: var(--purple); background: var(--purple-dim); }
+
+  /* ── 인라인 하이라이트 ── */
+  .hl { color: var(--accent); font-weight: 500; }
+  .hl-blue { color: var(--blue); }
+  .hl-teal { color: var(--teal); }
+  .hl-purple { color: var(--purple); }
+
+  /* ── 테이블 ── */
+  .study-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 14px 0;
+  }
+  .study-table th {
+    background: var(--surface2);
+    color: var(--text2);
+    font-weight: 500;
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    font-family: var(--mono);
+    letter-spacing: 0.5px;
+  }
+  .study-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+    vertical-align: top;
+  }
+  .study-table tr:hover td { background: var(--surface); }
+  .study-table td:first-child { color: var(--text); font-weight: 500; }
+
+  /* ── 팁 박스 ── */
+  .tip {
+    background: var(--purple-dim);
+    border: 1px solid var(--purple);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    font-size: 13.5px;
+    color: var(--text2);
+    line-height: 1.7;
+  }
+  .tip-label {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--purple);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+
+  /* ── 스크롤바 ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+  /* ── 애니메이션 ── */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .page.active { animation: fadeIn 0.25s ease; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">감정평가실무 <span>학습노트</span></div>
+  <div class="header-meta" id="today-date"></div>
+</header>
+
+<div class="layout">
+
+  <!-- 왼쪽 사이드바 -->
+  <nav class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">기본 뼈대</div>
+      <div class="nav-item active" data-page="overview">
+        <div class="nav-dot" style="background:var(--accent)"></div>
+        개요 — 3방식 6방법
+      </div>
+      <div class="nav-item" data-page="report-flow">
+        <div class="nav-dot" style="background:var(--text3)"></div>
+        감정평가서 작성 순서
+      </div>
+    </div>
+    <div class="nav-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">비교방식</div>
+      <div class="nav-item" data-page="comparison">
+        <div class="nav-dot" style="background:var(--blue)"></div>
+        거래사례비교법
+      </div>
+      <div class="nav-item" data-page="pricelist">
+        <div class="nav-dot" style="background:var(--blue)"></div>
+        공시지가기준법
+      </div>
+    </div>
+    <div class="nav-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">원가방식</div>
+      <div class="nav-item" data-page="cost">
+        <div class="nav-dot" style="background:var(--teal)"></div>
+        원가법
+      </div>
+      <div class="nav-item" data-page="depreciation">
+        <div class="nav-dot" style="background:var(--teal)"></div>
+        감가수정 3법
+      </div>
+    </div>
+    <div class="nav-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">수익방식</div>
+      <div class="nav-item" data-page="income">
+        <div class="nav-dot" style="background:var(--amber)"></div>
+        수익환원법
+      </div>
+    </div>
+    <div class="nav-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">핵심 개념</div>
+      <div class="nav-item" data-page="sisan">
+        <div class="nav-dot" style="background:var(--purple)"></div>
+        시산가액 & 조정
+      </div>
+    </div>
+  </nav>
+
+  <!-- 메인 콘텐츠 -->
+  <main>
+
+    <!-- ① 개요 페이지 -->
+    <div class="page active" id="page-overview">
+      <div class="page-header">
+        <div class="page-tag">Overview</div>
+        <div class="page-title">3방식 6방법 — 전체 뼈대</div>
+        <div class="page-desc">감정평가는 어떤 물건이든 이 세 가지 방식 중 하나 이상을 씁니다. 이 뼈대를 먼저 머릿속에 사진 찍어두세요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">3방식 한눈에</div>
+        <div class="concept-grid">
+          <div class="concept-card blue" onclick="goPage('comparison')">
+            <div class="card-label blue">① 비교방식</div>
+            <div class="card-title">시장에서 찾는다</div>
+            <div class="card-body">유사 물건의 실제 거래가격을 기준으로 가액을 산정</div>
+            <div class="card-formula">방법: 거래사례비교법 / 공시지가기준법</div>
+          </div>
+          <div class="concept-card teal" onclick="goPage('cost')">
+            <div class="card-label teal">② 원가방식</div>
+            <div class="card-title">만드는 데 얼마인가</div>
+            <div class="card-body">새로 만드는 비용에서 낡은 만큼을 빼는 방식</div>
+            <div class="card-formula">방법: 원가법 / 적산법(임대료)</div>
+          </div>
+          <div class="concept-card amber" onclick="goPage('income')">
+            <div class="card-label amber">③ 수익방식</div>
+            <div class="card-title">얼마를 버는가</div>
+            <div class="card-body">미래 수익을 현재가치로 환산하여 가액 결정</div>
+            <div class="card-formula">방법: 수익환원법 / 수익분석법(임대료)</div>
+          </div>
+          <div class="concept-card purple" onclick="goPage('sisan')">
+            <div class="card-label purple">시산가액 조정</div>
+            <div class="card-title">최종 결정</div>
+            <div class="card-body">3방식 결과를 조정하여 최종 감정평가액 결정</div>
+            <div class="card-formula">핵심: 어디에 가중치를 두는가?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">방식별 주 적용 물건</div>
+        <table class="study-table">
+          <thead>
+            <tr><th>방식</th><th>주 적용 대상</th><th>핵심 포인트</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="hl-blue">비교방식</td><td>토지 (필수), 복합부동산</td><td>공시지가기준법은 토지에서 반드시 적용</td></tr>
+            <tr><td class="hl-teal">원가방식</td><td>건물, 기계기구, 구축물</td><td>감가수정 3법 계산이 핵심</td></tr>
+            <tr><td class="hl">수익방식</td><td>수익성 부동산, 임대료</td><td>NOI 산정 + 환원이율 결정이 핵심</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">공부 순서 팁</div>
+        비교방식 → 원가방식 → 수익방식 순으로 공부하세요. 비교방식이 가장 계산 구조가 단순하고 시험 배점도 높습니다. 각 방식의 기본 계산을 먼저 익힌 뒤, 물건 유형(토지·건물·복합 등)에 붙이는 연습을 합니다.
+      </div>
+
+      <div class="note-area">
+        <div class="note-header">
+          <div class="note-title">내 학습 메모 — 개요</div>
+        </div>
+        <textarea class="note-textarea" id="note-overview" placeholder="이 페이지를 공부하면서 기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('overview')">저장</button>
+        <div class="saved-notes" id="saved-overview"></div>
+      </div>
+    </div>
+
+    <!-- ② 감정평가서 작성 순서 -->
+    <div class="page" id="page-report-flow">
+      <div class="page-header">
+        <div class="page-tag">Report Structure</div>
+        <div class="page-title">감정평가서 작성 순서</div>
+        <div class="page-desc">문제를 받으면 이 순서대로 답안을 구성합니다. 뼈대를 외우면 어떤 문제가 나와도 길을 잃지 않습니다.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">8단계 흐름</div>
+        <div class="flow">
+          <div class="flow-item">
+            <div class="flow-num">01</div>
+            <div class="flow-content">
+              <div class="flow-name">기본사항 확인</div>
+              <div class="flow-desc">의뢰인, 감정평가 목적, 기준시점, 대상물건 확인</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">02</div>
+            <div class="flow-content">
+              <div class="flow-name">대상물건 확인 및 조사</div>
+              <div class="flow-desc">소재지·지목·면적 등 물적 사항 + 현장조사</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">03</div>
+            <div class="flow-content">
+              <div class="flow-name">자료수집 및 시장조사</div>
+              <div class="flow-desc">공시지가, 거래사례, 임대사례, 비용자료 수집</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">04</div>
+            <div class="flow-content">
+              <div class="flow-name">감정평가 방법 선정</div>
+              <div class="flow-desc">물건 유형에 따라 주방법 + 다른방법 선택</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">05</div>
+            <div class="flow-content">
+              <div class="flow-name">방식 적용 (계산 파트)</div>
+              <div class="flow-desc">비교방식 / 원가방식 / 수익방식 → <span class="hl">시산가액</span> 산출</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">06</div>
+            <div class="flow-content">
+              <div class="flow-name">시산가액 조정</div>
+              <div class="flow-desc">3방식 결과를 합리적으로 조정 → 가중치 부여</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">07</div>
+            <div class="flow-content">
+              <div class="flow-name">감정평가액 결정 및 표시</div>
+              <div class="flow-desc">단가 × 수량 = 감정평가액 (원 단위 기재)</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">08</div>
+            <div class="flow-content">
+              <div class="flow-name">감정평가 의견 기재</div>
+              <div class="flow-desc">가액 결정 근거, 특이사항, 조건 등 서술</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">시험 팁</div>
+        05 → 06 → 07 흐름에서 "시산가액"과 "감정평가액"을 혼동하지 마세요. 계산 후 반드시 조정 근거를 한 줄 서술해야 배점을 온전히 받습니다.
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 작성 순서</div></div>
+        <textarea class="note-textarea" id="note-report-flow" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('report-flow')">저장</button>
+        <div class="saved-notes" id="saved-report-flow"></div>
+      </div>
+    </div>
+
+    <!-- ③ 거래사례비교법 -->
+    <div class="page" id="page-comparison">
+      <div class="page-header">
+        <div class="page-tag">비교방식 · Method 1</div>
+        <div class="page-title">거래사례비교법</div>
+        <div class="page-desc">유사 부동산의 실제 거래가격을 기준으로, 여러 요인 보정을 거쳐 대상 물건의 가액을 산정합니다.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">핵심 산식</div>
+        <div class="formula-block">
+          <div class="formula-label">거래사례비교법</div>
+          <div class="formula-text">
+            비교가액 <span class="op">= </span>사례가액<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="op">× </span>사정보정<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="op">× </span>시점수정<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="op">× </span>지역요인<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="op">× </span>개별요인
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">각 보정 항목 설명</div>
+        <table class="study-table">
+          <thead><tr><th>항목</th><th>의미</th><th>계산 방향</th></tr></thead>
+          <tbody>
+            <tr><td>사정보정</td><td>정상 거래가 아닌 경우 보정 (급매, 강매 등)</td><td>정상 거래면 1.000</td></tr>
+            <tr><td>시점수정</td><td>사례 거래시점 → 기준시점 지가변동 반영</td><td>지가상승 3%면 ×1.03</td></tr>
+            <tr><td>지역요인</td><td>사례 지역과 대상 지역의 환경 차이</td><td>요인비교표로 산출</td></tr>
+            <tr><td>개별요인</td><td>개별 획지 특성 차이 (형상·접면도로 등)</td><td>요인비교표로 산출</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">계산 예시</div>
+        <div class="example">
+          <div class="example-label">Example</div>
+          <div class="example-body">
+            사례 토지 거래가: <strong>1억 원</strong><br>
+            사정보정: 정상 거래 → <strong>×1.000</strong><br>
+            시점수정: 3개월 지가 3% 상승 → <strong>×1.030</strong><br>
+            지역요인: 동일 → <strong>×1.000</strong><br>
+            개별요인: 대상이 사례보다 5% 열등 → <strong>×0.950</strong><br><br>
+            비교가액 = 1억 × 1.000 × 1.030 × 1.000 × 0.950<br>
+            = <strong class="hl">9,785만 원</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 거래사례비교법</div></div>
+        <textarea class="note-textarea" id="note-comparison" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('comparison')">저장</button>
+        <div class="saved-notes" id="saved-comparison"></div>
+      </div>
+    </div>
+
+    <!-- ④ 공시지가기준법 -->
+    <div class="page" id="page-pricelist">
+      <div class="page-header">
+        <div class="page-tag">비교방식 · Method 2</div>
+        <div class="page-title">공시지가기준법</div>
+        <div class="page-desc">토지 평가에서 반드시 적용해야 하는 방법. 공시지가를 출발점으로 각종 보정을 가합니다.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">핵심 산식</div>
+        <div class="formula-block">
+          <div class="formula-label">공시지가기준법</div>
+          <div class="formula-text">
+            비준가액 <span class="op">= </span>공시지가<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="op">× </span>시점수정<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="op">× </span>지역요인<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="op">× </span>개별요인<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="op">× </span>그 밖의 요인
+          </div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">거래사례비교법과 차이점</div>
+        출발점이 "실제 거래가액"이 아니라 "공시지가"라는 점이 다릅니다. 또한 "그 밖의 요인"이 추가됩니다. 토지 평가에서 이 방법은 감정평가에 관한 규칙상 원칙적 방법으로 반드시 적용해야 합니다.
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 공시지가기준법</div></div>
+        <textarea class="note-textarea" id="note-pricelist" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('pricelist')">저장</button>
+        <div class="saved-notes" id="saved-pricelist"></div>
+      </div>
+    </div>
+
+    <!-- ⑤ 원가법 -->
+    <div class="page" id="page-cost">
+      <div class="page-header">
+        <div class="page-tag">원가방식 · Method 3</div>
+        <div class="page-title">원가법</div>
+        <div class="page-desc">새로 만드는 비용(재조달원가)에서 낡은 만큼(감가수정)을 빼서 가액을 산정합니다. 건물에 주로 적용.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">핵심 산식</div>
+        <div class="formula-block">
+          <div class="formula-label">원가법</div>
+          <div class="formula-text">
+            적산가액 <span class="op">= </span>재조달원가 <span class="op">−</span> 감가수정액<br>
+            <br>
+            감가수정액 <span class="op">= </span>재조달원가 <span class="op">×</span> 감가율
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">재조달원가 산정 3방법</div>
+        <table class="study-table">
+          <thead><tr><th>방법</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td>직접법</td><td>실제 공사비 내역을 직접 산정</td></tr>
+            <tr><td>간접법</td><td>유사 건물 사례를 이용해 간접 산정</td></tr>
+            <tr><td>단위비교법</td><td>㎡당 단가 × 면적으로 산정 (가장 흔함)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="example">
+        <div class="example-label">계산 예시 (정액법)</div>
+        <div class="example-body">
+          재조달원가: <strong>1억 원</strong> / 내용연수: <strong>40년</strong> / 경과연수: <strong>10년</strong><br><br>
+          감가율 = 10 ÷ 40 = <strong>0.25 (25%)</strong><br>
+          적산가액 = 1억 × (1 − 0.25) = <strong class="hl">7,500만 원</strong>
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 원가법</div></div>
+        <textarea class="note-textarea" id="note-cost" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('cost')">저장</button>
+        <div class="saved-notes" id="saved-cost"></div>
+      </div>
+    </div>
+
+    <!-- ⑥ 감가수정 3법 -->
+    <div class="page" id="page-depreciation">
+      <div class="page-header">
+        <div class="page-tag">원가방식 · 핵심 계산</div>
+        <div class="page-title">감가수정 3법</div>
+        <div class="page-desc">원가법의 핵심. 세 가지 방법의 공식과 특징을 완전히 익혀야 합니다.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">3가지 방법 비교</div>
+        <table class="study-table">
+          <thead><tr><th>방법</th><th>공식</th><th>특징</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>정액법</td>
+              <td style="font-family:var(--mono);font-size:12px;color:var(--teal)">매년 감가액 = 재조달원가 ÷ 내용연수</td>
+              <td>매년 동일 금액 감가. 가장 단순.</td>
+            </tr>
+            <tr>
+              <td>정률법</td>
+              <td style="font-family:var(--mono);font-size:12px;color:var(--teal)">잔존가액 = 재조달원가 × (1−r)ⁿ</td>
+              <td>초기에 감가 많고 점점 줄어듦</td>
+            </tr>
+            <tr>
+              <td>상환기금법</td>
+              <td style="font-family:var(--mono);font-size:12px;color:var(--teal)">감가율 = 감가상각비 적립 기금 이용</td>
+              <td>이자율 반영. 계산이 가장 복잡.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">시험 포인트</div>
+        정률법과 상환기금법은 공식이 헷갈리기 쉽습니다. 정률법은 "(1−감가율)ⁿ"으로 잔존가액을 구하는 것, 상환기금법은 기금계수를 이용한다는 구조적 차이를 먼저 이해하세요.
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 감가수정 3법</div></div>
+        <textarea class="note-textarea" id="note-depreciation" placeholder="각 방법의 공식을 직접 써보면서 외워두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('depreciation')">저장</button>
+        <div class="saved-notes" id="saved-depreciation"></div>
+      </div>
+    </div>
+
+    <!-- ⑦ 수익환원법 -->
+    <div class="page" id="page-income">
+      <div class="page-header">
+        <div class="page-tag">수익방식 · Method 5</div>
+        <div class="page-title">수익환원법</div>
+        <div class="page-desc">부동산에서 발생하는 순수익을 환원이율로 나누어 현재가치를 산정합니다. 직접환원법과 DCF법이 핵심.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">직접환원법 산식</div>
+        <div class="formula-block">
+          <div class="formula-label">직접환원법</div>
+          <div class="formula-text">
+            수익가액 <span class="op">= </span>순수익(NOI) <span class="op">÷</span> 환원이율(R)
+          </div>
+        </div>
+      </div>
+
+      <div class="example">
+        <div class="example-label">계산 예시</div>
+        <div class="example-body">
+          연간 순수익(NOI): <strong>500만 원</strong><br>
+          환원이율: <strong>5%</strong><br><br>
+          수익가액 = 500만 ÷ 0.05 = <strong class="hl">1억 원</strong>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">NOI 산정 구조</div>
+        <div class="formula-block">
+          <div class="formula-label">순수익(NOI) 산정</div>
+          <div class="formula-text">
+            총수익(PGI)<br>
+            <span class="op">−</span> 공실손실 · 대손충당금<br>
+            <span class="op">= </span>유효총수익(EGI)<br>
+            <span class="op">−</span> 운영경비(OE)<br>
+            <span class="op">= </span>순영업수익(NOI)
+          </div>
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 수익환원법</div></div>
+        <textarea class="note-textarea" id="note-income" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('income')">저장</button>
+        <div class="saved-notes" id="saved-income"></div>
+      </div>
+    </div>
+
+    <!-- ⑧ 시산가액 -->
+    <div class="page" id="page-sisan">
+      <div class="page-header">
+        <div class="page-tag">핵심 개념</div>
+        <div class="page-title">시산가액(試算價額) & 조정</div>
+        <div class="page-desc">각 방식으로 일단 계산해 본 중간 가액. 최종 감정평가액이 아닙니다. 이 둘의 개념 구분이 시험 핵심.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">개념 정의</div>
+        <div class="formula-block">
+          <div class="formula-label">한 줄 정의</div>
+          <div class="formula-text">시산가액 = 3방식 중 하나로 계산해서 나온 "중간 후보 가격"</div>
+        </div>
+        <p style="font-size:13.5px;color:var(--text2);margin-top:12px;line-height:1.7">"시산(試算)"은 "시험 삼아 계산한다"는 뜻입니다. 비교방식·원가방식·수익방식을 각각 돌리면 세 개의 시산가액이 나오고, 이를 조정한 것이 최종 감정평가액입니다.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">시산가액 조정 기준 3가지</div>
+        <div class="concept-grid">
+          <div class="concept-card blue">
+            <div class="card-label blue">기준 1</div>
+            <div class="card-title">물건의 성격</div>
+            <div class="card-body">토지→비교방식 / 건물→원가방식 / 수익성 물건→수익방식에 가중</div>
+          </div>
+          <div class="concept-card teal">
+            <div class="card-label teal">기준 2</div>
+            <div class="card-title">자료 신뢰도</div>
+            <div class="card-body">사례 수, 시점 근접성, 자료 적정성이 높은 방식에 가중</div>
+          </div>
+          <div class="concept-card amber" style="grid-column: span 2">
+            <div class="card-label amber">기준 3</div>
+            <div class="card-title">평가 목적</div>
+            <div class="card-body">담보평가 → 보수적 / 보상평가 → 시장가치 반영 / 경매 → 실현가능가액</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">시험 필수 서술</div>
+        계산만 하고 끝내면 감점! "비교방식 시산가액 ○○원, 원가방식 시산가액 ○○원이며, 토지의 특성상 시장성을 가장 잘 반영하는 비교방식에 주가중하여 최종 감정평가액을 ○○원으로 결정함" — 이런 식의 조정 근거 서술이 반드시 필요합니다.
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 시산가액</div></div>
+        <textarea class="note-textarea" id="note-sisan" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('sisan')">저장</button>
+        <div class="saved-notes" id="saved-sisan"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 오른쪽 패널 -->
+  <aside class="right-panel">
+    <div class="panel-title">학습 진행</div>
+
+    <div class="progress-wrap">
+      <div class="progress-label"><span>비교방식</span><span id="prog-val-comparison">0%</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="prog-comparison" style="width:0%;background:var(--blue)"></div></div>
+
+      <div class="progress-label"><span>원가방식</span><span id="prog-val-cost">0%</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="prog-cost" style="width:0%;background:var(--teal)"></div></div>
+
+      <div class="progress-label"><span>수익방식</span><span id="prog-val-income">0%</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="prog-income" style="width:0%;background:var(--amber)"></div></div>
+
+      <div class="progress-label"><span>핵심개념</span><span id="prog-val-sisan">0%</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="prog-sisan" style="width:0%;background:var(--purple)"></div></div>
+    </div>
+
+    <div class="panel-title" style="margin-top:8px">핵심 공식 카드</div>
+
+    <div class="quick-card">
+      <div class="quick-card-title">거래사례비교법</div>
+      <div class="quick-card-val">사례가액 × 사정보정<br>× 시점수정 × 지역·개별요인</div>
+    </div>
+    <div class="quick-card">
+      <div class="quick-card-title">공시지가기준법</div>
+      <div class="quick-card-val">공시지가 × 시점수정<br>× 지역·개별 × 그밖의요인</div>
+    </div>
+    <div class="quick-card">
+      <div class="quick-card-title">원가법</div>
+      <div class="quick-card-val">재조달원가 − 감가수정액</div>
+    </div>
+    <div class="quick-card">
+      <div class="quick-card-title">수익환원법 (직접)</div>
+      <div class="quick-card-val">NOI ÷ 환원이율(R)</div>
+    </div>
+
+    <div class="panel-title" style="margin-top:16px">키워드</div>
+    <div class="tag-list">
+      <span class="tag blue">비교방식</span>
+      <span class="tag blue">거래사례</span>
+      <span class="tag blue">공시지가</span>
+      <span class="tag teal">원가방식</span>
+      <span class="tag teal">재조달원가</span>
+      <span class="tag teal">감가수정</span>
+      <span class="tag amber">수익방식</span>
+      <span class="tag amber">NOI</span>
+      <span class="tag amber">환원이율</span>
+      <span class="tag purple">시산가액</span>
+      <span class="tag purple">조정</span>
+    </div>
+  </aside>
+
+</div>
+
+<script>
+  // 날짜 표시
+  const d = new Date();
+  document.getElementById('today-date').textContent =
+    `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
+
+  // 페이지 전환
+  function goPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    const page = document.getElementById('page-' + id);
+    if (page) page.classList.add('active');
+    const nav = document.querySelector(`[data-page="${id}"]`);
+    if (nav) {
+      nav.classList.add('active');
+      nav.querySelector('.nav-dot').style.background = getNavColor(id);
+    }
+    loadNotes(id);
+    window.scrollTo(0, 0);
+  }
+
+  function getNavColor(id) {
+    if (['comparison','pricelist'].includes(id)) return 'var(--blue)';
+    if (['cost','depreciation'].includes(id)) return 'var(--teal)';
+    if (['income'].includes(id)) return 'var(--amber)';
+    if (['sisan'].includes(id)) return 'var(--purple)';
+    return 'var(--accent)';
+  }
+
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', () => goPage(item.dataset.page));
+  });
+
+  // 메모 저장/로드
+  function saveNote(key) {
+    const val = document.getElementById('note-' + key).value.trim();
+    if (!val) return;
+    const notes = JSON.parse(localStorage.getItem('notes-' + key) || '[]');
+    notes.push({ text: val, date: new Date().toLocaleString('ko-KR') });
+    localStorage.setItem('notes-' + key, JSON.stringify(notes));
+    document.getElementById('note-' + key).value = '';
+    renderNotes(key);
+    updateProgress(key);
+  }
+
+  function loadNotes(key) {
+    renderNotes(key);
+  }
+
+  function renderNotes(key) {
+    const container = document.getElementById('saved-' + key);
+    if (!container) return;
+    const notes = JSON.parse(localStorage.getItem('notes-' + key) || '[]');
+    container.innerHTML = notes.map((n, i) => `
+      <div class="saved-note-item">
+        <div class="note-date">${n.date}</div>
+        ${n.text.replace(/\n/g, '<br>')}
+        <button class="note-del" onclick="deleteNote('${key}', ${i})">×</button>
+      </div>`).join('');
+  }
+
+  function deleteNote(key, i) {
+    const notes = JSON.parse(localStorage.getItem('notes-' + key) || '[]');
+    notes.splice(i, 1);
+    localStorage.setItem('notes-' + key, JSON.stringify(notes));
+    renderNotes(key);
+    updateProgress(key);
+  }
+
+  function updateProgress(key) {
+    const noteCount = JSON.parse(localStorage.getItem('notes-' + key) || '[]').length;
+    const pct = Math.min(noteCount * 20, 100);
+    const map = { comparison: 'comparison', pricelist: 'comparison', cost: 'cost', depreciation: 'cost', income: 'income', sisan: 'sisan', overview: null, 'report-flow': null };
+    const progKey = map[key];
+    if (!progKey) return;
+    const allKeys = Object.entries(map).filter(([k,v]) => v === progKey).map(([k]) => k);
+    const total = allKeys.reduce((acc, k) => acc + JSON.parse(localStorage.getItem('notes-' + k) || '[]').length, 0);
+    const finalPct = Math.min(total * 15, 100);
+    document.getElementById('prog-' + progKey).style.width = finalPct + '%';
+    document.getElementById('prog-val-' + progKey).textContent = finalPct + '%';
+  }
+
+  // 초기 로드
+  goPage('overview');
+  ['comparison','pricelist','cost','depreciation','income','sisan','overview','report-flow'].forEach(k => {
+    updateProgress(k);
+  });
+</script>
+</body>
+</html>
