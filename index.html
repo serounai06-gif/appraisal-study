@@ -1430,21 +1430,61 @@
           <tbody>
             <tr>
               <td>정액법</td>
-              <td style="font-family:var(--mono);font-size:12px;color:var(--teal)">매년 감가액 = 재조달원가 ÷ 내용연수</td>
+              <td style="font-family:var(--mono);font-size:13.5px;color:var(--teal)">매년 감가액 = 재조달원가 ÷ 내용연수</td>
               <td>매년 동일 금액 감가. 가장 단순.</td>
             </tr>
             <tr>
               <td>정률법</td>
-              <td style="font-family:var(--mono);font-size:12px;color:var(--teal)">잔존가액 = 재조달원가 × (1−r)ⁿ</td>
+              <td style="font-family:var(--mono);font-size:13.5px;color:var(--teal)">잔존가액 = 재조달원가 × (1−r)ⁿ</td>
               <td>초기에 감가 많고 점점 줄어듦</td>
             </tr>
             <tr>
               <td>상환기금법</td>
-              <td style="font-family:var(--mono);font-size:12px;color:var(--teal)">감가율 = 감가상각비 적립 기금 이용</td>
-              <td>이자율 반영. 계산이 가장 복잡.</td>
+              <td style="font-family:var(--mono);font-size:13.5px;color:var(--teal)">매년 감가액 = 재조달원가 × 상환기금계수</td>
+              <td>이자율 반영. 매년 동일 금액 감가.</td>
             </tr>
           </tbody>
         </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">상환기금법 상세</div>
+        <div class="formula-block">
+          <div class="formula-label">상환기금계수 공식</div>
+          <div class="formula-text">
+            상환기금계수 <span class="op">= </span>r <span class="op">÷</span> [(1+r)ⁿ <span class="op">−</span> 1]<br>
+            <br>
+            매년 감가액 <span class="op">= </span>재조달원가 <span class="op">×</span> 상환기금계수
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">계산 예시 (재조달원가 1억 / 내용연수 40년 / 이율 5%)</div>
+          <div class="example-body">
+            상환기금계수 = 0.05 ÷ [(1.05)⁴⁰ − 1] = 0.05 ÷ 6.040 = <strong>0.00828</strong><br><br>
+            매년 감가액 = 1억 × 0.00828 = <strong class="hl">828,000원</strong><br><br>
+            (정액법이었으면 매년 <strong>250만 원</strong> → 이자 반영하면 훨씬 적어짐!)
+          </div>
+        </div>
+
+        <div class="tip">
+          <div class="tip-label">핵심 포인트</div>
+          상환기금법도 <strong>매년 동일한 금액</strong>이 감가돼요 (정액법처럼!).<br>
+          차이는 이자율을 반영하느냐 안 하느냐 — 이자가 붙으니까 매년 내는 금액이 정액법보다 훨씬 적어요.<br>
+          시험에서는 계수값을 주고 <strong>재조달원가 × 상환기금계수</strong>만 계산하면 끝!
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">3가지 방법 최종 공식 요약</div>
+        <div class="formula-block">
+          <div class="formula-label">한눈에 보기</div>
+          <div class="formula-text">
+            정액법 &nbsp;&nbsp;&nbsp;&nbsp; <span class="op">→ </span>재조달원가 <span class="op">÷</span> 내용연수<br>
+            정률법 &nbsp;&nbsp;&nbsp;&nbsp; <span class="op">→ </span>재조달원가 <span class="op">×</span> (1−r)ⁿ 으로 잔존가액 계산<br>
+            상환기금법 <span class="op">→ </span>재조달원가 <span class="op">×</span> 상환기금계수
+          </div>
+        </div>
       </div>
 
       <div class="tip">
