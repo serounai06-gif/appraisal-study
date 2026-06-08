@@ -668,6 +668,65 @@
     .flow-item { padding: 12px 14px; }
   }
 
+  /* ── 고양이 체크박스 ── */
+  .cat-check-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #fff5f8;
+    border: 1.5px solid #f7c5d5;
+    border-radius: 14px;
+    padding: 12px 18px;
+    margin-bottom: 24px;
+    transition: all 0.2s;
+  }
+  .cat-check-wrap.checked {
+    background: #fff0f5;
+    border-color: #f0a0c0;
+    box-shadow: 0 2px 12px rgba(240,160,192,0.15);
+  }
+  .cat-img {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #f7c5d5;
+    flex-shrink: 0;
+    transition: transform 0.3s;
+  }
+  .cat-check-wrap.checked .cat-img {
+    transform: scale(1.1) rotate(-5deg);
+  }
+  .cat-checkbox {
+    width: 22px;
+    height: 22px;
+    accent-color: #f0a0c0;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .cat-check-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text3);
+    cursor: pointer;
+    transition: color 0.2s;
+    font-family: var(--sans);
+  }
+  .cat-check-wrap.checked .cat-check-label {
+    color: #d4608a;
+  }
+  .cat-perfect {
+    font-size: 13px;
+    color: #d4608a;
+    font-weight: 700;
+    opacity: 0;
+    transition: all 0.3s;
+    margin-left: 4px;
+  }
+  .cat-check-wrap.checked .cat-perfect {
+    opacity: 1;
+  }
+
   /* ── 용어정리 전용 ── */
   .glossary-list { display: flex; flex-direction: column; gap: 10px; }
   .glossary-item {
@@ -1110,6 +1169,12 @@
 
     <!-- ① 개요 페이지 -->
     <div class="page active" id="page-overview">
+      <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
+        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+        <label class="cat-check-label">공부 완료!</label>
+        <span class="cat-perfect">🐱 완벽해!</span>
+      </div>
       <div class="page-header">
         <div class="page-tag">Overview</div>
         <div class="page-title">3방식 6방법 — 전체 뼈대</div>
@@ -1177,6 +1242,12 @@
 
     <!-- ② 감정평가서 작성 순서 -->
     <div class="page" id="page-report-flow">
+      <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
+        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+        <label class="cat-check-label">공부 완료!</label>
+        <span class="cat-perfect">🐱 완벽해!</span>
+      </div>
       <div class="page-header">
         <div class="page-tag">Report Structure</div>
         <div class="page-title">감정평가서 작성 순서</div>
@@ -1267,6 +1338,12 @@
 
     <!-- ③ 거래사례비교법 -->
     <div class="page" id="page-comparison">
+      <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
+        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+        <label class="cat-check-label">공부 완료!</label>
+        <span class="cat-perfect">🐱 완벽해!</span>
+      </div>
       <div class="page-header">
         <div class="page-tag">비교방식 · Method 1</div>
         <div class="page-title">거래사례비교법</div>
@@ -1326,6 +1403,12 @@
 
     <!-- ④ 공시지가기준법 -->
     <div class="page" id="page-pricelist">
+      <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
+        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+        <label class="cat-check-label">공부 완료!</label>
+        <span class="cat-perfect">🐱 완벽해!</span>
+      </div>
       <div class="page-header">
         <div class="page-tag">비교방식 · Method 2</div>
         <div class="page-title">공시지가기준법</div>
@@ -1361,6 +1444,12 @@
 
     <!-- ⑤ 원가법 -->
     <div class="page" id="page-cost">
+      <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
+        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+        <label class="cat-check-label">공부 완료!</label>
+        <span class="cat-perfect">🐱 완벽해!</span>
+      </div>
       <div class="page-header">
         <div class="page-tag">원가방식 · Method 3</div>
         <div class="page-title">원가법</div>
@@ -1410,6 +1499,12 @@
 
     <!-- ⑥ 감가수정 3법 -->
     <div class="page" id="page-depreciation">
+      <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
+        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+        <label class="cat-check-label">공부 완료!</label>
+        <span class="cat-perfect">🐱 완벽해!</span>
+      </div>
       <div class="page-header">
         <div class="page-tag">원가방식 · 핵심 계산</div>
         <div class="page-title">감가수정 3법</div>
@@ -1455,6 +1550,12 @@
 
     <!-- ⑦ 수익환원법 -->
     <div class="page" id="page-income">
+      <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
+        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+        <label class="cat-check-label">공부 완료!</label>
+        <span class="cat-perfect">🐱 완벽해!</span>
+      </div>
       <div class="page-header">
         <div class="page-tag">수익방식 · Method 5</div>
         <div class="page-title">수익환원법</div>
@@ -1504,6 +1605,12 @@
 
     <!-- ⑧ 시산가액 -->
     <div class="page" id="page-sisan">
+      <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
+        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+        <label class="cat-check-label">공부 완료!</label>
+        <span class="cat-perfect">🐱 완벽해!</span>
+      </div>
       <div class="page-header">
         <div class="page-tag">핵심 개념</div>
         <div class="page-title">시산가액(試算價額) & 조정</div>
@@ -1555,6 +1662,12 @@
 
     <!-- DAY 2 — 비교방식 심화 -->
     <div class="page" id="page-day2-factor">
+      <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
+        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+        <label class="cat-check-label">공부 완료!</label>
+        <span class="cat-perfect">🐱 완벽해!</span>
+      </div>
       <div class="page-header">
         <div class="page-tag">DAY 2 · 비교방식 심화</div>
         <div class="page-title">요인비교표 보정 계산</div>
@@ -1629,6 +1742,12 @@
 
     <!-- DAY 2 — 공시지가기준법 실전 -->
     <div class="page" id="page-day2-pricelist2">
+      <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
+        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+        <label class="cat-check-label">공부 완료!</label>
+        <span class="cat-perfect">🐱 완벽해!</span>
+      </div>
       <div class="page-header">
         <div class="page-tag">DAY 2 · 비교방식 심화</div>
         <div class="page-title">공시지가기준법 실전 — 그 밖의 요인</div>
@@ -1724,6 +1843,12 @@
 
     <!-- DAY 2 — 토지 평가 종합 -->
     <div class="page" id="page-day2-land">
+      <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
+        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+        <label class="cat-check-label">공부 완료!</label>
+        <span class="cat-perfect">🐱 완벽해!</span>
+      </div>
       <div class="page-header">
         <div class="page-tag">DAY 2 · 비교방식 심화</div>
         <div class="page-title">토지 평가 종합 — 시험 출제 패턴</div>
@@ -1778,6 +1903,12 @@
 
     <!-- ⑩ 용어정리 -->
     <div class="page" id="page-glossary">
+      <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
+        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+        <label class="cat-check-label">공부 완료!</label>
+        <span class="cat-perfect">🐱 완벽해!</span>
+      </div>
       <div class="page-header">
         <div class="page-tag">Glossary</div>
         <div class="page-title">용어정리</div>
@@ -1887,6 +2018,12 @@
 
     <!-- ⑨ 핵심노트 -->
     <div class="page" id="page-cheatsheet">
+      <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
+        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+        <label class="cat-check-label">공부 완료!</label>
+        <span class="cat-perfect">🐱 완벽해!</span>
+      </div>
       <div class="page-header">
         <div class="page-tag">시험 직전 최종 정리</div>
         <div class="page-title">★ 핵심노트</div>
@@ -2095,6 +2232,13 @@
   const d = new Date();
   document.getElementById('today-date').textContent =
     `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
+
+  // 고양이 체크박스 토글
+  function toggleCat(wrap) {
+    wrap.classList.toggle('checked');
+    const cb = wrap.querySelector('.cat-checkbox');
+    cb.checked = !cb.checked;
+  }
 
   // DAY 토글
   function toggleDay(id) {
