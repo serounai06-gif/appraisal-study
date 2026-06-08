@@ -672,21 +672,26 @@
   .cat-check-wrap {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-bottom: 20px;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
     cursor: pointer;
   }
+  .cat-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+  }
   .cat-img {
-    width: 90px;
-    height: 90px;
+    width: 180px;
+    height: 180px;
     object-fit: cover;
-    
     flex-shrink: 0;
     transition: transform 0.3s;
   }
   .cat-check-wrap.checked .cat-img {
-    transform: scale(1.12) rotate(-5deg);
+    transform: scale(1.08) rotate(-5deg);
   }
   .cat-checkbox {
     width: 22px;
@@ -1160,10 +1165,12 @@
     <!-- ① 개요 페이지 -->
     <div class="page active" id="page-overview">
       <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <div class="cat-left">
+          <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+          <label class="cat-check-label">공부 완료!</label>
+          <span class="cat-perfect">🐱 완벽해!</span>
+        </div>
         <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
-        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
-        <label class="cat-check-label">공부 완료!</label>
-        <span class="cat-perfect">🐱 완벽해!</span>
       </div>
       <div class="page-header">
         <div class="page-tag">Overview</div>
@@ -1233,10 +1240,12 @@
     <!-- ② 감정평가서 작성 순서 -->
     <div class="page" id="page-report-flow">
       <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <div class="cat-left">
+          <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+          <label class="cat-check-label">공부 완료!</label>
+          <span class="cat-perfect">🐱 완벽해!</span>
+        </div>
         <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
-        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
-        <label class="cat-check-label">공부 완료!</label>
-        <span class="cat-perfect">🐱 완벽해!</span>
       </div>
       <div class="page-header">
         <div class="page-tag">Report Structure</div>
@@ -1329,10 +1338,12 @@
     <!-- ③ 거래사례비교법 -->
     <div class="page" id="page-comparison">
       <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <div class="cat-left">
+          <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+          <label class="cat-check-label">공부 완료!</label>
+          <span class="cat-perfect">🐱 완벽해!</span>
+        </div>
         <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
-        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
-        <label class="cat-check-label">공부 완료!</label>
-        <span class="cat-perfect">🐱 완벽해!</span>
       </div>
       <div class="page-header">
         <div class="page-tag">비교방식 · Method 1</div>
@@ -1394,10 +1405,12 @@
     <!-- ④ 공시지가기준법 -->
     <div class="page" id="page-pricelist">
       <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <div class="cat-left">
+          <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+          <label class="cat-check-label">공부 완료!</label>
+          <span class="cat-perfect">🐱 완벽해!</span>
+        </div>
         <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
-        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
-        <label class="cat-check-label">공부 완료!</label>
-        <span class="cat-perfect">🐱 완벽해!</span>
       </div>
       <div class="page-header">
         <div class="page-tag">비교방식 · Method 2</div>
@@ -1435,10 +1448,12 @@
     <!-- ⑤ 원가법 -->
     <div class="page" id="page-cost">
       <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <div class="cat-left">
+          <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+          <label class="cat-check-label">공부 완료!</label>
+          <span class="cat-perfect">🐱 완벽해!</span>
+        </div>
         <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
-        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
-        <label class="cat-check-label">공부 완료!</label>
-        <span class="cat-perfect">🐱 완벽해!</span>
       </div>
       <div class="page-header">
         <div class="page-tag">원가방식 · Method 3</div>
@@ -1490,10 +1505,12 @@
     <!-- ⑥ 감가수정 3법 -->
     <div class="page" id="page-depreciation">
       <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <div class="cat-left">
+          <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+          <label class="cat-check-label">공부 완료!</label>
+          <span class="cat-perfect">🐱 완벽해!</span>
+        </div>
         <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
-        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
-        <label class="cat-check-label">공부 완료!</label>
-        <span class="cat-perfect">🐱 완벽해!</span>
       </div>
       <div class="page-header">
         <div class="page-tag">원가방식 · 핵심 계산</div>
@@ -1541,10 +1558,12 @@
     <!-- ⑦ 수익환원법 -->
     <div class="page" id="page-income">
       <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <div class="cat-left">
+          <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+          <label class="cat-check-label">공부 완료!</label>
+          <span class="cat-perfect">🐱 완벽해!</span>
+        </div>
         <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
-        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
-        <label class="cat-check-label">공부 완료!</label>
-        <span class="cat-perfect">🐱 완벽해!</span>
       </div>
       <div class="page-header">
         <div class="page-tag">수익방식 · Method 5</div>
@@ -1596,10 +1615,12 @@
     <!-- ⑧ 시산가액 -->
     <div class="page" id="page-sisan">
       <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <div class="cat-left">
+          <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+          <label class="cat-check-label">공부 완료!</label>
+          <span class="cat-perfect">🐱 완벽해!</span>
+        </div>
         <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
-        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
-        <label class="cat-check-label">공부 완료!</label>
-        <span class="cat-perfect">🐱 완벽해!</span>
       </div>
       <div class="page-header">
         <div class="page-tag">핵심 개념</div>
@@ -1653,10 +1674,12 @@
     <!-- DAY 2 — 비교방식 심화 -->
     <div class="page" id="page-day2-factor">
       <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <div class="cat-left">
+          <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+          <label class="cat-check-label">공부 완료!</label>
+          <span class="cat-perfect">🐱 완벽해!</span>
+        </div>
         <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
-        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
-        <label class="cat-check-label">공부 완료!</label>
-        <span class="cat-perfect">🐱 완벽해!</span>
       </div>
       <div class="page-header">
         <div class="page-tag">DAY 2 · 비교방식 심화</div>
@@ -1733,10 +1756,12 @@
     <!-- DAY 2 — 공시지가기준법 실전 -->
     <div class="page" id="page-day2-pricelist2">
       <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <div class="cat-left">
+          <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+          <label class="cat-check-label">공부 완료!</label>
+          <span class="cat-perfect">🐱 완벽해!</span>
+        </div>
         <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
-        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
-        <label class="cat-check-label">공부 완료!</label>
-        <span class="cat-perfect">🐱 완벽해!</span>
       </div>
       <div class="page-header">
         <div class="page-tag">DAY 2 · 비교방식 심화</div>
@@ -1834,10 +1859,12 @@
     <!-- DAY 2 — 토지 평가 종합 -->
     <div class="page" id="page-day2-land">
       <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <div class="cat-left">
+          <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+          <label class="cat-check-label">공부 완료!</label>
+          <span class="cat-perfect">🐱 완벽해!</span>
+        </div>
         <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
-        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
-        <label class="cat-check-label">공부 완료!</label>
-        <span class="cat-perfect">🐱 완벽해!</span>
       </div>
       <div class="page-header">
         <div class="page-tag">DAY 2 · 비교방식 심화</div>
@@ -1894,10 +1921,12 @@
     <!-- ⑩ 용어정리 -->
     <div class="page" id="page-glossary">
       <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <div class="cat-left">
+          <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+          <label class="cat-check-label">공부 완료!</label>
+          <span class="cat-perfect">🐱 완벽해!</span>
+        </div>
         <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
-        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
-        <label class="cat-check-label">공부 완료!</label>
-        <span class="cat-perfect">🐱 완벽해!</span>
       </div>
       <div class="page-header">
         <div class="page-tag">Glossary</div>
@@ -2009,10 +2038,12 @@
     <!-- ⑨ 핵심노트 -->
     <div class="page" id="page-cheatsheet">
       <div class="cat-check-wrap" id="catcheck-PAGEID" onclick="toggleCat(this)">
+        <div class="cat-left">
+          <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
+          <label class="cat-check-label">공부 완료!</label>
+          <span class="cat-perfect">🐱 완벽해!</span>
+        </div>
         <img src="고양이요정.png" class="cat-img" alt="고양이요정"/>
-        <input type="checkbox" class="cat-checkbox" onclick="event.stopPropagation()"/>
-        <label class="cat-check-label">공부 완료!</label>
-        <span class="cat-perfect">🐱 완벽해!</span>
       </div>
       <div class="page-header">
         <div class="page-tag">시험 직전 최종 정리</div>
