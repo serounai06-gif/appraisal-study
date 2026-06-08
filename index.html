@@ -36,7 +36,7 @@
     background: var(--bg);
     color: var(--text);
     font-family: var(--sans);
-    font-size: 15px;
+    font-size: 17px;
     line-height: 1.7;
     min-height: 100vh;
   }
@@ -63,7 +63,7 @@
   }
   .logo span { color: var(--accent); }
   .header-meta {
-    font-size: 12px;
+    font-size: 13.5px;
     color: var(--text3);
     font-family: var(--mono);
   }
@@ -71,7 +71,7 @@
   /* ── 레이아웃 ── */
   .layout {
     display: grid;
-    grid-template-columns: 240px 1fr 280px;
+    grid-template-columns: 220px 1fr 340px;
     min-height: calc(100vh - 56px);
   }
 
@@ -116,14 +116,14 @@
     letter-spacing: 0.5px;
   }
   .day-title {
-    font-size: 12px;
+    font-size: 13.5px;
     color: var(--text);
     font-weight: 500;
     flex: 1;
     line-height: 1.3;
   }
   .day-arrow {
-    font-size: 12px;
+    font-size: 13.5px;
     color: var(--text3);
     transition: transform 0.2s;
     flex-shrink: 0;
@@ -135,7 +135,7 @@
     max-height: 600px;
   }
   .day-children.closed { max-height: 0; }
-  .day-children .nav-item { padding-left: 28px; font-size: 13px; }
+  .day-children .nav-item { padding-left: 28px; font-size: 14.5px; }
 
   /* ── 사이드바 (왼쪽) ── */
   .sidebar {
@@ -167,7 +167,7 @@
     border-left: 2px solid transparent;
     transition: all 0.15s;
     color: var(--text2);
-    font-size: 13.5px;
+    font-size: 15px;
   }
   .nav-item:hover { background: var(--surface); color: var(--text); }
   .nav-item.active {
@@ -186,7 +186,7 @@
   /* ── 메인 콘텐츠 ── */
   main {
     padding: 40px 48px;
-    max-width: 780px;
+    max-width: 100%;
   }
 
   .page { display: none; }
@@ -215,7 +215,7 @@
   }
   .page-desc {
     color: var(--text2);
-    font-size: 14px;
+    font-size: 15.5px;
     line-height: 1.7;
   }
 
@@ -262,12 +262,12 @@
   .card-label.amber { color: var(--amber); }
   .card-label.purple { color: var(--purple); }
   .card-title {
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 500;
     margin-bottom: 6px;
   }
   .card-body {
-    font-size: 12.5px;
+    font-size: 15.5px;
     color: var(--text2);
     line-height: 1.6;
   }
@@ -278,7 +278,7 @@
     border-radius: 6px;
     padding: 8px 12px;
     font-family: var(--mono);
-    font-size: 12px;
+    font-size: 13.5px;
     color: var(--accent);
   }
 
@@ -342,8 +342,8 @@
     margin-left: 28px;
   }
   .flow-content {}
-  .flow-name { font-weight: 500; font-size: 14px; margin-bottom: 3px; }
-  .flow-desc { font-size: 12.5px; color: var(--text2); }
+  .flow-name { font-weight: 500; font-size: 15.5px; margin-bottom: 3px; }
+  .flow-desc { font-size: 15.5px; color: var(--text2); }
 
   /* ── 공식 블록 ── */
   .formula-block {
@@ -364,7 +364,7 @@
   }
   .formula-text {
     font-family: var(--mono);
-    font-size: 14px;
+    font-size: 15.5px;
     color: var(--accent);
     line-height: 1.8;
   }
@@ -386,7 +386,7 @@
     text-transform: uppercase;
     letter-spacing: 0.8px;
   }
-  .example-body { font-size: 13.5px; color: var(--text2); line-height: 1.8; }
+  .example-body { font-size: 15px; color: var(--text2); line-height: 1.8; }
   .example-body strong { color: var(--text); font-weight: 500; }
 
   /* ── 노트 (나의 학습 메모) ── */
@@ -404,7 +404,7 @@
     margin-bottom: 12px;
   }
   .note-title {
-    font-size: 12px;
+    font-size: 13.5px;
     font-family: var(--mono);
     color: var(--text3);
     text-transform: uppercase;
@@ -418,7 +418,7 @@
     padding: 12px 14px;
     color: var(--text);
     font-family: var(--sans);
-    font-size: 13.5px;
+    font-size: 15px;
     line-height: 1.7;
     resize: vertical;
     min-height: 100px;
@@ -434,7 +434,7 @@
     color: var(--amber);
     border-radius: 6px;
     padding: 7px 16px;
-    font-size: 12px;
+    font-size: 13.5px;
     font-family: var(--mono);
     cursor: pointer;
     transition: all 0.15s;
@@ -448,7 +448,7 @@
     border-radius: 6px;
     padding: 10px 14px;
     margin-bottom: 8px;
-    font-size: 13px;
+    font-size: 14.5px;
     color: var(--text2);
     line-height: 1.6;
     position: relative;
@@ -497,14 +497,14 @@
     margin-bottom: 10px;
   }
   .quick-card-title {
-    font-size: 12px;
+    font-size: 13.5px;
     font-weight: 500;
     color: var(--text2);
     margin-bottom: 6px;
   }
   .quick-card-val {
     font-family: var(--mono);
-    font-size: 12px;
+    font-size: 13.5px;
     color: var(--accent);
     line-height: 1.7;
   }
@@ -552,7 +552,7 @@
   .study-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 13px;
+    font-size: 14.5px;
     margin: 14px 0;
   }
   .study-table th {
@@ -562,7 +562,7 @@
     text-align: left;
     padding: 10px 14px;
     border-bottom: 1px solid var(--border);
-    font-size: 12px;
+    font-size: 13.5px;
     font-family: var(--mono);
     letter-spacing: 0.5px;
   }
@@ -582,7 +582,7 @@
     border-radius: 8px;
     padding: 14px 18px;
     margin: 14px 0;
-    font-size: 13.5px;
+    font-size: 15px;
     color: var(--text2);
     line-height: 1.7;
   }
@@ -632,7 +632,7 @@
 
     .nav-item {
       padding: 6px 12px;
-      font-size: 12px;
+      font-size: 13.5px;
       white-space: nowrap;
       border-left: none;
       border-bottom: 2px solid transparent;
@@ -660,10 +660,10 @@
 
     .page-title { font-size: 22px; }
 
-    .study-table { font-size: 12px; }
+    .study-table { font-size: 13.5px; }
     .study-table th, .study-table td { padding: 8px 10px; }
 
-    .formula-text { font-size: 13px; }
+    .formula-text { font-size: 14.5px; }
 
     .flow-item { padding: 12px 14px; }
   }
@@ -680,7 +680,7 @@
   }
   .glossary-item:hover { border-color: var(--border2); }
   .glossary-term {
-    font-size: 14px;
+    font-size: 15.5px;
     font-weight: 600;
     margin-bottom: 6px;
   }
@@ -689,14 +689,14 @@
   .glossary-term.amber { color: var(--amber); }
   .glossary-term.purple { color: var(--purple); }
   .glossary-def {
-    font-size: 13.5px;
+    font-size: 15px;
     color: var(--text2);
     line-height: 1.7;
     margin-bottom: 8px;
   }
   .glossary-ex {
     font-family: var(--mono);
-    font-size: 12px;
+    font-size: 13.5px;
     color: var(--text3);
     background: var(--bg);
     border: 1px solid var(--border);
@@ -743,7 +743,7 @@
   }
   .cheat-row:last-child { border-bottom: none; }
   .cheat-name {
-    font-size: 12px;
+    font-size: 13.5px;
     font-weight: 500;
     color: var(--text);
     white-space: nowrap;
@@ -752,7 +752,7 @@
   }
   .cheat-formula {
     font-family: var(--mono);
-    font-size: 12px;
+    font-size: 13.5px;
     color: var(--text2);
     line-height: 1.6;
   }
@@ -766,7 +766,7 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 8px;
-    font-size: 13px;
+    font-size: 14.5px;
     color: var(--text2);
   }
   .cheat-step-key {
@@ -792,7 +792,7 @@
     border: 1px solid var(--border);
     border-left: 3px solid var(--red);
     border-radius: 6px;
-    font-size: 13px;
+    font-size: 14.5px;
     color: var(--text2);
     line-height: 1.6;
   }
