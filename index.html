@@ -906,16 +906,16 @@
         <span class="day-arrow closed" id="arrow-day3">▾</span>
       </div>
       <div class="day-children closed" id="day3">
-        <div class="nav-item coming">
-          <div class="nav-dot" style="background:var(--border2)"></div>
+        <div class="nav-item" data-page="day3-depreciation">
+          <div class="nav-dot" style="background:var(--teal)"></div>
           감가수정 3법 완전 정복
         </div>
-        <div class="nav-item coming">
-          <div class="nav-dot" style="background:var(--border2)"></div>
+        <div class="nav-item" data-page="day3-recon">
+          <div class="nav-dot" style="background:var(--teal)"></div>
           재조달원가 산정 3방법
         </div>
-        <div class="nav-item coming">
-          <div class="nav-dot" style="background:var(--border2)"></div>
+        <div class="nav-item" data-page="day3-building">
+          <div class="nav-dot" style="background:var(--teal)"></div>
           건물 평가 종합 문제
         </div>
       </div>
@@ -1856,6 +1856,202 @@
       </div>
     </div>
 
+    <!-- DAY 3 — 감가수정 3법 완전 정복 -->
+    <div class="page" id="page-day3-depreciation">
+      <div class="page-header">
+        <div class="page-tag">DAY 3 · 원가방식 심화</div>
+        <div class="page-title">감가수정 3법 완전 정복</div>
+        <div class="page-desc">개념은 잡혔으니 오늘은 계산을 완벽하게 익혀요. 공식을 손으로 써보면서 외워두세요!</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">정액법</div>
+        <div class="formula-block">
+          <div class="formula-label">정액법 산식</div>
+          <div class="formula-text">
+            매년 감가액 <span class="op">= </span>재조달원가 <span class="op">÷</span> 내용연수<br>
+            감가누계액 <span class="op">= </span>매년 감가액 <span class="op">×</span> 경과연수<br>
+            적산가액 &nbsp;<span class="op">= </span>재조달원가 <span class="op">−</span> 감가누계액
+          </div>
+        </div>
+        <div class="example">
+          <div class="example-label">계산 예시 (재조달원가 1억 / 내용연수 40년 / 경과연수 10년)</div>
+          <div class="example-body">
+            매년 감가액 = 1억 ÷ 40 = <strong>250만 원</strong><br>
+            감가누계액 = 250만 × 10 = <strong>2,500만 원</strong><br>
+            적산가액 = 1억 − 2,500만 = <strong class="hl">7,500만 원</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">정률법</div>
+        <div class="formula-block">
+          <div class="formula-label">정률법 산식</div>
+          <div class="formula-text">
+            적산가액 <span class="op">= </span>재조달원가 <span class="op">×</span> (1<span class="op">−</span>r)ⁿ<br>
+            r <span class="op">= </span>감가율 &nbsp;&nbsp; n <span class="op">= </span>경과연수
+          </div>
+        </div>
+        <div class="example">
+          <div class="example-label">계산 예시 (재조달원가 1억 / 감가율 5% / 경과연수 10년)</div>
+          <div class="example-body">
+            적산가액 = 1억 × (1−0.05)¹⁰<br>
+            = 1억 × (0.95)¹⁰<br>
+            = 1억 × 0.5987<br>
+            = <strong class="hl">59,870,000원</strong><br><br>
+            초기에 감가 많고 → 시간 지날수록 감가액 줄어듦!
+          </div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">정률법 핵심 포인트</div>
+          잔존가액 = 재조달원가 × <strong>(1−r)ⁿ</strong> — n은 내용연수가 아니라 <strong>경과연수!</strong>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">상환기금법</div>
+        <div class="formula-block">
+          <div class="formula-label">상환기금법 산식</div>
+          <div class="formula-text">
+            매년 감가액 <span class="op">= </span>재조달원가 <span class="op">×</span> 상환기금계수<br>
+            상환기금계수 <span class="op">= </span>r <span class="op">÷</span> [(1<span class="op">+</span>r)ⁿ <span class="op">−</span> 1]<br>
+            r <span class="op">= </span>적립이율 &nbsp;&nbsp; n <span class="op">= </span>내용연수
+          </div>
+        </div>
+        <div class="example">
+          <div class="example-label">계산 예시 (재조달원가 1억 / 내용연수 40년 / 이율 5% / 계수 0.00828)</div>
+          <div class="example-body">
+            매년 감가액 = 1억 × 0.00828 = <strong>828,000원</strong><br><br>
+            시험에서는 계수값을 주므로 → <strong>재조달원가 × 계수</strong>만 계산하면 끝!
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">3가지 방법 최종 비교</div>
+        <table class="study-table">
+          <thead><tr><th>방법</th><th>매년 감가액</th><th>특징</th></tr></thead>
+          <tbody>
+            <tr><td>정액법</td><td><strong>동일</strong></td><td>가장 단순 / 이자 미반영</td></tr>
+            <tr><td>정률법</td><td><strong>초기↑ 후기↓</strong></td><td>초기 감가 많음</td></tr>
+            <tr><td>상환기금법</td><td><strong>동일</strong></td><td>이자 반영 / 매년 감가액 가장 적음</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 감가수정 3법</div></div>
+        <textarea class="note-textarea" id="note-day3-depreciation" placeholder="공식을 직접 써보면서 외워두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day3-depreciation')">저장</button>
+        <div class="saved-notes" id="saved-day3-depreciation"></div>
+      </div>
+    </div>
+
+    <!-- DAY 3 — 재조달원가 산정 3방법 -->
+    <div class="page" id="page-day3-recon">
+      <div class="page-header">
+        <div class="page-tag">DAY 3 · 원가방식 심화</div>
+        <div class="page-title">재조달원가 산정 3방법</div>
+        <div class="page-desc">원가법의 출발점인 재조달원가를 어떻게 구하는지 3가지 방법을 익혀요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">3가지 방법 비교</div>
+        <table class="study-table">
+          <thead><tr><th>방법</th><th>내용</th><th>언제 쓰나</th></tr></thead>
+          <tbody>
+            <tr><td>직접법</td><td>실제 공사비 내역을 직접 산정</td><td>자료 충분할 때</td></tr>
+            <tr><td>간접법</td><td>유사 건물 사례를 이용해 간접 산정</td><td>유사 사례 있을 때</td></tr>
+            <tr><td>단위비교법</td><td>㎡당 단가 × 연면적</td><td>가장 많이 씀 (시험 주출제)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">단위비교법 계산</div>
+        <div class="formula-block">
+          <div class="formula-label">단위비교법 산식</div>
+          <div class="formula-text">
+            재조달원가 <span class="op">= </span>㎡당 단가 <span class="op">×</span> 연면적(㎡)
+          </div>
+        </div>
+        <div class="example">
+          <div class="example-label">계산 예시</div>
+          <div class="example-body">
+            ㎡당 단가: <strong>500,000원</strong> / 연면적: <strong>200㎡</strong><br><br>
+            재조달원가 = 500,000 × 200 = <strong class="hl">100,000,000원 (1억)</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 재조달원가 산정</div></div>
+        <textarea class="note-textarea" id="note-day3-recon" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day3-recon')">저장</button>
+        <div class="saved-notes" id="saved-day3-recon"></div>
+      </div>
+    </div>
+
+    <!-- DAY 3 — 건물 평가 종합 -->
+    <div class="page" id="page-day3-building">
+      <div class="page-header">
+        <div class="page-tag">DAY 3 · 원가방식 심화</div>
+        <div class="page-title">건물 평가 종합 흐름</div>
+        <div class="page-desc">건물 평가 문제는 항상 이 4단계로 풀어요. 흐름을 외워두면 어떤 문제도 길을 잃지 않아요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">건물 평가 4단계 흐름</div>
+        <div class="flow">
+          <div class="flow-item">
+            <div class="flow-num">01</div>
+            <div class="flow-content">
+              <div class="flow-name">재조달원가 산정</div>
+              <div class="flow-desc">단위비교법: ㎡당 단가 × 연면적</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">02</div>
+            <div class="flow-content">
+              <div class="flow-name">감가수정</div>
+              <div class="flow-desc">정액법 / 정률법 / 상환기금법 중 문제 조건에 맞게 선택</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">03</div>
+            <div class="flow-content">
+              <div class="flow-name">적산가액 산정</div>
+              <div class="flow-desc">재조달원가 − 감가누계액 = 적산가액</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">04</div>
+            <div class="flow-content">
+              <div class="flow-name">최종 감정평가액 결정</div>
+              <div class="flow-desc">건물은 원가방식이 주된 방법 → 적산가액 채택</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">토지 vs 건물 주된 방법 비교</div>
+        토지 → <strong>공시지가기준법</strong> (비준가액 채택)<br>
+        건물 → <strong>원가법</strong> (적산가액 채택)
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 건물 평가 종합</div></div>
+        <textarea class="note-textarea" id="note-day3-building" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day3-building')">저장</button>
+        <div class="saved-notes" id="saved-day3-building"></div>
+      </div>
+    </div>
+
     <!-- ⑩ 용어정리 -->
     <div class="page" id="page-glossary">
       <div class="page-header">
@@ -2209,6 +2405,7 @@
     if (['cheatsheet'].includes(id)) return 'var(--red)';
     if (['glossary'].includes(id)) return 'var(--teal)';
     if (['day2-factor','day2-pricelist2','day2-land'].includes(id)) return 'var(--blue)';
+    if (['day3-depreciation','day3-recon','day3-building'].includes(id)) return 'var(--teal)';
     return 'var(--accent)';
   }
 
