@@ -669,6 +669,48 @@
   }
 
 
+  /* ── 핵심공식카드 ── */
+  .formula-card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .formula-card {
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    padding: 16px 18px;
+    background: var(--surface);
+    transition: all 0.15s;
+  }
+  .formula-card:hover { border-color: var(--border2); transform: translateY(-1px); }
+  .formula-card.blue { border-left: 3px solid var(--blue); }
+  .formula-card.teal { border-left: 3px solid var(--teal); }
+  .formula-card.amber { border-left: 3px solid var(--amber); }
+  .formula-card.purple { border-left: 3px solid var(--purple); }
+  .formula-card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .formula-card.blue .formula-card-title { color: var(--blue); }
+  .formula-card.teal .formula-card-title { color: var(--teal); }
+  .formula-card.amber .formula-card-title { color: var(--amber); }
+  .formula-card.purple .formula-card-title { color: var(--purple); }
+  .formula-card-body {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.9;
+  }
+  @media (max-width: 768px) {
+    .formula-card-grid { grid-template-columns: 1fr; }
+    .formula-card[style*="span 2"] { grid-column: span 1; }
+  }
+
   /* ── 용어정리 전용 ── */
   .glossary-list { display: flex; flex-direction: column; gap: 10px; }
   .glossary-item {
@@ -1102,6 +1144,10 @@
       <div class="nav-item" data-page="glossary">
         <div class="nav-dot" style="background:var(--teal)"></div>
         용어정리
+      </div>
+      <div class="nav-item" data-page="formulas">
+        <div class="nav-dot" style="background:var(--blue)"></div>
+        📐 핵심공식카드
       </div>
     </div>
   </nav>
@@ -2482,6 +2528,203 @@
 
     </div>
 
+    <!-- 핵심공식카드 -->
+    <div class="page" id="page-formulas">
+      <div class="page-header">
+        <div class="page-tag">시험 직전 · 공식 총정리</div>
+        <div class="page-title">📐 핵심공식카드</div>
+        <div class="page-desc">DAY 1~4에서 배운 모든 계산식을 한 페이지에 모았어요. 시험 직전에 빠르게 훑어보세요!</div>
+      </div>
+
+      <!-- 비교방식 -->
+      <div class="section">
+        <div class="section-title">① 비교방식</div>
+        <div class="formula-card-grid">
+
+          <div class="formula-card blue">
+            <div class="formula-card-title">거래사례비교법</div>
+            <div class="formula-card-body">
+              비교가액 = 사례가액<br>
+              × 사정보정<br>
+              × 시점수정<br>
+              × 지역요인<br>
+              × 개별요인
+            </div>
+          </div>
+
+          <div class="formula-card blue">
+            <div class="formula-card-title">공시지가기준법</div>
+            <div class="formula-card-body">
+              비준가액 = 공시지가<br>
+              × 시점수정<br>
+              × 지역요인<br>
+              × 개별요인<br>
+              × 그 밖의 요인
+            </div>
+          </div>
+
+          <div class="formula-card blue">
+            <div class="formula-card-title">요인비교치</div>
+            <div class="formula-card-body">
+              요인비교치<br>
+              = 대상 요인값<br>
+              ÷ 사례 요인값<br><br>
+              ※ 항상 대상 ÷ 사례!
+            </div>
+          </div>
+
+          <div class="formula-card blue">
+            <div class="formula-card-title">그 밖의 요인 (역산)</div>
+            <div class="formula-card-body">
+              그 밖의 요인<br>
+              = 거래사례비교법 비교가액<br>
+              ÷ (공시지가 × 시점수정<br>
+              × 지역요인 × 개별요인)
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 원가방식 -->
+      <div class="section">
+        <div class="section-title">② 원가방식</div>
+        <div class="formula-card-grid">
+
+          <div class="formula-card teal">
+            <div class="formula-card-title">원가법 기본</div>
+            <div class="formula-card-body">
+              재조달원가<br>
+              = ㎡당 단가 × 연면적<br><br>
+              적산가액<br>
+              = 재조달원가 − 감가누계액
+            </div>
+          </div>
+
+          <div class="formula-card teal">
+            <div class="formula-card-title">정액법</div>
+            <div class="formula-card-body">
+              매년 감가액<br>
+              = 재조달원가 ÷ 내용연수<br><br>
+              감가누계액<br>
+              = 매년 감가액 × 경과연수
+            </div>
+          </div>
+
+          <div class="formula-card teal">
+            <div class="formula-card-title">정률법</div>
+            <div class="formula-card-body">
+              적산가액<br>
+              = 재조달원가 × (1−r)ⁿ<br><br>
+              r = 감가율<br>
+              n = 경과연수<br>
+              ※ 바로 적산가액!
+            </div>
+          </div>
+
+          <div class="formula-card teal">
+            <div class="formula-card-title">상환기금법</div>
+            <div class="formula-card-body">
+              매년 감가액<br>
+              = 재조달원가 × 상환기금계수<br><br>
+              상환기금계수<br>
+              = r ÷ [(1+r)ⁿ − 1]
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 수익방식 -->
+      <div class="section">
+        <div class="section-title">③ 수익방식</div>
+        <div class="formula-card-grid">
+
+          <div class="formula-card amber">
+            <div class="formula-card-title">NOI 산정</div>
+            <div class="formula-card-body">
+              PGI = 월임대료 × 12<br>
+              − 공실손실 (PGI × 공실률)<br>
+              = EGI<br>
+              − 운영경비 (OE)<br>
+              = NOI
+            </div>
+          </div>
+
+          <div class="formula-card amber">
+            <div class="formula-card-title">직접환원법</div>
+            <div class="formula-card-body">
+              수익가액<br>
+              = NOI ÷ 환원이율(R)<br><br>
+              환원이율 ↑ → 수익가액 ↓<br>
+              환원이율 ↓ → 수익가액 ↑
+            </div>
+          </div>
+
+          <div class="formula-card amber">
+            <div class="formula-card-title">환원이율 — 시장추출법</div>
+            <div class="formula-card-body">
+              환원이율<br>
+              = NOI ÷ 거래가격
+            </div>
+          </div>
+
+          <div class="formula-card amber">
+            <div class="formula-card-title">환원이율 — 적산법</div>
+            <div class="formula-card-body">
+              환원이율<br>
+              = 무위험률<br>
+              + 위험할증률<br>
+              + 유동성할증률<br>
+              + 관리부담률
+            </div>
+          </div>
+
+          <div class="formula-card amber" style="grid-column: span 2">
+            <div class="formula-card-title">DCF법 (Discounted Cash Flow)</div>
+            <div class="formula-card-body">
+              수익가액<br>
+              = Σ [NOIₜ ÷ (1+r)ᵗ] + 기말복귀가액 ÷ (1+r)ⁿ<br><br>
+              r = 할인율 / t = 연도 / n = 보유기간<br>
+              ※ 매년 받을 NOI + 팔 때 받는 돈을 전부 현재가치로 환산
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 시산가액 조정 -->
+      <div class="section">
+        <div class="section-title">시산가액 조정 & 감정평가액 결정</div>
+        <div class="formula-card-grid">
+
+          <div class="formula-card purple">
+            <div class="formula-card-title">물건별 주된 방법</div>
+            <div class="formula-card-body">
+              토지 → 공시지가기준법<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(비준가액 채택)<br>
+              건물 → 원가법<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(적산가액 채택)<br>
+              수익성 부동산 → 수익환원법<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(수익가액 채택)
+            </div>
+          </div>
+
+          <div class="formula-card purple">
+            <div class="formula-card-title">토지 감정평가액 결정</div>
+            <div class="formula-card-body">
+              조건 없음 → 비준가액<br>
+              비교방식 가중 → 비교가액<br>
+              산술평균 → 두 값 평균<br><br>
+              ※ 반드시 조정 근거 서술!
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
     <!-- ⑨ 핵심노트 -->
     <div class="page" id="page-cheatsheet">
       <div class="page-header">
@@ -2724,6 +2967,7 @@
     if (['sisan'].includes(id)) return 'var(--purple)';
     if (['cheatsheet'].includes(id)) return 'var(--red)';
     if (['glossary'].includes(id)) return 'var(--teal)';
+    if (['formulas'].includes(id)) return 'var(--blue)';
     if (['day2-factor','day2-pricelist2','day2-land'].includes(id)) return 'var(--blue)';
     if (['day3-depreciation','day3-recon','day3-building'].includes(id)) return 'var(--teal)';
     if (['day4-noi','day4-caprate','day4-dcf','day4-income'].includes(id)) return 'var(--amber)';
