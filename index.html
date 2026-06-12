@@ -1002,16 +1002,16 @@
         <span class="day-arrow closed" id="arrow-day5">▾</span>
       </div>
       <div class="day-children closed" id="day5">
-        <div class="nav-item coming">
-          <div class="nav-dot" style="background:var(--border2)"></div>
+        <div class="nav-item" data-page="day5-land">
+          <div class="nav-dot" style="background:var(--purple)"></div>
           토지 평가 (나지·임야·농경지)
         </div>
-        <div class="nav-item coming">
-          <div class="nav-dot" style="background:var(--border2)"></div>
+        <div class="nav-item" data-page="day5-building">
+          <div class="nav-dot" style="background:var(--purple)"></div>
           건물 평가
         </div>
-        <div class="nav-item coming">
-          <div class="nav-dot" style="background:var(--border2)"></div>
+        <div class="nav-item" data-page="day5-complex">
+          <div class="nav-dot" style="background:var(--purple)"></div>
           복합부동산 평가
         </div>
       </div>
@@ -2279,6 +2279,46 @@
         금리 ↑ → 환원이율 ↑ → 부동산 가격 ↓
       </div>
 
+      <div class="section">
+        <div class="section-title">Band of Investment 상세</div>
+        <div class="formula-block">
+          <div class="formula-label">Band of Investment 산식</div>
+          <div class="formula-text">
+            환원이율<br>
+            = (자기자본비율 × 자기자본수익률)<br>
+            + (타인자본비율 × 저당이율)<br><br>
+            ※ 자기자본비율 + 타인자본비율 = 1 (100%)
+          </div>
+        </div>
+        <div class="example">
+          <div class="example-label">쉬운 비유 — 5억짜리 상가 매입 시</div>
+          <div class="example-body">
+            내 돈(자기자본): <strong>2억 (40%)</strong> → 연 6% 수익 원함<br>
+            빌린 돈(대출): <strong>3억 (60%)</strong> → 연 4% 이자 부담<br><br>
+            환원이율 = (0.4 × 6%) + (0.6 × 4%)<br>
+            = 2.4% + 2.4%<br>
+            = <strong class="hl">4.8%</strong>
+          </div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">한 줄 요약</div>
+          "내 돈과 빌린 돈을 섞어서 투자했으니까,<br>
+          각각의 수익률을 <strong>비율대로 섞은 게</strong> 환원이율이다!"
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">3가지 방법 최종 비교</div>
+        <table class="study-table">
+          <thead><tr><th>방법</th><th>핵심</th><th>특징</th></tr></thead>
+          <tbody>
+            <tr><td>시장추출법</td><td>NOI ÷ 거래가격</td><td>실제 시장에서 역산. 가장 신뢰도 높음</td></tr>
+            <tr><td>적산법</td><td>무위험률 + 각종 할증률</td><td>논리적으로 구성. 더하기만 하면 됨</td></tr>
+            <tr><td>Band of Investment</td><td>자기자본 + 타인자본 가중평균</td><td>자본구조 반영. 대출 낀 투자에 적합</td></tr>
+          </tbody>
+        </table>
+      </div>
+
       <div class="note-area">
         <div class="note-header"><div class="note-title">내 학습 메모 — 환원이율</div></div>
         <textarea class="note-textarea" id="note-day4-caprate" placeholder="기억할 것들을 적어두세요..."></textarea>
@@ -2410,11 +2450,286 @@
         수익성 부동산 → <strong>수익환원법</strong> (수익가액)
       </div>
 
+      <div class="section">
+        <div class="section-title">기본문제 풀이</div>
+
+        <div class="example">
+          <div class="example-label">예제 1 — NOI 산정 (월임대료 300만 / 공실률 8% / 운영경비 500만)</div>
+          <div class="example-body">
+            PGI = 3,000,000 × 12 = <strong>36,000,000원</strong><br>
+            EGI = 36,000,000 × (1−0.08) = <strong>33,120,000원</strong><br>
+            NOI = 33,120,000 − 5,000,000 = <strong class="hl">28,120,000원</strong>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">예제 2 — 직접환원법 (월임대료 250만 / 공실률 5% / 운영경비 400만 / 환원이율 6%)</div>
+          <div class="example-body">
+            NOI = (2,500,000 × 12) × 0.95 − 4,000,000 = <strong>24,500,000원</strong><br>
+            수익가액 = 24,500,000 ÷ 0.06 = <strong class="hl">408,333,333원</strong>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">예제 3 — 환원이율 시장추출법 (거래가격 8억 / 월임대료 350만 / 공실률 5% / 운영경비 600만)</div>
+          <div class="example-body">
+            NOI = (3,500,000 × 12) × 0.95 − 6,000,000 = <strong>33,900,000원</strong><br>
+            환원이율 = 33,900,000 ÷ 800,000,000 = <strong class="hl">4.24%</strong>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">예제 4 — 환원이율 적산법 (무위험 2.5% / 위험 1.5% / 유동성 0.8% / 관리 0.7%)</div>
+          <div class="example-body">
+            환원이율 = 2.5 + 1.5 + 0.8 + 0.7 = <strong class="hl">5.5%</strong>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">예제 5 — 수익성 부동산 종합 (월임대료 400만 / 공실률 10% / 운영경비 800만 / 환원이율 적산법)</div>
+          <div class="example-body">
+            환원이율 = 3 + 1.5 + 1 + 0.5 = <strong>6%</strong><br>
+            NOI = (4,000,000 × 12) × 0.9 − 8,000,000 = <strong>35,200,000원</strong><br>
+            수익가액 = 35,200,000 ÷ 0.06 = <strong class="hl">586,666,667원</strong>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">예제 6 — Band of Investment (자기자본 40%·7% / 타인자본 60%·4%)</div>
+          <div class="example-body">
+            환원이율 = (0.4 × 7%) + (0.6 × 4%)<br>
+            = 2.8% + 2.4% = <strong class="hl">5.2%</strong>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">예제 7 — DCF법 (보유 3년 / NOI 1천만·1100만·1200만 / 기말복귀 2억 / 할인율 5%)</div>
+          <div class="example-body">
+            1년차 = 10,000,000 ÷ 1.0500 = 9,523,810원<br>
+            2년차 = 11,000,000 ÷ 1.1025 = 9,977,324원<br>
+            3년차 = 12,000,000 ÷ 1.1576 = 10,366,276원<br>
+            기말복귀 = 200,000,000 ÷ 1.1576 = 172,771,252원<br><br>
+            수익가액 = 9,523,810 + 9,977,324 + 10,366,276 + 172,771,252<br>
+            = <strong class="hl">202,638,662원</strong>
+          </div>
+        </div>
+
+      </div>
+
       <div class="note-area">
         <div class="note-header"><div class="note-title">내 학습 메모 — 수익성 부동산 종합</div></div>
         <textarea class="note-textarea" id="note-day4-income" placeholder="기억할 것들을 적어두세요..."></textarea>
         <button class="note-save" onclick="saveNote('day4-income')">저장</button>
         <div class="saved-notes" id="saved-day4-income"></div>
+      </div>
+    </div>
+
+    <!-- DAY 5 — 토지 평가 -->
+    <div class="page" id="page-day5-land">
+      <div class="page-header">
+        <div class="page-tag">DAY 5 · 물건 유형별 적용 ①</div>
+        <div class="page-title">토지 평가 — 나지·임야·농경지</div>
+        <div class="page-desc">토지 유형별로 평가 방법이 조금씩 달라져요. 유형별 특징과 적용 방법을 익혀요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">토지 유형별 평가 방법</div>
+        <table class="study-table">
+          <thead><tr><th>유형</th><th>주된 방법</th><th>특징</th></tr></thead>
+          <tbody>
+            <tr><td>나지 (裸地)</td><td>공시지가기준법 + 거래사례비교법</td><td>건물 없는 순수 토지. 가장 기본형.</td></tr>
+            <tr><td>임야 (林野)</td><td>공시지가기준법 + 거래사례비교법</td><td>산림·임야. 개별요인에 경사도·임상 반영</td></tr>
+            <tr><td>농경지 (農耕地)</td><td>공시지가기준법 + 거래사례비교법</td><td>전·답·과수원. 수익방식 병행 가능</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">나지 평가 흐름</div>
+        <div class="flow">
+          <div class="flow-item">
+            <div class="flow-num">01</div>
+            <div class="flow-content">
+              <div class="flow-name">공시지가기준법</div>
+              <div class="flow-desc">공시지가 × 시점수정 × 지역요인 × 개별요인 × 그 밖의 요인 = 비준가액</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">02</div>
+            <div class="flow-content">
+              <div class="flow-name">거래사례비교법</div>
+              <div class="flow-desc">사례가액 × 사정보정 × 시점수정 × 지역요인 × 개별요인 = 비교가액</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">03</div>
+            <div class="flow-content">
+              <div class="flow-name">시산가액 조정 → 감정평가액</div>
+              <div class="flow-desc">조건 없으면 비준가액 채택 / 조정 근거 서술 필수</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">임야·농경지 개별요인 특수 항목</div>
+        <table class="study-table">
+          <thead><tr><th>유형</th><th>추가 고려 항목</th></tr></thead>
+          <tbody>
+            <tr><td>임야</td><td>경사도, 임상(나무 종류·밀도), 토양상태, 접근성</td></tr>
+            <tr><td>농경지</td><td>토질, 관개시설, 일조량, 경작 편의성</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">시험 포인트</div>
+        토지 유형이 달라도 <strong>기본 공식은 동일!</strong><br>
+        다만 개별요인 항목이 유형별로 달라지는 것만 주의하면 돼요.
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 토지 평가</div></div>
+        <textarea class="note-textarea" id="note-day5-land" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day5-land')">저장</button>
+        <div class="saved-notes" id="saved-day5-land"></div>
+      </div>
+    </div>
+
+    <!-- DAY 5 — 건물 평가 -->
+    <div class="page" id="page-day5-building">
+      <div class="page-header">
+        <div class="page-tag">DAY 5 · 물건 유형별 적용 ①</div>
+        <div class="page-title">건물 평가</div>
+        <div class="page-desc">건물은 원가법이 주된 방법이에요. 구조·용도·노후도에 따라 재조달원가와 감가수정이 달라져요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">건물 구조별 내용연수</div>
+        <table class="study-table">
+          <thead><tr><th>구조</th><th>내용연수 (기준)</th></tr></thead>
+          <tbody>
+            <tr><td>철근콘크리트 (RC)</td><td>50년</td></tr>
+            <tr><td>철골구조 (S)</td><td>40년</td></tr>
+            <tr><td>조적구조 (벽돌)</td><td>40년</td></tr>
+            <tr><td>목구조</td><td>30년</td></tr>
+            <tr><td>경량철골</td><td>30년</td></tr>
+          </tbody>
+        </table>
+        <div class="tip">
+          <div class="tip-label">시험 포인트</div>
+          내용연수는 문제에서 주어지는 경우가 많아요. 주어지지 않으면 구조별 기준값 적용!
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">감가수정 3원인</div>
+        <table class="study-table">
+          <thead><tr><th>원인</th><th>내용</th><th>예시</th></tr></thead>
+          <tbody>
+            <tr><td>물리적 감가</td><td>시간 경과로 인한 노후화</td><td>균열, 누수, 설비 노후</td></tr>
+            <tr><td>기능적 감가</td><td>기능·설계 구식화</td><td>천장 낮음, 주차 불편</td></tr>
+            <tr><td>경제적 감가</td><td>외부 환경 변화</td><td>주변 혐오시설, 용도지역 변경</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">건물 평가 흐름</div>
+        <div class="formula-block">
+          <div class="formula-label">건물 평가 공식</div>
+          <div class="formula-text">
+            재조달원가 = ㎡당 단가 × 연면적<br>
+            감가누계액 = 재조달원가 × 감가율 × 경과연수 (정액법)<br>
+            적산가액 = 재조달원가 − 감가누계액<br>
+            감정평가액 = 적산가액
+          </div>
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 건물 평가</div></div>
+        <textarea class="note-textarea" id="note-day5-building" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day5-building')">저장</button>
+        <div class="saved-notes" id="saved-day5-building"></div>
+      </div>
+    </div>
+
+    <!-- DAY 5 — 복합부동산 평가 -->
+    <div class="page" id="page-day5-complex">
+      <div class="page-header">
+        <div class="page-tag">DAY 5 · 물건 유형별 적용 ①</div>
+        <div class="page-title">복합부동산 평가</div>
+        <div class="page-desc">토지 + 건물이 함께 있는 물건. 토지와 건물을 각각 평가해서 합산해요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">복합부동산이란?</div>
+        <p style="font-size:15px;color:var(--text2);line-height:1.8">
+          토지 위에 건물이 있는 일반적인 부동산이에요. 단독주택, 상가, 공장 등 대부분의 부동산이 복합부동산이에요.
+          <span class="hl">토지와 건물을 각각 따로 평가한 다음 합산</span>해서 최종 감정평가액을 결정해요.
+        </p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">복합부동산 평가 흐름</div>
+        <div class="flow">
+          <div class="flow-item">
+            <div class="flow-num">01</div>
+            <div class="flow-content">
+              <div class="flow-name">토지 평가</div>
+              <div class="flow-desc">공시지가기준법 + 거래사례비교법 → 비준가액 (토지 감정평가액)</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">02</div>
+            <div class="flow-content">
+              <div class="flow-name">건물 평가</div>
+              <div class="flow-desc">원가법 → 적산가액 (건물 감정평가액)</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">03</div>
+            <div class="flow-content">
+              <div class="flow-name">합산</div>
+              <div class="flow-desc">토지 감정평가액 + 건물 감정평가액 = 복합부동산 감정평가액</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">계산 예시</div>
+        <div class="example">
+          <div class="example-label">복합부동산 평가 예시</div>
+          <div class="example-body">
+            <strong>[토지]</strong><br>
+            공시지가 5,000만 × 시점수정 1.03 × 개별요인 1.05 × 그밖의요인 1.10<br>
+            = 비준가액 <strong>59,482,500원</strong><br><br>
+            <strong>[건물]</strong><br>
+            재조달원가 1억 / 정액법 / 내용연수 40년 / 경과 10년<br>
+            = 적산가액 <strong>75,000,000원</strong><br><br>
+            <strong>[복합부동산 감정평가액]</strong><br>
+            59,482,500 + 75,000,000 = <strong class="hl">134,482,500원</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">시험 포인트</div>
+        복합부동산은 토지·건물 각각 따로 계산하는 게 핵심!<br>
+        <strong>토지 따로 + 건물 따로 → 합산</strong> 이 순서만 기억하면 돼요 😊
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 복합부동산 평가</div></div>
+        <textarea class="note-textarea" id="note-day5-complex" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day5-complex')">저장</button>
+        <div class="saved-notes" id="saved-day5-complex"></div>
       </div>
     </div>
 
@@ -2971,6 +3286,7 @@
     if (['day2-factor','day2-pricelist2','day2-land'].includes(id)) return 'var(--blue)';
     if (['day3-depreciation','day3-recon','day3-building'].includes(id)) return 'var(--teal)';
     if (['day4-noi','day4-caprate','day4-dcf','day4-income'].includes(id)) return 'var(--amber)';
+    if (['day5-land','day5-building','day5-complex'].includes(id)) return 'var(--purple)';
     return 'var(--accent)';
   }
 
