@@ -3262,6 +3262,7 @@
 
   // 페이지 전환
   function goPage(id) {
+    if (!id) return;
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     const page = document.getElementById('page-' + id);
@@ -3269,7 +3270,8 @@
     const nav = document.querySelector(`[data-page="${id}"]`);
     if (nav) {
       nav.classList.add('active');
-      nav.querySelector('.nav-dot').style.background = getNavColor(id);
+      const dot = nav.querySelector('.nav-dot');
+      if (dot) dot.style.background = getNavColor(id);
     }
     loadNotes(id);
     window.scrollTo(0, 0);
@@ -3291,7 +3293,10 @@
   }
 
   document.querySelectorAll('.nav-item').forEach(item => {
-    item.addEventListener('click', () => goPage(item.dataset.page));
+    item.addEventListener('click', () => {
+      const page = item.dataset.page;
+      if (page) goPage(page);
+    });
   });
 
   // 메모 저장/로드
