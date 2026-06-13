@@ -3247,97 +3247,112 @@
 </div>
 
 <script>
-  const d = new Date();
+  // 날짜
+  var d = new Date();
   document.getElementById('today-date').textContent =
-    d.getFullYear()+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'+String(d.getDate()).padStart(2,'0');
+    d.getFullYear() + '.' + String(d.getMonth()+1).padStart(2,'0') + '.' + String(d.getDate()).padStart(2,'0');
 
+  // 페이지 전환
   function goPage(id) {
-    if (!id || id === '') return;
-    document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
-    document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+    if (!id) return;
+    var pages = document.querySelectorAll('.page');
+    for (var i=0; i<pages.length; i++) pages[i].classList.remove('active');
+    var navs = document.querySelectorAll('.nav-item');
+    for (var i=0; i<navs.length; i++) navs[i].classList.remove('active');
     var page = document.getElementById('page-' + id);
-    if (page) { page.classList.add('active'); } else { return; }
+    if (!page) return;
+    page.classList.add('active');
     var nav = document.querySelector('[data-page="' + id + '"]');
     if (nav) {
       nav.classList.add('active');
       var dot = nav.querySelector('.nav-dot');
       if (dot) dot.style.background = getNavColor(id);
     }
-    try { loadNotes(id); } catch(e) {}
     window.scrollTo(0, 0);
   }
 
   function getNavColor(id) {
-    var colors = {
-      comparison:'var(--blue)', pricelist:'var(--blue)',
-      cost:'var(--teal)', depreciation:'var(--teal)',
-      income:'var(--amber)', sisan:'var(--purple)',
-      cheatsheet:'var(--red)', glossary:'var(--teal)', formulas:'var(--blue)',
-      'day2-factor':'var(--blue)', 'day2-pricelist2':'var(--blue)', 'day2-land':'var(--blue)',
-      'day3-depreciation':'var(--teal)', 'day3-recon':'var(--teal)', 'day3-building':'var(--teal)',
-      'day4-noi':'var(--amber)', 'day4-caprate':'var(--amber)', 'day4-dcf':'var(--amber)', 'day4-income':'var(--amber)',
-      'day5-land':'var(--purple)', 'day5-building':'var(--purple)', 'day5-complex':'var(--purple)'
+    var m = {
+      'comparison':'var(--blue)','pricelist':'var(--blue)',
+      'cost':'var(--teal)','depreciation':'var(--teal)',
+      'income':'var(--amber)','sisan':'var(--purple)',
+      'cheatsheet':'var(--red)','glossary':'var(--teal)','formulas':'var(--blue)',
+      'day2-factor':'var(--blue)','day2-pricelist2':'var(--blue)','day2-land':'var(--blue)',
+      'day3-depreciation':'var(--teal)','day3-recon':'var(--teal)','day3-building':'var(--teal)',
+      'day4-noi':'var(--amber)','day4-caprate':'var(--amber)','day4-dcf':'var(--amber)','day4-income':'var(--amber)',
+      'day5-land':'var(--purple)','day5-building':'var(--purple)','day5-complex':'var(--purple)'
     };
-    return colors[id] || 'var(--accent)';
+    return m[id] || 'var(--accent)';
   }
 
-  document.querySelectorAll('.nav-item').forEach(function(item) {
-    item.addEventListener('click', function() {
-      var page = item.getAttribute('data-page');
-      if (page && page !== '') goPage(page);
+  // nav 클릭
+  var navItems = document.querySelectorAll('.nav-item');
+  for (var i=0; i<navItems.length; i++) {
+    navItems[i].addEventListener('click', function() {
+      var p = this.getAttribute('data-page');
+      if (p) goPage(p);
     });
-  });
+  }
 
+  // DAY 토글
   function toggleDay(id) {
-    var children = document.getElementById(id);
-    var arrow = document.getElementById('arrow-' + id);
-    if (children) children.classList.toggle('closed');
-    if (arrow) arrow.classList.toggle('closed');
+    var c = document.getElementById(id);
+    var a = document.getElementById('arrow-' + id);
+    if (c) c.classList.toggle('closed');
+    if (a) a.classList.toggle('closed');
   }
 
+  // 메모 저장
   function saveNote(key) {
-    var textarea = document.getElementById('note-' + key);
-    if (!textarea) return;
-    var val = textarea.value.trim();
-    if (!val) return;
+    var el = document.getElementById('note-' + key);
+    if (!el || !el.value.trim()) return;
     var notes = JSON.parse(localStorage.getItem('notes-' + key) || '[]');
-    notes.push({ text: val, date: new Date().toLocaleString('ko-KR') });
+    notes.push({text: el.value.trim(), date: new Date().toLocaleString('ko-KR')});
     localStorage.setItem('notes-' + key, JSON.stringify(notes));
-    textarea.value = '';
-    renderNotes(key);
+    el.value = '';
+    showNotes(key);
   }
 
-  function loadNotes(key) {
-    var container = document.getElementById('saved-' + key);
-    if (!container) return;
-    renderNotes(key);
-  }
-
-  function renderNotes(key) {
-    var container = document.getElementById('saved-' + key);
-    if (!container) return;
+  // 메모 표시
+  function showNotes(key) {
+    var box = document.getElementById('saved-' + key);
+    if (!box) return;
     var notes = JSON.parse(localStorage.getItem('notes-' + key) || '[]');
-    var html = '';
-    for (var i = 0; i < notes.length; i++) {
-      var n = notes[i];
-      var txt = n.text.split('\n').join('<br>');
-      html += '<div class="saved-note-item">';
-      html += '<div class="note-date">' + n.date + '</div>';
-      html += txt;
-      html += '<button class="note-del" onclick="deleteNote(' + "'" + key + "'" + ',' + i + ')">×</button>';
-      html += '</div>';
+    box.innerHTML = '';
+    for (var i=0; i<notes.length; i++) {
+      var div = document.createElement('div');
+      div.className = 'saved-note-item';
+      var dateDiv = document.createElement('div');
+      dateDiv.className = 'note-date';
+      dateDiv.textContent = notes[i].date;
+      div.appendChild(dateDiv);
+      var textDiv = document.createElement('span');
+      textDiv.textContent = notes[i].text;
+      div.appendChild(textDiv);
+      var btn = document.createElement('button');
+      btn.className = 'note-del';
+      btn.textContent = '×';
+      btn.setAttribute('data-key', key);
+      btn.setAttribute('data-idx', i);
+      btn.onclick = function() {
+        delNote(this.getAttribute('data-key'), parseInt(this.getAttribute('data-idx')));
+      };
+      div.appendChild(btn);
+      box.appendChild(div);
     }
-    container.innerHTML = html;
   }
 
-  function deleteNote(key, i) {
+  // 메모 삭제
+  function delNote(key, idx) {
     var notes = JSON.parse(localStorage.getItem('notes-' + key) || '[]');
-    notes.splice(i, 1);
+    notes.splice(idx, 1);
     localStorage.setItem('notes-' + key, JSON.stringify(notes));
-    renderNotes(key);
+    showNotes(key);
   }
 
+  // 초기화
   goPage('overview');
 </script>
+
 </body>
 </html>
