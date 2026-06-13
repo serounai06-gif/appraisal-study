@@ -6,6 +6,7 @@
 <title>감정평가실무 학습노트</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+
   :root {
     --bg: #fdf8f5;
     --surface: #ffffff;
@@ -856,23 +857,20 @@
     to { opacity: 1; transform: translateY(0); }
   }
   .page.active { animation: fadeIn 0.25s ease; }
+
 </style>
 </head>
 <body>
-
 <header>
   <div class="logo">감정평가실무 <span>학습노트</span></div>
   <div class="header-meta" id="today-date"></div>
 </header>
-
 <div class="layout">
-
-  <!-- 왼쪽 사이드바 -->
-  <nav class="sidebar">
+<nav class="sidebar">
 
     <!-- DAY 1 -->
     <div class="sidebar-section">
-      <div class="day-header" onclick="toggleDay(&apos;day1&apos;)">
+      <div class="day-header" onclick="toggleDay('day1')">
         <span class="day-badge">DAY 1</span>
         <span class="day-title">뼈대 잡기 · 기초 개념</span>
         <span class="day-arrow" id="arrow-day1">▾</span>
@@ -917,7 +915,7 @@
 
     <!-- DAY 2 -->
     <div class="sidebar-section">
-      <div class="day-header" onclick="toggleDay(&apos;day2&apos;)">
+      <div class="day-header" onclick="toggleDay('day2')">
         <span class="day-badge" style="background:var(--blue)">DAY 2</span>
         <span class="day-title">비교방식 심화</span>
         <span class="day-arrow closed" id="arrow-day2">▾</span>
@@ -942,7 +940,7 @@
 
     <!-- DAY 3 -->
     <div class="sidebar-section">
-      <div class="day-header" onclick="toggleDay(&apos;day3&apos;)">
+      <div class="day-header" onclick="toggleDay('day3')">
         <span class="day-badge" style="background:var(--teal)">DAY 3</span>
         <span class="day-title">원가방식 심화</span>
         <span class="day-arrow closed" id="arrow-day3">▾</span>
@@ -967,7 +965,7 @@
 
     <!-- DAY 4 -->
     <div class="sidebar-section">
-      <div class="day-header" onclick="toggleDay(&apos;day4&apos;)">
+      <div class="day-header" onclick="toggleDay('day4')">
         <span class="day-badge" style="background:var(--amber)">DAY 4</span>
         <span class="day-title">수익방식 심화</span>
         <span class="day-arrow closed" id="arrow-day4">▾</span>
@@ -996,7 +994,7 @@
 
     <!-- DAY 5 -->
     <div class="sidebar-section">
-      <div class="day-header" onclick="toggleDay(&apos;day5&apos;)">
+      <div class="day-header" onclick="toggleDay('day5')">
         <span class="day-badge" style="background:var(--purple)">DAY 5</span>
         <span class="day-title">물건 유형별 적용 ①</span>
         <span class="day-arrow closed" id="arrow-day5">▾</span>
@@ -1021,7 +1019,7 @@
 
     <!-- DAY 6 -->
     <div class="sidebar-section">
-      <div class="day-header" onclick="toggleDay(&apos;day6&apos;)">
+      <div class="day-header" onclick="toggleDay('day6')">
         <span class="day-badge" style="background:var(--purple)">DAY 6</span>
         <span class="day-title">물건 유형별 적용 ②</span>
         <span class="day-arrow closed" id="arrow-day6">▾</span>
@@ -1042,7 +1040,7 @@
 
     <!-- DAY 7 -->
     <div class="sidebar-section">
-      <div class="day-header" onclick="toggleDay(&apos;day7&apos;)">
+      <div class="day-header" onclick="toggleDay('day7')">
         <span class="day-badge" style="background:var(--text2)">DAY 7</span>
         <span class="day-title">물건 유형별 적용 ③</span>
         <span class="day-arrow closed" id="arrow-day7">▾</span>
@@ -1067,7 +1065,7 @@
 
     <!-- DAY 8 -->
     <div class="sidebar-section">
-      <div class="day-header" onclick="toggleDay(&apos;day8&apos;)">
+      <div class="day-header" onclick="toggleDay('day8')">
         <span class="day-badge" style="background:var(--text2)">DAY 8</span>
         <span class="day-title">특수 물건</span>
         <span class="day-arrow closed" id="arrow-day8">▾</span>
@@ -1092,7 +1090,7 @@
 
     <!-- DAY 9 -->
     <div class="sidebar-section">
-      <div class="day-header" onclick="toggleDay(&apos;day9&apos;)">
+      <div class="day-header" onclick="toggleDay('day9')">
         <span class="day-badge" style="background:var(--red)">DAY 9</span>
         <span class="day-title">감정평가서 실전 작성</span>
         <span class="day-arrow closed" id="arrow-day9">▾</span>
@@ -1113,7 +1111,7 @@
 
     <!-- DAY 10 -->
     <div class="sidebar-section">
-      <div class="day-header" onclick="toggleDay(&apos;day10&apos;)">
+      <div class="day-header" onclick="toggleDay('day10')">
         <span class="day-badge" style="background:var(--red)">DAY 10</span>
         <span class="day-title">기출문제 풀기</span>
         <span class="day-arrow closed" id="arrow-day10">▾</span>
@@ -1151,9 +1149,8 @@
       </div>
     </div>
   </nav>
+<main>
 
-  <!-- 메인 콘텐츠 -->
-  <main>
 
     <!-- ① 개요 페이지 -->
     <div class="page active" id="page-overview">
@@ -1167,25 +1164,25 @@
       <div class="section">
         <div class="section-title">3방식 한눈에</div>
         <div class="concept-grid">
-          <div class="concept-card blue" onclick="goPage(&apos;comparison&apos;)">
+          <div class="concept-card blue" onclick="goPage('comparison')">
             <div class="card-label blue">① 비교방식</div>
             <div class="card-title">시장에서 찾는다</div>
             <div class="card-body">유사 물건의 실제 거래가격을 기준으로 가액을 산정</div>
             <div class="card-formula">방법: 거래사례비교법 / 공시지가기준법</div>
           </div>
-          <div class="concept-card teal" onclick="goPage(&apos;cost&apos;)">
+          <div class="concept-card teal" onclick="goPage('cost')">
             <div class="card-label teal">② 원가방식</div>
             <div class="card-title">만드는 데 얼마인가</div>
             <div class="card-body">새로 만드는 비용에서 낡은 만큼을 빼는 방식</div>
             <div class="card-formula">방법: 원가법 / 적산법(임대료)</div>
           </div>
-          <div class="concept-card amber" onclick="goPage(&apos;income&apos;)">
+          <div class="concept-card amber" onclick="goPage('income')">
             <div class="card-label amber">③ 수익방식</div>
             <div class="card-title">얼마를 버는가</div>
             <div class="card-body">미래 수익을 현재가치로 환산하여 가액 결정</div>
             <div class="card-formula">방법: 수익환원법 / 수익분석법(임대료)</div>
           </div>
-          <div class="concept-card purple" onclick="goPage(&apos;sisan&apos;)">
+          <div class="concept-card purple" onclick="goPage('sisan')">
             <div class="card-label purple">시산가액 조정</div>
             <div class="card-title">최종 결정</div>
             <div class="card-body">3방식 결과를 조정하여 최종 감정평가액 결정</div>
@@ -1218,7 +1215,7 @@
           <div class="note-title">내 학습 메모 — 개요</div>
         </div>
         <textarea class="note-textarea" id="note-overview" placeholder="이 페이지를 공부하면서 기억할 것들을 적어두세요..."></textarea>
-        <button class="note-save" onclick="saveNote(&apos;overview&apos;)">저장</button>
+        <button class="note-save" data-notekey="overview" onclick="saveNote(this.getAttribute('data-notekey'))">저장</button>
         <div class="saved-notes" id="saved-overview"></div>
       </div>
     </div>
@@ -1309,7 +1306,7 @@
       <div class="note-area">
         <div class="note-header"><div class="note-title">내 학습 메모 — 작성 순서</div></div>
         <textarea class="note-textarea" id="note-report-flow" placeholder="기억할 것들을 적어두세요..."></textarea>
-        <button class="note-save" onclick="saveNote(&apos;report-flow&apos;)">저장</button>
+        <button class="note-save" data-notekey="report-flow" onclick="saveNote(this.getAttribute('data-notekey'))">저장</button>
         <div class="saved-notes" id="saved-report-flow"></div>
       </div>
     </div>
@@ -1369,7 +1366,7 @@
       <div class="note-area">
         <div class="note-header"><div class="note-title">내 학습 메모 — 거래사례비교법</div></div>
         <textarea class="note-textarea" id="note-comparison" placeholder="기억할 것들을 적어두세요..."></textarea>
-        <button class="note-save" onclick="saveNote(&apos;comparison&apos;)">저장</button>
+        <button class="note-save" data-notekey="comparison" onclick="saveNote(this.getAttribute('data-notekey'))">저장</button>
         <div class="saved-notes" id="saved-comparison"></div>
       </div>
     </div>
@@ -1405,7 +1402,7 @@
       <div class="note-area">
         <div class="note-header"><div class="note-title">내 학습 메모 — 공시지가기준법</div></div>
         <textarea class="note-textarea" id="note-pricelist" placeholder="기억할 것들을 적어두세요..."></textarea>
-        <button class="note-save" onclick="saveNote(&apos;pricelist&apos;)">저장</button>
+        <button class="note-save" data-notekey="pricelist" onclick="saveNote(this.getAttribute('data-notekey'))">저장</button>
         <div class="saved-notes" id="saved-pricelist"></div>
       </div>
     </div>
@@ -1455,7 +1452,7 @@
       <div class="note-area">
         <div class="note-header"><div class="note-title">내 학습 메모 — 원가법</div></div>
         <textarea class="note-textarea" id="note-cost" placeholder="기억할 것들을 적어두세요..."></textarea>
-        <button class="note-save" onclick="saveNote(&apos;cost&apos;)">저장</button>
+        <button class="note-save" data-notekey="cost" onclick="saveNote(this.getAttribute('data-notekey'))">저장</button>
         <div class="saved-notes" id="saved-cost"></div>
       </div>
     </div>
@@ -1541,7 +1538,7 @@
       <div class="note-area">
         <div class="note-header"><div class="note-title">내 학습 메모 — 감가수정 3법</div></div>
         <textarea class="note-textarea" id="note-depreciation" placeholder="각 방법의 공식을 직접 써보면서 외워두세요..."></textarea>
-        <button class="note-save" onclick="saveNote(&apos;depreciation&apos;)">저장</button>
+        <button class="note-save" data-notekey="depreciation" onclick="saveNote(this.getAttribute('data-notekey'))">저장</button>
         <div class="saved-notes" id="saved-depreciation"></div>
       </div>
     </div>
@@ -1591,7 +1588,7 @@
       <div class="note-area">
         <div class="note-header"><div class="note-title">내 학습 메모 — 수익환원법</div></div>
         <textarea class="note-textarea" id="note-income" placeholder="기억할 것들을 적어두세요..."></textarea>
-        <button class="note-save" onclick="saveNote(&apos;income&apos;)">저장</button>
+        <button class="note-save" data-notekey="income" onclick="saveNote(this.getAttribute('data-notekey'))">저장</button>
         <div class="saved-notes" id="saved-income"></div>
       </div>
     </div>
@@ -1643,7 +1640,7 @@
       <div class="note-area">
         <div class="note-header"><div class="note-title">내 학습 메모 — 시산가액</div></div>
         <textarea class="note-textarea" id="note-sisan" placeholder="기억할 것들을 적어두세요..."></textarea>
-        <button class="note-save" onclick="saveNote(&apos;sisan&apos;)">저장</button>
+        <button class="note-save" data-notekey="sisan" onclick="saveNote(this.getAttribute('data-notekey'))">저장</button>
         <div class="saved-notes" id="saved-sisan"></div>
       </div>
     </div>
@@ -1718,7 +1715,7 @@
       <div class="note-area">
         <div class="note-header"><div class="note-title">내 학습 메모 — 요인비교표</div></div>
         <textarea class="note-textarea" id="note-day2-factor" placeholder="기억할 것들을 적어두세요..."></textarea>
-        <button class="note-save" onclick="saveNote(&apos;day2-factor&apos;)">저장</button>
+        <button class="note-save" data-notekey="day2-factor" onclick="saveNote(this.getAttribute('data-notekey'))">저장</button>
         <div class="saved-notes" id="saved-day2-factor"></div>
       </div>
     </div>
@@ -1814,7 +1811,7 @@
       <div class="note-area">
         <div class="note-header"><div class="note-title">내 학습 메모 — 그 밖의 요인</div></div>
         <textarea class="note-textarea" id="note-day2-pricelist2" placeholder="기억할 것들을 적어두세요..."></textarea>
-        <button class="note-save" onclick="saveNote(&apos;day2-pricelist2&apos;)">저장</button>
+        <button class="note-save" data-notekey="day2-pricelist2" onclick="saveNote(this.getAttribute('data-notekey'))">저장</button>
         <div class="saved-notes" id="saved-day2-pricelist2"></div>
       </div>
     </div>
@@ -1897,7 +1894,7 @@
       <div class="note-area">
         <div class="note-header"><div class="note-title">내 학습 메모 — 토지 평가 종합</div></div>
         <textarea class="note-textarea" id="note-day2-land" placeholder="기억할 것들을 적어두세요..."></textarea>
-        <button class="note-save" onclick="saveNote(&apos;day2-land&apos;)">저장</button>
+        <button class="note-save" data-notekey="day2-land" onclick="saveNote(this.getAttribute('data-notekey'))">저장</button>
         <div class="saved-notes" id="saved-day2-land"></div>
       </div>
     </div>
@@ -1989,7 +1986,7 @@
       <div class="note-area">
         <div class="note-header"><div class="note-title">내 학습 메모 — 감가수정 3법</div></div>
         <textarea class="note-textarea" id="note-day3-depreciation" placeholder="공식을 직접 써보면서 외워두세요..."></textarea>
-        <button class="note-save" onclick="saveNote(&apos;day3-depreciation&apos;)">저장</button>
+        <button class="note-save" data-notekey="day3-depreciation" onclick="saveNote(this.getAttribute('data-notekey'))">저장</button>
         <div class="saved-notes" id="saved-day3-depreciation"></div>
       </div>
     </div>
@@ -2034,7 +2031,7 @@
       <div class="note-area">
         <div class="note-header"><div class="note-title">내 학습 메모 — 재조달원가 산정</div></div>
         <textarea class="note-textarea" id="note-day3-recon" placeholder="기억할 것들을 적어두세요..."></textarea>
-        <button class="note-save" onclick="saveNote(&apos;day3-recon&apos;)">저장</button>
+        <button class="note-save" data-notekey="day3-recon" onclick="saveNote(this.getAttribute('data-notekey'))">저장</button>
         <div class="saved-notes" id="saved-day3-recon"></div>
       </div>
     </div>
@@ -2147,7 +2144,7 @@
       <div class="note-area">
         <div class="note-header"><div class="note-title">내 학습 메모 — 건물 평가 종합</div></div>
         <textarea class="note-textarea" id="note-day3-building" placeholder="기억할 것들을 적어두세요..."></textarea>
-        <button class="note-save" onclick="saveNote(&apos;day3-building&apos;)">저장</button>
+        <button class="note-save" data-notekey="day3-building" onclick="saveNote(this.getAttribute('data-notekey'))">저장</button>
         <div class="saved-notes" id="saved-day3-building"></div>
       </div>
     </div>
@@ -2210,7 +2207,7 @@
       <div class="note-area">
         <div class="note-header"><div class="note-title">내 학습 메모 — NOI 산정</div></div>
         <textarea class="note-textarea" id="note-day4-noi" placeholder="기억할 것들을 적어두세요..."></textarea>
-        <button class="note-save" onclick="saveNote(&apos;day4-noi&apos;)">저장</button>
+        <button class="note-save" data-notekey="day4-noi" onclick="saveNote(this.getAttribute('data-notekey'))">저장</button>
         <div class="saved-notes" id="saved-day4-noi"></div>
       </div>
     </div>
@@ -2322,7 +2319,7 @@
       <div class="note-area">
         <div class="note-header"><div class="note-title">내 학습 메모 — 환원이율</div></div>
         <textarea class="note-textarea" id="note-day4-caprate" placeholder="기억할 것들을 적어두세요..."></textarea>
-        <button class="note-save" onclick="saveNote(&apos;day4-caprate&apos;)">저장</button>
+        <button class="note-save" data-notekey="day4-caprate" onclick="saveNote(this.getAttribute('data-notekey'))">저장</button>
         <div class="saved-notes" id="saved-day4-caprate"></div>
       </div>
     </div>
@@ -2393,7 +2390,7 @@
       <div class="note-area">
         <div class="note-header"><div class="note-title">내 학습 메모 — DCF법</div></div>
         <textarea class="note-textarea" id="note-day4-dcf" placeholder="기억할 것들을 적어두세요..."></textarea>
-        <button class="note-save" onclick="saveNote(&apos;day4-dcf&apos;)">저장</button>
+        <button class="note-save" data-notekey="day4-dcf" onclick="saveNote(this.getAttribute('data-notekey'))">저장</button>
         <div class="saved-notes" id="saved-day4-dcf"></div>
       </div>
     </div>
@@ -2519,7 +2516,7 @@
       <div class="note-area">
         <div class="note-header"><div class="note-title">내 학습 메모 — 수익성 부동산 종합</div></div>
         <textarea class="note-textarea" id="note-day4-income" placeholder="기억할 것들을 적어두세요..."></textarea>
-        <button class="note-save" onclick="saveNote(&apos;day4-income&apos;)">저장</button>
+        <button class="note-save" data-notekey="day4-income" onclick="saveNote(this.getAttribute('data-notekey'))">저장</button>
         <div class="saved-notes" id="saved-day4-income"></div>
       </div>
     </div>
@@ -2593,7 +2590,7 @@
       <div class="note-area">
         <div class="note-header"><div class="note-title">내 학습 메모 — 토지 평가</div></div>
         <textarea class="note-textarea" id="note-day5-land" placeholder="기억할 것들을 적어두세요..."></textarea>
-        <button class="note-save" onclick="saveNote(&apos;day5-land&apos;)">저장</button>
+        <button class="note-save" data-notekey="day5-land" onclick="saveNote(this.getAttribute('data-notekey'))">저장</button>
         <div class="saved-notes" id="saved-day5-land"></div>
       </div>
     </div>
@@ -2652,7 +2649,7 @@
       <div class="note-area">
         <div class="note-header"><div class="note-title">내 학습 메모 — 건물 평가</div></div>
         <textarea class="note-textarea" id="note-day5-building" placeholder="기억할 것들을 적어두세요..."></textarea>
-        <button class="note-save" onclick="saveNote(&apos;day5-building&apos;)">저장</button>
+        <button class="note-save" data-notekey="day5-building" onclick="saveNote(this.getAttribute('data-notekey'))">저장</button>
         <div class="saved-notes" id="saved-day5-building"></div>
       </div>
     </div>
@@ -2728,7 +2725,7 @@
       <div class="note-area">
         <div class="note-header"><div class="note-title">내 학습 메모 — 복합부동산 평가</div></div>
         <textarea class="note-textarea" id="note-day5-complex" placeholder="기억할 것들을 적어두세요..."></textarea>
-        <button class="note-save" onclick="saveNote(&apos;day5-complex&apos;)">저장</button>
+        <button class="note-save" data-notekey="day5-complex" onclick="saveNote(this.getAttribute('data-notekey'))">저장</button>
         <div class="saved-notes" id="saved-day5-complex"></div>
       </div>
     </div>
@@ -3189,10 +3186,9 @@
 
     </div>
 
-  </main>
-
-  <!-- 오른쪽 패널 -->
-  <aside class="right-panel">
+  
+</main>
+<aside class="right-panel">
     <div class="panel-title">학습 진행</div>
 
     <div class="progress-wrap">
@@ -3243,106 +3239,87 @@
       <span class="tag purple">조정</span>
     </div>
   </aside>
-
 </div>
-
 <script>
-  // 날짜
-  var d = new Date();
-  document.getElementById('today-date').textContent =
-    d.getFullYear() + '.' + String(d.getMonth()+1).padStart(2,'0') + '.' + String(d.getDate()).padStart(2,'0');
 
-  // 페이지 전환
+  var today = new Date();
+  document.getElementById('today-date').textContent =
+    today.getFullYear() + '.' + String(today.getMonth()+1).padStart(2,'0') + '.' + String(today.getDate()).padStart(2,'0');
+
   function goPage(id) {
     if (!id) return;
-    var pages = document.querySelectorAll('.page');
-    for (var i=0; i<pages.length; i++) pages[i].classList.remove('active');
-    var navs = document.querySelectorAll('.nav-item');
-    for (var i=0; i<navs.length; i++) navs[i].classList.remove('active');
-    var page = document.getElementById('page-' + id);
-    if (!page) return;
-    page.classList.add('active');
-    var nav = document.querySelector('[data-page="' + id + '"]');
-    if (nav) {
-      nav.classList.add('active');
-      var dot = nav.querySelector('.nav-dot');
-      if (dot) dot.style.background = getNavColor(id);
+    var allPages = document.querySelectorAll('.page');
+    for (var i = 0; i < allPages.length; i++) allPages[i].classList.remove('active');
+    var allNavs = document.querySelectorAll('.nav-item');
+    for (var i = 0; i < allNavs.length; i++) allNavs[i].classList.remove('active');
+    var target = document.getElementById('page-' + id);
+    if (!target) return;
+    target.classList.add('active');
+    var navEl = document.querySelector('[data-page="' + id + '"]');
+    if (navEl) {
+      navEl.classList.add('active');
+      var dot = navEl.querySelector('.nav-dot');
+      if (dot) dot.style.background = getColor(id);
     }
     window.scrollTo(0, 0);
   }
 
-  function getNavColor(id) {
-    var m = {
-      'comparison':'var(--blue)','pricelist':'var(--blue)',
-      'cost':'var(--teal)','depreciation':'var(--teal)',
-      'income':'var(--amber)','sisan':'var(--purple)',
-      'cheatsheet':'var(--red)','glossary':'var(--teal)','formulas':'var(--blue)',
-      'day2-factor':'var(--blue)','day2-pricelist2':'var(--blue)','day2-land':'var(--blue)',
-      'day3-depreciation':'var(--teal)','day3-recon':'var(--teal)','day3-building':'var(--teal)',
-      'day4-noi':'var(--amber)','day4-caprate':'var(--amber)','day4-dcf':'var(--amber)','day4-income':'var(--amber)',
-      'day5-land':'var(--purple)','day5-building':'var(--purple)','day5-complex':'var(--purple)'
-    };
-    return m[id] || 'var(--accent)';
+  function getColor(id) {
+    var blue = ['comparison','pricelist','day2-factor','day2-pricelist2','day2-land','formulas'];
+    var teal = ['cost','depreciation','day3-depreciation','day3-recon','day3-building','glossary'];
+    var amber = ['income','day4-noi','day4-caprate','day4-dcf','day4-income'];
+    var purple = ['sisan','day5-land','day5-building','day5-complex'];
+    if (blue.indexOf(id) > -1) return 'var(--blue)';
+    if (teal.indexOf(id) > -1) return 'var(--teal)';
+    if (amber.indexOf(id) > -1) return 'var(--amber)';
+    if (purple.indexOf(id) > -1) return 'var(--purple)';
+    if (id === 'cheatsheet') return 'var(--red)';
+    return 'var(--accent)';
   }
 
-  // nav 클릭
-  var navItems = document.querySelectorAll('.nav-item');
-  for (var i=0; i<navItems.length; i++) {
-    navItems[i].addEventListener('click', function() {
-      var p = this.getAttribute('data-page');
-      if (p) goPage(p);
-    });
-  }
-
-  // DAY 토글
   function toggleDay(id) {
-    var c = document.getElementById(id);
-    var a = document.getElementById('arrow-' + id);
-    if (c) c.classList.toggle('closed');
-    if (a) a.classList.toggle('closed');
+    var el = document.getElementById(id);
+    var ar = document.getElementById('arrow-' + id);
+    if (el) el.classList.toggle('closed');
+    if (ar) ar.classList.toggle('closed');
   }
 
-  // 메모 저장
   function saveNote(key) {
     var el = document.getElementById('note-' + key);
     if (!el || !el.value.trim()) return;
     var notes = JSON.parse(localStorage.getItem('notes-' + key) || '[]');
-    notes.push({text: el.value.trim(), date: new Date().toLocaleString('ko-KR')});
+    notes.push({ text: el.value.trim(), date: new Date().toLocaleString('ko-KR') });
     localStorage.setItem('notes-' + key, JSON.stringify(notes));
     el.value = '';
     showNotes(key);
   }
 
-  // 메모 표시
   function showNotes(key) {
     var box = document.getElementById('saved-' + key);
     if (!box) return;
     var notes = JSON.parse(localStorage.getItem('notes-' + key) || '[]');
     box.innerHTML = '';
-    for (var i=0; i<notes.length; i++) {
-      var div = document.createElement('div');
-      div.className = 'saved-note-item';
-      var dateDiv = document.createElement('div');
-      dateDiv.className = 'note-date';
-      dateDiv.textContent = notes[i].date;
-      div.appendChild(dateDiv);
-      var textDiv = document.createElement('span');
-      textDiv.textContent = notes[i].text;
-      div.appendChild(textDiv);
-      var btn = document.createElement('button');
-      btn.className = 'note-del';
-      btn.textContent = '×';
-      btn.setAttribute('data-key', key);
-      btn.setAttribute('data-idx', i);
-      btn.onclick = function() {
-        delNote(this.getAttribute('data-key'), parseInt(this.getAttribute('data-idx')));
-      };
-      div.appendChild(btn);
-      box.appendChild(div);
+    for (var i = 0; i < notes.length; i++) {
+      var wrap = document.createElement('div');
+      wrap.className = 'saved-note-item';
+      var dt = document.createElement('div');
+      dt.className = 'note-date';
+      dt.textContent = notes[i].date;
+      wrap.appendChild(dt);
+      var tx = document.createElement('p');
+      tx.textContent = notes[i].text;
+      wrap.appendChild(tx);
+      (function(k, idx) {
+        var btn = document.createElement('button');
+        btn.className = 'note-del';
+        btn.textContent = 'x';
+        btn.onclick = function() { delNote(k, idx); };
+        wrap.appendChild(btn);
+      })(key, i);
+      box.appendChild(wrap);
     }
   }
 
-  // 메모 삭제
   function delNote(key, idx) {
     var notes = JSON.parse(localStorage.getItem('notes-' + key) || '[]');
     notes.splice(idx, 1);
@@ -3350,9 +3327,17 @@
     showNotes(key);
   }
 
-  // 초기화
-  goPage('overview');
-</script>
+  // nav 클릭 이벤트
+  var items = document.querySelectorAll('.nav-item');
+  for (var i = 0; i < items.length; i++) {
+    items[i].addEventListener('click', function() {
+      var p = this.getAttribute('data-page');
+      if (p) goPage(p);
+    });
+  }
 
+  goPage('overview');
+
+</script>
 </body>
 </html>
