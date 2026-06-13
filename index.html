@@ -3450,14 +3450,14 @@
     showNotes(key);
   }
 
-  // nav 클릭 이벤트
-  var items = document.querySelectorAll('.nav-item');
-  for (var i = 0; i < items.length; i++) {
-    items[i].addEventListener('click', function() {
-      var p = this.getAttribute('data-page');
+  // nav 클릭 이벤트 (이벤트 위임 방식 - 토글로 펼쳐진 메뉴도 감지)
+  document.querySelector('.sidebar').addEventListener('click', function(e) {
+    var item = e.target.closest('.nav-item');
+    if (item) {
+      var p = item.getAttribute('data-page');
       if (p) goPage(p);
-    });
-  }
+    }
+  });
 
   goPage('overview');
 
