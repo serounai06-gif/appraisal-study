@@ -1478,7 +1478,7 @@
             </tr>
             <tr>
               <td>정률법</td>
-              <td style="font-family:var(--mono);font-size:13.5px;color:var(--teal)">잔존가액 = 재조달원가 × (1−r)ⁿ</td>
+              <td style="font-family:var(--mono);font-size:13.5px;color:var(--teal)">잔존가액 = 재조달원가 × (1−r)^n</td>
               <td>초기에 감가 많고 점점 줄어듦</td>
             </tr>
             <tr>
@@ -1495,7 +1495,7 @@
         <div class="formula-block">
           <div class="formula-label">상환기금계수 공식</div>
           <div class="formula-text">
-            상환기금계수 <span class="op">= </span>r <span class="op">÷</span> [(1+r)ⁿ <span class="op">−</span> 1]<br>
+            상환기금계수 <span class="op">= </span>r <span class="op">÷</span> [(1+r)^n <span class="op">−</span> 1]<br>
             <br>
             매년 감가액 <span class="op">= </span>재조달원가 <span class="op">×</span> 상환기금계수
           </div>
@@ -1524,7 +1524,7 @@
           <div class="formula-label">한눈에 보기</div>
           <div class="formula-text">
             정액법 &nbsp;&nbsp;&nbsp;&nbsp; <span class="op">→ </span>재조달원가 <span class="op">÷</span> 내용연수<br>
-            정률법 &nbsp;&nbsp;&nbsp;&nbsp; <span class="op">→ </span>재조달원가 <span class="op">×</span> (1−r)ⁿ 으로 잔존가액 계산<br>
+            정률법 &nbsp;&nbsp;&nbsp;&nbsp; <span class="op">→ </span>재조달원가 <span class="op">×</span> (1−r)^n 으로 잔존가액 계산<br>
             상환기금법 <span class="op">→ </span>재조달원가 <span class="op">×</span> 상환기금계수
           </div>
         </div>
@@ -1532,7 +1532,7 @@
 
       <div class="tip">
         <div class="tip-label">시험 포인트</div>
-        정률법과 상환기금법은 공식이 헷갈리기 쉽습니다. 정률법은 "(1−감가율)ⁿ"으로 잔존가액을 구하는 것, 상환기금법은 기금계수를 이용한다는 구조적 차이를 먼저 이해하세요.
+        정률법과 상환기금법은 공식이 헷갈리기 쉽습니다. 정률법은 "(1−감가율)^n"으로 잔존가액을 구하는 것, 상환기금법은 기금계수를 이용한다는 구조적 차이를 먼저 이해하세요.
       </div>
 
       <div class="note-area">
@@ -1932,7 +1932,7 @@
         <div class="formula-block">
           <div class="formula-label">정률법 산식</div>
           <div class="formula-text">
-            적산가액 <span class="op">= </span>재조달원가 <span class="op">×</span> (1<span class="op">−</span>r)ⁿ<br>
+            적산가액 <span class="op">= </span>재조달원가 <span class="op">×</span> (1<span class="op">−</span>r)^n<br>
             r <span class="op">= </span>감가율 &nbsp;&nbsp; n <span class="op">= </span>경과연수
           </div>
         </div>
@@ -1948,7 +1948,7 @@
         </div>
         <div class="tip">
           <div class="tip-label">정률법 핵심 포인트</div>
-          잔존가액 = 재조달원가 × <strong>(1−r)ⁿ</strong> — n은 내용연수가 아니라 <strong>경과연수!</strong>
+          잔존가액 = 재조달원가 × <strong>(1−r)^n</strong> — n은 내용연수가 아니라 <strong>경과연수!</strong>
         </div>
       </div>
 
@@ -1958,7 +1958,7 @@
           <div class="formula-label">상환기금법 산식</div>
           <div class="formula-text">
             매년 감가액 <span class="op">= </span>재조달원가 <span class="op">×</span> 상환기금계수<br>
-            상환기금계수 <span class="op">= </span>r <span class="op">÷</span> [(1<span class="op">+</span>r)ⁿ <span class="op">−</span> 1]<br>
+            상환기금계수 <span class="op">= </span>r <span class="op">÷</span> [(1<span class="op">+</span>r)^n <span class="op">−</span> 1]<br>
             r <span class="op">= </span>적립이율 &nbsp;&nbsp; n <span class="op">= </span>내용연수
           </div>
         </div>
@@ -2088,7 +2088,7 @@
           <div class="formula-text">
             정액법 &nbsp;&nbsp;&nbsp;&nbsp; <span class="op">→ </span>매년 감가액 × 경과연수 = 감가누계액 → 재조달원가 − 감가누계액<br>
             상환기금법 <span class="op">→ </span>매년 감가액 × 경과연수 = 감가누계액 → 재조달원가 − 감가누계액<br>
-            정률법 &nbsp;&nbsp;&nbsp;&nbsp; <span class="op">→ </span>재조달원가 × (1−r)ⁿ = 적산가액 <strong>(바로!)</strong>
+            정률법 &nbsp;&nbsp;&nbsp;&nbsp; <span class="op">→ </span>재조달원가 × (1−r)^n = 적산가액 <strong>(바로!)</strong>
           </div>
         </div>
         <div class="tip">
@@ -2376,7 +2376,7 @@
         <div class="formula-block">
           <div class="formula-label">DCF법 기본 구조</div>
           <div class="formula-text">
-            수익가액 <span class="op">= </span>Σ [NOIₜ <span class="op">÷</span> (1<span class="op">+</span>r)ᵗ] <span class="op">+</span> 기말복귀가액 <span class="op">÷</span> (1<span class="op">+</span>r)ⁿ<br><br>
+            수익가액 <span class="op">= </span>&#x03A3; [NOI(t) <span class="op">&#247;</span> (1<span class="op">+</span>r)^t] <span class="op">+</span> 기말복귀가액 <span class="op">&#247;</span> (1<span class="op">+</span>r)^n<br><br>
             r <span class="op">= </span>할인율 &nbsp;&nbsp; t <span class="op">= </span>연도 &nbsp;&nbsp; n <span class="op">= </span>보유기간
           </div>
         </div>
@@ -3050,7 +3050,7 @@
             <div class="formula-card-title">정률법</div>
             <div class="formula-card-body">
               적산가액<br>
-              = 재조달원가 × (1−r)ⁿ<br><br>
+              = 재조달원가 × (1−r)^n<br><br>
               r = 감가율<br>
               n = 경과연수<br>
               ※ 바로 적산가액!
@@ -3063,7 +3063,7 @@
               매년 감가액<br>
               = 재조달원가 × 상환기금계수<br><br>
               상환기금계수<br>
-              = r ÷ [(1+r)ⁿ − 1]
+              = r ÷ [(1+r)^n − 1]
             </div>
           </div>
 
@@ -3119,7 +3119,7 @@
             <div class="formula-card-title">DCF법 (Discounted Cash Flow)</div>
             <div class="formula-card-body">
               수익가액<br>
-              = Σ [NOIₜ ÷ (1+r)ᵗ] + 기말복귀가액 ÷ (1+r)ⁿ<br><br>
+              = &#x03A3; [NOI(t) ÷ (1+r)^t] + 기말복귀가액 ÷ (1+r)^n<br><br>
               r = 할인율 / t = 연도 / n = 보유기간<br>
               ※ 매년 받을 NOI + 팔 때 받는 돈을 전부 현재가치로 환산
             </div>
@@ -3220,7 +3220,7 @@
           </div>
           <div class="cheat-row">
             <span class="cheat-name">정률법</span>
-            <span class="cheat-formula">잔존가액 = 재조달원가 × (1−r)ⁿ / 초기 감가 많음</span>
+            <span class="cheat-formula">잔존가액 = 재조달원가 × (1−r)^n / 초기 감가 많음</span>
           </div>
           <div class="cheat-row">
             <span class="cheat-name">상환기금법</span>
@@ -3269,7 +3269,7 @@
         <div class="cheat-warns">
           <div class="cheat-warn">토지 평가 시 <strong>공시지가기준법은 필수</strong> — 빠뜨리면 감점</div>
           <div class="cheat-warn"><strong>시산가액 ≠ 감정평가액</strong> — 조정 근거 서술 없으면 감점</div>
-          <div class="cheat-warn">정률법 공식: 잔존가액 = 재조달원가 × <strong>(1−r)ⁿ</strong> (n = 경과연수)</div>
+          <div class="cheat-warn">정률법 공식: 잔존가액 = 재조달원가 × <strong>(1−r)^n</strong> (n = 경과연수)</div>
           <div class="cheat-warn">NOI 산정 순서: PGI → EGI → NOI (<strong>공실 빼고 경비 빼는 순서</strong> 주의)</div>
           <div class="cheat-warn">시점수정: 지가 상승 3% → <strong>×1.03</strong> / 하락 3% → <strong>×0.97</strong></div>
         </div>
