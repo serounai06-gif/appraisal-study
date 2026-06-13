@@ -1025,12 +1025,12 @@
         <span class="day-arrow closed" id="arrow-day6">▾</span>
       </div>
       <div class="day-children closed" id="day6">
-        <div class="nav-item coming">
-          <div class="nav-dot" style="background:var(--border2)"></div>
+        <div class="nav-item" data-page="day6-apartment">
+          <div class="nav-dot" style="background:var(--purple)"></div>
           구분건물 (집합건물·아파트)
         </div>
-        <div class="nav-item coming">
-          <div class="nav-dot" style="background:var(--border2)"></div>
+        <div class="nav-item" data-page="day6-rent">
+          <div class="nav-dot" style="background:var(--purple)"></div>
           임대료 평가
         </div>
       </div>
@@ -2727,6 +2727,129 @@
         <textarea class="note-textarea" id="note-day5-complex" placeholder="기억할 것들을 적어두세요..."></textarea>
         <button class="note-save" data-notekey="day5-complex" onclick="saveNote(this.getAttribute('data-notekey'))">저장</button>
         <div class="saved-notes" id="saved-day5-complex"></div>
+      </div>
+    </div>
+
+    <!-- DAY 6 — 구분건물 -->
+    <div class="page" id="page-day6-apartment">
+      <div class="page-header">
+        <div class="page-tag">DAY 6 · 물건 유형별 적용 ②</div>
+        <div class="page-title">구분건물 (집합건물·아파트)</div>
+        <div class="page-desc">아파트·오피스텔·상가 등 집합건물의 한 호수를 평가하는 방법이에요. 토지·건물을 따로 나누지 않고 전체를 하나로 봐요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">구분건물이란?</div>
+        <p style="font-size:15px;color:var(--text2);line-height:1.8">
+          아파트 301호, 오피스텔 502호처럼 <span class="hl">건물의 일부를 독립적으로 소유</span>하는 형태예요.
+          토지는 대지권 형태로 지분만 가지고, 건물 부분만 독립적으로 거래돼요.
+        </p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">구분건물 평가 방법</div>
+        <table class="study-table">
+          <thead><tr><th>방법</th><th>내용</th><th>비고</th></tr></thead>
+          <tbody>
+            <tr><td>거래사례비교법</td><td>유사 아파트 거래사례와 비교</td><td>주된 방법 (시장성 반영)</td></tr>
+            <tr><td>원가법</td><td>토지 + 건물 원가 합산 후 대지권 비율 적용</td><td>보조 방법</td></tr>
+            <tr><td>수익환원법</td><td>임대수익 기준 (수익형 구분건물)</td><td>오피스텔·상가에 적용</td></tr>
+          </tbody>
+        </table>
+        <div class="tip">
+          <div class="tip-label">핵심 포인트</div>
+          아파트 등 주거용 구분건물 → <strong>거래사례비교법이 주된 방법!</strong><br>
+          토지·건물 따로 계산하지 않고 <strong>전체를 하나의 물건</strong>으로 봐요.
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">거래사례비교법 적용 시 개별요인</div>
+        <table class="study-table">
+          <thead><tr><th>항목</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td>층별효용</td><td>고층일수록 우세 (조망·일조 등)</td></tr>
+            <tr><td>향별효용</td><td>남향 > 동향 > 서향 > 북향</td></tr>
+            <tr><td>위치별효용</td><td>엘리베이터 근접, 소음 등</td></tr>
+            <tr><td>면적</td><td>전용면적·공급면적 구분 주의</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 구분건물</div></div>
+        <textarea class="note-textarea" id="note-day6-apartment" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day6-apartment')">저장</button>
+        <div class="saved-notes" id="saved-day6-apartment"></div>
+      </div>
+    </div>
+
+    <!-- DAY 6 — 임대료 평가 -->
+    <div class="page" id="page-day6-rent">
+      <div class="page-header">
+        <div class="page-tag">DAY 6 · 물건 유형별 적용 ②</div>
+        <div class="page-title">임대료 평가</div>
+        <div class="page-desc">부동산을 빌려줄 때 받는 임대료를 평가하는 방법. 3가지 방법을 모두 적용해요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">임대료 평가 3가지 방법</div>
+        <table class="study-table">
+          <thead><tr><th>방법</th><th>산식</th><th>특징</th></tr></thead>
+          <tbody>
+            <tr><td>적산법</td><td>기초가액 × 기대이율 + 필요제경비</td><td>원가방식 / 주된 방법</td></tr>
+            <tr><td>임대사례비교법</td><td>사례임대료 × 각종 보정치</td><td>비교방식</td></tr>
+            <tr><td>수익분석법</td><td>총수익 − 필요제경비 = 순수익</td><td>수익방식</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">적산법 상세</div>
+        <div class="formula-block">
+          <div class="formula-label">적산법 산식</div>
+          <div class="formula-text">
+            임대료 = 기초가액 × 기대이율 + 필요제경비<br><br>
+            기초가액 = 감정평가액 (토지+건물)<br>
+            기대이율 = 임대인이 기대하는 수익률<br>
+            필요제경비 = 감가상각비 + 유지관리비 + 손해보험료 + 공조공과
+          </div>
+        </div>
+        <div class="example">
+          <div class="example-label">계산 예시</div>
+          <div class="example-body">
+            기초가액: <strong>500,000,000원</strong><br>
+            기대이율: <strong>4%</strong><br>
+            필요제경비: <strong>5,000,000원</strong><br><br>
+            임대료 = 500,000,000 × 0.04 + 5,000,000<br>
+            = 20,000,000 + 5,000,000<br>
+            = <strong class="hl">25,000,000원 (연간)</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">신규임대료 vs 계속임대료</div>
+        <table class="study-table">
+          <thead><tr><th>구분</th><th>내용</th><th>평가 방법</th></tr></thead>
+          <tbody>
+            <tr><td>신규임대료</td><td>새로 계약하는 임대료</td><td>3가지 방법 모두 적용</td></tr>
+            <tr><td>계속임대료</td><td>기존 계약 갱신 시 임대료</td><td>기존 임대료 기준으로 보정</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">시험 포인트</div>
+        임대료 = <strong>적산법이 주된 방법!</strong><br>
+        필요제경비 항목 꼭 기억: 감가상각비 + 유지관리비 + 손해보험료 + 공조공과
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 임대료 평가</div></div>
+        <textarea class="note-textarea" id="note-day6-rent" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day6-rent')">저장</button>
+        <div class="saved-notes" id="saved-day6-rent"></div>
       </div>
     </div>
 
