@@ -3307,6 +3307,8 @@
   }
 
   function loadNotes(key) {
+    const container = document.getElementById('saved-' + key);
+    if (!container) return;
     renderNotes(key);
   }
 
