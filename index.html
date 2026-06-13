@@ -3317,9 +3317,17 @@
     var container = document.getElementById('saved-' + key);
     if (!container) return;
     var notes = JSON.parse(localStorage.getItem('notes-' + key) || '[]');
-    container.innerHTML = notes.map(function(n, i) {
-      return '<div class="saved-note-item"><div class="note-date">'+n.date+'</div>'+n.text.split('\n').join('<br>')+'<button class="note-del" onclick="deleteNote(''+ key +'','+i+')">×</button></div>';
-    }).join('');
+    var html = '';
+    for (var i = 0; i < notes.length; i++) {
+      var n = notes[i];
+      var txt = n.text.split('\n').join('<br>');
+      html += '<div class="saved-note-item">';
+      html += '<div class="note-date">' + n.date + '</div>';
+      html += txt;
+      html += '<button class="note-del" onclick="deleteNote(' + "'" + key + "'" + ',' + i + ')">×</button>';
+      html += '</div>';
+    }
+    container.innerHTML = html;
   }
 
   function deleteNote(key, i) {
