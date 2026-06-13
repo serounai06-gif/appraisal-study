@@ -1,0 +1,3355 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>감정평가실무 학습노트</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fdf8f5;
+    --surface: #ffffff;
+    --surface2: #fef0f0;
+    --border: #f0e4dc;
+    --border2: #e8d4cc;
+    --text: #3d2e2e;
+    --text2: #7a6060;
+    --text3: #b8a0a0;
+    --blue: #7bafd4;
+    --blue-dim: #e8f2f9;
+    --teal: #7fc4b4;
+    --teal-dim: #e4f5f1;
+    --amber: #e8956d;
+    --amber-dim: #fdf0ea;
+    --purple: #b49fd4;
+    --purple-dim: #f0ecf9;
+    --red: #e87878;
+    --accent: #e8956d;
+    --mono: 'JetBrains Mono', monospace;
+    --serif: 'Noto Serif KR', serif;
+    --sans: 'Noto Sans KR', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── 헤더 ── */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 100;
+  }
+  .logo {
+    font-family: var(--serif);
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: var(--text);
+  }
+  .logo span { color: var(--accent); }
+  .header-meta {
+    font-size: 13.5px;
+    color: var(--text3);
+    font-family: var(--mono);
+  }
+
+  /* ── 레이아웃 ── */
+  .layout {
+    display: grid;
+    grid-template-columns: 220px 1fr 340px;
+    min-height: calc(100vh - 56px);
+  }
+
+  .nav-item.coming {
+    opacity: 0.45;
+    cursor: default;
+    pointer-events: none;
+  }
+  .nav-item.coming::after {
+    content: '준비중';
+    font-size: 9px;
+    font-family: var(--mono);
+    color: var(--text3);
+    background: var(--border);
+    border-radius: 3px;
+    padding: 1px 5px;
+    margin-left: auto;
+  }
+
+  /* ── DAY 토글 ── */
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+    border-radius: 6px;
+    margin: 0 6px;
+  }
+  .day-header:hover { background: var(--border); }
+  .day-badge {
+    font-size: 10px;
+    font-family: var(--mono);
+    font-weight: 700;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px 7px;
+    flex-shrink: 0;
+    letter-spacing: 0.5px;
+  }
+  .day-title {
+    font-size: 13.5px;
+    color: var(--text);
+    font-weight: 500;
+    flex: 1;
+    line-height: 1.3;
+  }
+  .day-arrow {
+    font-size: 13.5px;
+    color: var(--text3);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .day-arrow.closed { transform: rotate(-90deg); }
+  .day-children {
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    max-height: 600px;
+  }
+  .day-children.closed { max-height: 0; }
+  .day-children .nav-item { padding-left: 28px; font-size: 14.5px; }
+
+  /* ── 사이드바 (왼쪽) ── */
+  .sidebar {
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    position: sticky;
+    top: 56px;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+  }
+  .sidebar-section {
+    margin-bottom: 8px;
+  }
+  .sidebar-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text3);
+    padding: 0 20px 8px;
+    font-family: var(--mono);
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 20px;
+    cursor: pointer;
+    border-left: 2px solid transparent;
+    transition: all 0.15s;
+    color: var(--text2);
+    font-size: 15px;
+  }
+  .nav-item:hover { background: var(--surface); color: var(--text); }
+  .nav-item.active {
+    border-left-color: var(--accent);
+    background: var(--surface);
+    color: var(--text);
+  }
+  .nav-dot {
+    width: 6px; height: 6px;
+    
+    flex-shrink: 0;
+  }
+  .nav-item.active .nav-dot { background: var(--accent); }
+  .nav-divider { height: 1px; background: var(--border); margin: 12px 0; }
+
+  /* ── 메인 콘텐츠 ── */
+  main {
+    padding: 40px 48px;
+    max-width: 100%;
+  }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .page-header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .page-tag {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--accent);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .page-title {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+  }
+  .page-desc {
+    color: var(--text2);
+    font-size: 15.5px;
+    line-height: 1.7;
+  }
+
+  /* ── 개념 카드 ── */
+  .concept-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .concept-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .concept-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+  }
+  .concept-card.blue::before { background: var(--blue); }
+  .concept-card.teal::before { background: var(--teal); }
+  .concept-card.amber::before { background: var(--amber); }
+  .concept-card.purple::before { background: var(--purple); }
+  .concept-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-1px);
+  }
+  .card-label {
+    font-size: 10px;
+    font-family: var(--mono);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .card-label.blue { color: var(--blue); }
+  .card-label.teal { color: var(--teal); }
+  .card-label.amber { color: var(--amber); }
+  .card-label.purple { color: var(--purple); }
+  .card-title {
+    font-size: 17px;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .card-body {
+    font-size: 15.5px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+  .card-formula {
+    margin-top: 10px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-family: var(--mono);
+    font-size: 13.5px;
+    color: var(--accent);
+  }
+
+  /* ── 섹션 ── */
+  .section {
+    margin-bottom: 32px;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── 흐름도 (텍스트) ── */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 20px;
+  }
+  .flow-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 2px;
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+  .flow-item:hover { border-color: var(--border2); background: var(--surface2); }
+  .flow-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    background: var(--amber-dim);
+    border: 1px solid var(--amber);
+    border-radius: 4px;
+    padding: 2px 7px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .flow-arrow {
+    text-align: center;
+    color: var(--text3);
+    font-size: 16px;
+    line-height: 1;
+    padding: 2px 0;
+    margin-left: 28px;
+  }
+  .flow-content {}
+  .flow-name { font-weight: 500; font-size: 15.5px; margin-bottom: 3px; }
+  .flow-desc { font-size: 15.5px; color: var(--text2); }
+
+  /* ── 공식 블록 ── */
+  .formula-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 14px 0;
+  }
+  .formula-label {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--text3);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  .formula-text {
+    font-family: var(--mono);
+    font-size: 15.5px;
+    color: var(--accent);
+    line-height: 1.8;
+  }
+  .formula-text .op { color: var(--text2); }
+
+  /* ── 예시 박스 ── */
+  .example {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 14px 0;
+  }
+  .example-label {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--teal);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  .example-body { font-size: 15px; color: var(--text2); line-height: 1.8; }
+  .example-body strong { color: var(--text); font-weight: 500; }
+
+  /* ── 노트 (나의 학습 메모) ── */
+  .note-area {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 28px;
+  }
+  .note-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .note-title {
+    font-size: 13.5px;
+    font-family: var(--mono);
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .note-textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+    resize: vertical;
+    min-height: 100px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .note-textarea:focus { border-color: var(--accent); }
+  .note-textarea::placeholder { color: var(--text3); }
+  .note-save {
+    margin-top: 10px;
+    background: var(--amber-dim);
+    border: 1px solid var(--amber);
+    color: var(--amber);
+    border-radius: 6px;
+    padding: 7px 16px;
+    font-size: 13.5px;
+    font-family: var(--mono);
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.5px;
+  }
+  .note-save:hover { background: var(--amber); color: #ffffff; }
+  .saved-notes { margin-top: 14px; }
+  .saved-note-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    font-size: 14.5px;
+    color: var(--text2);
+    line-height: 1.6;
+    position: relative;
+  }
+  .note-date {
+    font-size: 10px;
+    font-family: var(--mono);
+    color: var(--text3);
+    margin-bottom: 4px;
+  }
+  .note-del {
+    position: absolute;
+    top: 8px; right: 10px;
+    background: none;
+    border: none;
+    color: var(--text3);
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    transition: color 0.15s;
+  }
+  .note-del:hover { color: var(--red); }
+
+  /* ── 오른쪽 패널 (요약 카드) ── */
+  .right-panel {
+    border-left: 1px solid var(--border);
+    padding: 24px 20px;
+    position: sticky;
+    top: 56px;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+  }
+  .panel-title {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+  .quick-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .quick-card-title {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--text2);
+    margin-bottom: 6px;
+  }
+  .quick-card-val {
+    font-family: var(--mono);
+    font-size: 13.5px;
+    color: var(--accent);
+    line-height: 1.7;
+  }
+  .progress-wrap { margin-bottom: 20px; }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text3);
+    font-family: var(--mono);
+    margin-bottom: 5px;
+  }
+  .progress-bar {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.5s ease;
+  }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+  .tag {
+    font-size: 11px;
+    font-family: var(--mono);
+    padding: 3px 9px;
+    border-radius: 4px;
+    border: 1px solid;
+  }
+  .tag.blue { color: var(--blue); border-color: var(--blue); background: var(--blue-dim); }
+  .tag.teal { color: var(--teal); border-color: var(--teal); background: var(--teal-dim); }
+  .tag.amber { color: var(--amber); border-color: var(--amber); background: var(--amber-dim); }
+  .tag.purple { color: var(--purple); border-color: var(--purple); background: var(--purple-dim); }
+
+  /* ── 인라인 하이라이트 ── */
+  .hl { color: var(--accent); font-weight: 500; }
+  .hl-blue { color: var(--blue); }
+  .hl-teal { color: var(--teal); }
+  .hl-purple { color: var(--purple); }
+
+  /* ── 테이블 ── */
+  .study-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14.5px;
+    margin: 14px 0;
+  }
+  .study-table th {
+    background: var(--surface2);
+    color: var(--text2);
+    font-weight: 500;
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13.5px;
+    font-family: var(--mono);
+    letter-spacing: 0.5px;
+  }
+  .study-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+    vertical-align: top;
+  }
+  .study-table tr:hover td { background: var(--surface); }
+  .study-table td:first-child { color: var(--text); font-weight: 500; }
+
+  /* ── 팁 박스 ── */
+  .tip {
+    background: var(--purple-dim);
+    border: 1px solid var(--purple);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    font-size: 15px;
+    color: var(--text2);
+    line-height: 1.7;
+  }
+  .tip-label {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--purple);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+
+  /* ── 모바일 반응형 ── */
+  @media (max-width: 768px) {
+    header { padding: 0 16px; }
+
+    .layout {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr;
+    }
+
+    .sidebar {
+      position: static;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      overflow-x: auto;
+      overflow-y: visible;
+    }
+
+    .sidebar-section {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 0;
+    }
+
+    .sidebar-label {
+      font-size: 9px;
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+
+    .nav-item {
+      padding: 6px 12px;
+      font-size: 13.5px;
+      white-space: nowrap;
+      border-left: none;
+      border-bottom: 2px solid transparent;
+    }
+    .nav-item.active {
+      border-left: none;
+      border-bottom-color: var(--accent);
+    }
+
+    .nav-divider { display: none; }
+
+    main {
+      padding: 24px 16px;
+      max-width: 100%;
+    }
+
+    .right-panel { display: none; }
+
+    .concept-grid {
+      grid-template-columns: 1fr;
+    }
+    .concept-card[style*="span 2"] {
+      grid-column: span 1;
+    }
+
+    .page-title { font-size: 22px; }
+
+    .study-table { font-size: 13.5px; }
+    .study-table th, .study-table td { padding: 8px 10px; }
+
+    .formula-text { font-size: 14.5px; }
+
+    .flow-item { padding: 12px 14px; }
+  }
+
+
+  /* ── 핵심공식카드 ── */
+  .formula-card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .formula-card {
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    padding: 16px 18px;
+    background: var(--surface);
+    transition: all 0.15s;
+  }
+  .formula-card:hover { border-color: var(--border2); transform: translateY(-1px); }
+  .formula-card.blue { border-left: 3px solid var(--blue); }
+  .formula-card.teal { border-left: 3px solid var(--teal); }
+  .formula-card.amber { border-left: 3px solid var(--amber); }
+  .formula-card.purple { border-left: 3px solid var(--purple); }
+  .formula-card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .formula-card.blue .formula-card-title { color: var(--blue); }
+  .formula-card.teal .formula-card-title { color: var(--teal); }
+  .formula-card.amber .formula-card-title { color: var(--amber); }
+  .formula-card.purple .formula-card-title { color: var(--purple); }
+  .formula-card-body {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.9;
+  }
+  @media (max-width: 768px) {
+    .formula-card-grid { grid-template-columns: 1fr; }
+    .formula-card[style*="span 2"] { grid-column: span 1; }
+  }
+
+  /* ── 용어정리 전용 ── */
+  .glossary-list { display: flex; flex-direction: column; gap: 10px; }
+  .glossary-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    transition: border-color 0.15s;
+  }
+  .glossary-item:hover { border-color: var(--border2); }
+  .glossary-term {
+    font-size: 15.5px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .glossary-term.blue { color: var(--blue); }
+  .glossary-term.teal { color: var(--teal); }
+  .glossary-term.amber { color: var(--amber); }
+  .glossary-term.purple { color: var(--purple); }
+  .glossary-def {
+    font-size: 15px;
+    color: var(--text2);
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+  .glossary-ex {
+    font-family: var(--mono);
+    font-size: 13.5px;
+    color: var(--text3);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 7px 12px;
+    line-height: 1.6;
+  }
+
+  /* ── 핵심노트 전용 ── */
+  .cheat-block {
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .cheat-tag {
+    font-size: 11px;
+    font-family: var(--mono);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 7px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .cheat-tag.blue { background: var(--blue-dim); color: var(--blue); }
+  .cheat-tag.teal { background: var(--teal-dim); color: var(--teal); }
+  .cheat-tag.amber { background: var(--amber-dim); color: var(--amber); }
+  .cheat-tag.purple { background: var(--purple-dim); color: var(--purple); }
+  .cheat-tag.gray { background: var(--surface2); color: var(--text2); }
+
+  .cheat-block.blue { border-color: var(--blue); }
+  .cheat-block.teal { border-color: var(--teal); }
+  .cheat-block.amber { border-color: var(--amber); }
+  .cheat-block.purple { border-color: var(--purple); }
+  .cheat-block.gray { border-color: var(--border2); }
+
+  .cheat-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .cheat-row:last-child { border-bottom: none; }
+  .cheat-name {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--text);
+    white-space: nowrap;
+    min-width: 100px;
+    flex-shrink: 0;
+  }
+  .cheat-formula {
+    font-family: var(--mono);
+    font-size: 13.5px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+
+  .cheat-steps { display: flex; flex-direction: column; gap: 4px; }
+  .cheat-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 14.5px;
+    color: var(--text2);
+  }
+  .cheat-step-key {
+    background: var(--surface2);
+    border-color: var(--amber);
+    color: var(--text);
+  }
+  .step-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 4px;
+    padding: 2px 7px;
+    color: var(--text3);
+    flex-shrink: 0;
+  }
+
+  .cheat-warns { display: flex; flex-direction: column; gap: 6px; }
+  .cheat-warn {
+    padding: 10px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--red);
+    border-radius: 6px;
+    font-size: 14.5px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+  .cheat-warn strong { color: var(--red); font-weight: 500; }
+
+  @media (max-width: 768px) {
+    .cheat-row { flex-direction: column; gap: 4px; }
+    .cheat-name { min-width: unset; }
+  }
+
+  /* ── 스크롤바 ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+  /* ── 애니메이션 ── */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .page.active { animation: fadeIn 0.25s ease; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">감정평가실무 <span>학습노트</span></div>
+  <div class="header-meta" id="today-date"></div>
+</header>
+
+<div class="layout">
+
+  <!-- 왼쪽 사이드바 -->
+  <nav class="sidebar">
+
+    <!-- DAY 1 -->
+    <div class="sidebar-section">
+      <div class="day-header" onclick="toggleDay('day1')">
+        <span class="day-badge">DAY 1</span>
+        <span class="day-title">뼈대 잡기 · 기초 개념</span>
+        <span class="day-arrow" id="arrow-day1">▾</span>
+      </div>
+      <div class="day-children" id="day1">
+        <div class="nav-item" data-page="overview">
+          <div class="nav-dot" style="background:var(--accent)"></div>
+          3방식 6방법 개요
+        </div>
+        <div class="nav-item" data-page="report-flow">
+          <div class="nav-dot" style="background:var(--text3)"></div>
+          감정평가서 작성 순서
+        </div>
+        <div class="nav-item" data-page="comparison">
+          <div class="nav-dot" style="background:var(--blue)"></div>
+          거래사례비교법
+        </div>
+        <div class="nav-item" data-page="pricelist">
+          <div class="nav-dot" style="background:var(--blue)"></div>
+          공시지가기준법
+        </div>
+        <div class="nav-item" data-page="cost">
+          <div class="nav-dot" style="background:var(--teal)"></div>
+          원가법
+        </div>
+        <div class="nav-item" data-page="depreciation">
+          <div class="nav-dot" style="background:var(--teal)"></div>
+          감가수정 3법
+        </div>
+        <div class="nav-item" data-page="income">
+          <div class="nav-dot" style="background:var(--amber)"></div>
+          수익환원법
+        </div>
+        <div class="nav-item" data-page="sisan">
+          <div class="nav-dot" style="background:var(--purple)"></div>
+          시산가액 & 조정
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-divider"></div>
+
+    <!-- DAY 2 -->
+    <div class="sidebar-section">
+      <div class="day-header" onclick="toggleDay('day2')">
+        <span class="day-badge" style="background:var(--blue)">DAY 2</span>
+        <span class="day-title">비교방식 심화</span>
+        <span class="day-arrow closed" id="arrow-day2">▾</span>
+      </div>
+      <div class="day-children closed" id="day2">
+        <div class="nav-item" data-page="day2-factor">
+          <div class="nav-dot" style="background:var(--blue)"></div>
+          요인비교표 보정 계산
+        </div>
+        <div class="nav-item" data-page="day2-pricelist2">
+          <div class="nav-dot" style="background:var(--blue)"></div>
+          공시지가기준법 실전
+        </div>
+        <div class="nav-item" data-page="day2-land">
+          <div class="nav-dot" style="background:var(--blue)"></div>
+          토지 평가 종합 문제
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-divider"></div>
+
+    <!-- DAY 3 -->
+    <div class="sidebar-section">
+      <div class="day-header" onclick="toggleDay('day3')">
+        <span class="day-badge" style="background:var(--teal)">DAY 3</span>
+        <span class="day-title">원가방식 심화</span>
+        <span class="day-arrow closed" id="arrow-day3">▾</span>
+      </div>
+      <div class="day-children closed" id="day3">
+        <div class="nav-item" data-page="day3-depreciation">
+          <div class="nav-dot" style="background:var(--teal)"></div>
+          감가수정 3법 완전 정복
+        </div>
+        <div class="nav-item" data-page="day3-recon">
+          <div class="nav-dot" style="background:var(--teal)"></div>
+          재조달원가 산정 3방법
+        </div>
+        <div class="nav-item" data-page="day3-building">
+          <div class="nav-dot" style="background:var(--teal)"></div>
+          건물 평가 종합 문제
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-divider"></div>
+
+    <!-- DAY 4 -->
+    <div class="sidebar-section">
+      <div class="day-header" onclick="toggleDay('day4')">
+        <span class="day-badge" style="background:var(--amber)">DAY 4</span>
+        <span class="day-title">수익방식 심화</span>
+        <span class="day-arrow closed" id="arrow-day4">▾</span>
+      </div>
+      <div class="day-children closed" id="day4">
+        <div class="nav-item" data-page="day4-noi">
+          <div class="nav-dot" style="background:var(--amber)"></div>
+          NOI 산정 실전 계산
+        </div>
+        <div class="nav-item" data-page="day4-caprate">
+          <div class="nav-dot" style="background:var(--amber)"></div>
+          환원이율 결정방법
+        </div>
+        <div class="nav-item" data-page="day4-dcf">
+          <div class="nav-dot" style="background:var(--amber)"></div>
+          DCF법 기초
+        </div>
+        <div class="nav-item" data-page="day4-income">
+          <div class="nav-dot" style="background:var(--amber)"></div>
+          수익성 부동산 종합 문제
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-divider"></div>
+
+    <!-- DAY 5 -->
+    <div class="sidebar-section">
+      <div class="day-header" onclick="toggleDay('day5')">
+        <span class="day-badge" style="background:var(--purple)">DAY 5</span>
+        <span class="day-title">물건 유형별 적용 ①</span>
+        <span class="day-arrow closed" id="arrow-day5">▾</span>
+      </div>
+      <div class="day-children closed" id="day5">
+        <div class="nav-item" data-page="day5-land">
+          <div class="nav-dot" style="background:var(--purple)"></div>
+          토지 평가 (나지·임야·농경지)
+        </div>
+        <div class="nav-item" data-page="day5-building">
+          <div class="nav-dot" style="background:var(--purple)"></div>
+          건물 평가
+        </div>
+        <div class="nav-item" data-page="day5-complex">
+          <div class="nav-dot" style="background:var(--purple)"></div>
+          복합부동산 평가
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-divider"></div>
+
+    <!-- DAY 6 -->
+    <div class="sidebar-section">
+      <div class="day-header" onclick="toggleDay('day6')">
+        <span class="day-badge" style="background:var(--purple)">DAY 6</span>
+        <span class="day-title">물건 유형별 적용 ②</span>
+        <span class="day-arrow closed" id="arrow-day6">▾</span>
+      </div>
+      <div class="day-children closed" id="day6">
+        <div class="nav-item coming">
+          <div class="nav-dot" style="background:var(--border2)"></div>
+          구분건물 (집합건물·아파트)
+        </div>
+        <div class="nav-item coming">
+          <div class="nav-dot" style="background:var(--border2)"></div>
+          임대료 평가
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-divider"></div>
+
+    <!-- DAY 7 -->
+    <div class="sidebar-section">
+      <div class="day-header" onclick="toggleDay('day7')">
+        <span class="day-badge" style="background:var(--text2)">DAY 7</span>
+        <span class="day-title">물건 유형별 적용 ③</span>
+        <span class="day-arrow closed" id="arrow-day7">▾</span>
+      </div>
+      <div class="day-children closed" id="day7">
+        <div class="nav-item coming">
+          <div class="nav-dot" style="background:var(--border2)"></div>
+          기계기구
+        </div>
+        <div class="nav-item coming">
+          <div class="nav-dot" style="background:var(--border2)"></div>
+          공장
+        </div>
+        <div class="nav-item coming">
+          <div class="nav-dot" style="background:var(--border2)"></div>
+          산림·과수원
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-divider"></div>
+
+    <!-- DAY 8 -->
+    <div class="sidebar-section">
+      <div class="day-header" onclick="toggleDay('day8')">
+        <span class="day-badge" style="background:var(--text2)">DAY 8</span>
+        <span class="day-title">특수 물건</span>
+        <span class="day-arrow closed" id="arrow-day8">▾</span>
+      </div>
+      <div class="day-children closed" id="day8">
+        <div class="nav-item coming">
+          <div class="nav-dot" style="background:var(--border2)"></div>
+          광업재단
+        </div>
+        <div class="nav-item coming">
+          <div class="nav-dot" style="background:var(--border2)"></div>
+          어업권
+        </div>
+        <div class="nav-item coming">
+          <div class="nav-dot" style="background:var(--border2)"></div>
+          무형자산
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-divider"></div>
+
+    <!-- DAY 9 -->
+    <div class="sidebar-section">
+      <div class="day-header" onclick="toggleDay('day9')">
+        <span class="day-badge" style="background:var(--red)">DAY 9</span>
+        <span class="day-title">감정평가서 실전 작성</span>
+        <span class="day-arrow closed" id="arrow-day9">▾</span>
+      </div>
+      <div class="day-children closed" id="day9">
+        <div class="nav-item coming">
+          <div class="nav-dot" style="background:var(--border2)"></div>
+          시산가액 조정 서술 연습
+        </div>
+        <div class="nav-item coming">
+          <div class="nav-dot" style="background:var(--border2)"></div>
+          감정평가서 전체 작성 실전
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-divider"></div>
+
+    <!-- DAY 10 -->
+    <div class="sidebar-section">
+      <div class="day-header" onclick="toggleDay('day10')">
+        <span class="day-badge" style="background:var(--red)">DAY 10</span>
+        <span class="day-title">기출문제 풀기</span>
+        <span class="day-arrow closed" id="arrow-day10">▾</span>
+      </div>
+      <div class="day-children closed" id="day10">
+        <div class="nav-item coming">
+          <div class="nav-dot" style="background:var(--border2)"></div>
+          최근 5개년 기출 풀이
+        </div>
+        <div class="nav-item coming">
+          <div class="nav-dot" style="background:var(--border2)"></div>
+          시간 배분 연습
+        </div>
+        <div class="nav-item coming">
+          <div class="nav-dot" style="background:var(--border2)"></div>
+          오답 정리
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">시험 직전</div>
+      <div class="nav-item" data-page="cheatsheet">
+        <div class="nav-dot" style="background:var(--red)"></div>
+        ★ 핵심노트
+      </div>
+      <div class="nav-item" data-page="glossary">
+        <div class="nav-dot" style="background:var(--teal)"></div>
+        용어정리
+      </div>
+      <div class="nav-item" data-page="formulas">
+        <div class="nav-dot" style="background:var(--blue)"></div>
+        📐 핵심공식카드
+      </div>
+    </div>
+  </nav>
+
+  <!-- 메인 콘텐츠 -->
+  <main>
+
+    <!-- ① 개요 페이지 -->
+    <div class="page active" id="page-overview">
+      <div class="page-header">
+        
+        <div class="page-tag">Overview</div>
+        <div class="page-title">3방식 6방법 — 전체 뼈대</div>
+        <div class="page-desc">감정평가는 어떤 물건이든 이 세 가지 방식 중 하나 이상을 씁니다. 이 뼈대를 먼저 머릿속에 사진 찍어두세요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">3방식 한눈에</div>
+        <div class="concept-grid">
+          <div class="concept-card blue" onclick="goPage('comparison')">
+            <div class="card-label blue">① 비교방식</div>
+            <div class="card-title">시장에서 찾는다</div>
+            <div class="card-body">유사 물건의 실제 거래가격을 기준으로 가액을 산정</div>
+            <div class="card-formula">방법: 거래사례비교법 / 공시지가기준법</div>
+          </div>
+          <div class="concept-card teal" onclick="goPage('cost')">
+            <div class="card-label teal">② 원가방식</div>
+            <div class="card-title">만드는 데 얼마인가</div>
+            <div class="card-body">새로 만드는 비용에서 낡은 만큼을 빼는 방식</div>
+            <div class="card-formula">방법: 원가법 / 적산법(임대료)</div>
+          </div>
+          <div class="concept-card amber" onclick="goPage('income')">
+            <div class="card-label amber">③ 수익방식</div>
+            <div class="card-title">얼마를 버는가</div>
+            <div class="card-body">미래 수익을 현재가치로 환산하여 가액 결정</div>
+            <div class="card-formula">방법: 수익환원법 / 수익분석법(임대료)</div>
+          </div>
+          <div class="concept-card purple" onclick="goPage('sisan')">
+            <div class="card-label purple">시산가액 조정</div>
+            <div class="card-title">최종 결정</div>
+            <div class="card-body">3방식 결과를 조정하여 최종 감정평가액 결정</div>
+            <div class="card-formula">핵심: 어디에 가중치를 두는가?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">방식별 주 적용 물건</div>
+        <table class="study-table">
+          <thead>
+            <tr><th>방식</th><th>주 적용 대상</th><th>핵심 포인트</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="hl-blue">비교방식</td><td>토지 (필수), 복합부동산</td><td>공시지가기준법은 토지에서 반드시 적용</td></tr>
+            <tr><td class="hl-teal">원가방식</td><td>건물, 기계기구, 구축물</td><td>감가수정 3법 계산이 핵심</td></tr>
+            <tr><td class="hl">수익방식</td><td>수익성 부동산, 임대료</td><td>NOI 산정 + 환원이율 결정이 핵심</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">공부 순서 팁</div>
+        비교방식 → 원가방식 → 수익방식 순으로 공부하세요. 비교방식이 가장 계산 구조가 단순하고 시험 배점도 높습니다. 각 방식의 기본 계산을 먼저 익힌 뒤, 물건 유형(토지·건물·복합 등)에 붙이는 연습을 합니다.
+      </div>
+
+      <div class="note-area">
+        <div class="note-header">
+          <div class="note-title">내 학습 메모 — 개요</div>
+        </div>
+        <textarea class="note-textarea" id="note-overview" placeholder="이 페이지를 공부하면서 기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('overview')">저장</button>
+        <div class="saved-notes" id="saved-overview"></div>
+      </div>
+    </div>
+
+    <!-- ② 감정평가서 작성 순서 -->
+    <div class="page" id="page-report-flow">
+      <div class="page-header">
+        
+        <div class="page-tag">Report Structure</div>
+        <div class="page-title">감정평가서 작성 순서</div>
+        <div class="page-desc">문제를 받으면 이 순서대로 답안을 구성합니다. 뼈대를 외우면 어떤 문제가 나와도 길을 잃지 않습니다.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">8단계 흐름</div>
+        <div class="flow">
+          <div class="flow-item">
+            <div class="flow-num">01</div>
+            <div class="flow-content">
+              <div class="flow-name">기본사항 확인</div>
+              <div class="flow-desc">의뢰인, 감정평가 목적, 기준시점, 대상물건 확인</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">02</div>
+            <div class="flow-content">
+              <div class="flow-name">대상물건 확인 및 조사</div>
+              <div class="flow-desc">소재지·지목·면적 등 물적 사항 + 현장조사</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">03</div>
+            <div class="flow-content">
+              <div class="flow-name">자료수집 및 시장조사</div>
+              <div class="flow-desc">공시지가, 거래사례, 임대사례, 비용자료 수집</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">04</div>
+            <div class="flow-content">
+              <div class="flow-name">감정평가 방법 선정</div>
+              <div class="flow-desc">물건 유형에 따라 주방법 + 다른방법 선택</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">05</div>
+            <div class="flow-content">
+              <div class="flow-name">방식 적용 (계산 파트)</div>
+              <div class="flow-desc">비교방식 / 원가방식 / 수익방식 → <span class="hl">시산가액</span> 산출</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">06</div>
+            <div class="flow-content">
+              <div class="flow-name">시산가액 조정</div>
+              <div class="flow-desc">3방식 결과를 합리적으로 조정 → 가중치 부여</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">07</div>
+            <div class="flow-content">
+              <div class="flow-name">감정평가액 결정 및 표시</div>
+              <div class="flow-desc">단가 × 수량 = 감정평가액 (원 단위 기재)</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">08</div>
+            <div class="flow-content">
+              <div class="flow-name">감정평가 의견 기재</div>
+              <div class="flow-desc">가액 결정 근거, 특이사항, 조건 등 서술</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">시험 팁</div>
+        05 → 06 → 07 흐름에서 "시산가액"과 "감정평가액"을 혼동하지 마세요. 계산 후 반드시 조정 근거를 한 줄 서술해야 배점을 온전히 받습니다.
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 작성 순서</div></div>
+        <textarea class="note-textarea" id="note-report-flow" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('report-flow')">저장</button>
+        <div class="saved-notes" id="saved-report-flow"></div>
+      </div>
+    </div>
+
+    <!-- ③ 거래사례비교법 -->
+    <div class="page" id="page-comparison">
+      <div class="page-header">
+        
+        <div class="page-tag">비교방식 · Method 1</div>
+        <div class="page-title">거래사례비교법</div>
+        <div class="page-desc">유사 부동산의 실제 거래가격을 기준으로, 여러 요인 보정을 거쳐 대상 물건의 가액을 산정합니다.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">핵심 산식</div>
+        <div class="formula-block">
+          <div class="formula-label">거래사례비교법</div>
+          <div class="formula-text">
+            비교가액 <span class="op">= </span>사례가액<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="op">× </span>사정보정<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="op">× </span>시점수정<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="op">× </span>지역요인<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="op">× </span>개별요인
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">각 보정 항목 설명</div>
+        <table class="study-table">
+          <thead><tr><th>항목</th><th>의미</th><th>계산 방향</th></tr></thead>
+          <tbody>
+            <tr><td>사정보정</td><td>정상 거래가 아닌 경우 보정 (급매, 강매 등)</td><td>정상 거래면 1.000</td></tr>
+            <tr><td>시점수정</td><td>사례 거래시점 → 기준시점 지가변동 반영</td><td>지가상승 3%면 ×1.03</td></tr>
+            <tr><td>지역요인</td><td>사례 지역과 대상 지역의 환경 차이</td><td>요인비교표로 산출</td></tr>
+            <tr><td>개별요인</td><td>개별 획지 특성 차이 (형상·접면도로 등)</td><td>요인비교표로 산출</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">계산 예시</div>
+        <div class="example">
+          <div class="example-label">Example</div>
+          <div class="example-body">
+            사례 토지 거래가: <strong>1억 원</strong><br>
+            사정보정: 정상 거래 → <strong>×1.000</strong><br>
+            시점수정: 3개월 지가 3% 상승 → <strong>×1.030</strong><br>
+            지역요인: 동일 → <strong>×1.000</strong><br>
+            개별요인: 대상이 사례보다 5% 열등 → <strong>×0.950</strong><br><br>
+            비교가액 = 1억 × 1.000 × 1.030 × 1.000 × 0.950<br>
+            = <strong class="hl">9,785만 원</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 거래사례비교법</div></div>
+        <textarea class="note-textarea" id="note-comparison" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('comparison')">저장</button>
+        <div class="saved-notes" id="saved-comparison"></div>
+      </div>
+    </div>
+
+    <!-- ④ 공시지가기준법 -->
+    <div class="page" id="page-pricelist">
+      <div class="page-header">
+        
+        <div class="page-tag">비교방식 · Method 2</div>
+        <div class="page-title">공시지가기준법</div>
+        <div class="page-desc">토지 평가에서 반드시 적용해야 하는 방법. 공시지가를 출발점으로 각종 보정을 가합니다.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">핵심 산식</div>
+        <div class="formula-block">
+          <div class="formula-label">공시지가기준법</div>
+          <div class="formula-text">
+            비준가액 <span class="op">= </span>공시지가<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="op">× </span>시점수정<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="op">× </span>지역요인<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="op">× </span>개별요인<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="op">× </span>그 밖의 요인
+          </div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">거래사례비교법과 차이점</div>
+        출발점이 "실제 거래가액"이 아니라 "공시지가"라는 점이 다릅니다. 또한 "그 밖의 요인"이 추가됩니다. 토지 평가에서 이 방법은 감정평가에 관한 규칙상 원칙적 방법으로 반드시 적용해야 합니다.
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 공시지가기준법</div></div>
+        <textarea class="note-textarea" id="note-pricelist" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('pricelist')">저장</button>
+        <div class="saved-notes" id="saved-pricelist"></div>
+      </div>
+    </div>
+
+    <!-- ⑤ 원가법 -->
+    <div class="page" id="page-cost">
+      <div class="page-header">
+        
+        <div class="page-tag">원가방식 · Method 3</div>
+        <div class="page-title">원가법</div>
+        <div class="page-desc">새로 만드는 비용(재조달원가)에서 낡은 만큼(감가수정)을 빼서 가액을 산정합니다. 건물에 주로 적용.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">핵심 산식</div>
+        <div class="formula-block">
+          <div class="formula-label">원가법</div>
+          <div class="formula-text">
+            적산가액 <span class="op">= </span>재조달원가 <span class="op">−</span> 감가수정액<br>
+            <br>
+            감가수정액 <span class="op">= </span>재조달원가 <span class="op">×</span> 감가율
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">재조달원가 산정 3방법</div>
+        <table class="study-table">
+          <thead><tr><th>방법</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td>직접법</td><td>실제 공사비 내역을 직접 산정</td></tr>
+            <tr><td>간접법</td><td>유사 건물 사례를 이용해 간접 산정</td></tr>
+            <tr><td>단위비교법</td><td>㎡당 단가 × 면적으로 산정 (가장 흔함)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="example">
+        <div class="example-label">계산 예시 (정액법)</div>
+        <div class="example-body">
+          재조달원가: <strong>1억 원</strong> / 내용연수: <strong>40년</strong> / 경과연수: <strong>10년</strong><br><br>
+          감가율 = 10 ÷ 40 = <strong>0.25 (25%)</strong><br>
+          적산가액 = 1억 × (1 − 0.25) = <strong class="hl">7,500만 원</strong>
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 원가법</div></div>
+        <textarea class="note-textarea" id="note-cost" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('cost')">저장</button>
+        <div class="saved-notes" id="saved-cost"></div>
+      </div>
+    </div>
+
+    <!-- ⑥ 감가수정 3법 -->
+    <div class="page" id="page-depreciation">
+      <div class="page-header">
+        
+        <div class="page-tag">원가방식 · 핵심 계산</div>
+        <div class="page-title">감가수정 3법</div>
+        <div class="page-desc">원가법의 핵심. 세 가지 방법의 공식과 특징을 완전히 익혀야 합니다.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">3가지 방법 비교</div>
+        <table class="study-table">
+          <thead><tr><th>방법</th><th>공식</th><th>특징</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>정액법</td>
+              <td style="font-family:var(--mono);font-size:13.5px;color:var(--teal)">매년 감가액 = 재조달원가 ÷ 내용연수</td>
+              <td>매년 동일 금액 감가. 가장 단순.</td>
+            </tr>
+            <tr>
+              <td>정률법</td>
+              <td style="font-family:var(--mono);font-size:13.5px;color:var(--teal)">잔존가액 = 재조달원가 × (1−r)ⁿ</td>
+              <td>초기에 감가 많고 점점 줄어듦</td>
+            </tr>
+            <tr>
+              <td>상환기금법</td>
+              <td style="font-family:var(--mono);font-size:13.5px;color:var(--teal)">매년 감가액 = 재조달원가 × 상환기금계수</td>
+              <td>이자율 반영. 매년 동일 금액 감가.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">상환기금법 상세</div>
+        <div class="formula-block">
+          <div class="formula-label">상환기금계수 공식</div>
+          <div class="formula-text">
+            상환기금계수 <span class="op">= </span>r <span class="op">÷</span> [(1+r)ⁿ <span class="op">−</span> 1]<br>
+            <br>
+            매년 감가액 <span class="op">= </span>재조달원가 <span class="op">×</span> 상환기금계수
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">계산 예시 (재조달원가 1억 / 내용연수 40년 / 이율 5%)</div>
+          <div class="example-body">
+            상환기금계수 = 0.05 ÷ [(1.05)⁴⁰ − 1] = 0.05 ÷ 6.040 = <strong>0.00828</strong><br><br>
+            매년 감가액 = 1억 × 0.00828 = <strong class="hl">828,000원</strong><br><br>
+            (정액법이었으면 매년 <strong>250만 원</strong> → 이자 반영하면 훨씬 적어짐!)
+          </div>
+        </div>
+
+        <div class="tip">
+          <div class="tip-label">핵심 포인트</div>
+          상환기금법도 <strong>매년 동일한 금액</strong>이 감가돼요 (정액법처럼!).<br>
+          차이는 이자율을 반영하느냐 안 하느냐 — 이자가 붙으니까 매년 내는 금액이 정액법보다 훨씬 적어요.<br>
+          시험에서는 계수값을 주고 <strong>재조달원가 × 상환기금계수</strong>만 계산하면 끝!
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">3가지 방법 최종 공식 요약</div>
+        <div class="formula-block">
+          <div class="formula-label">한눈에 보기</div>
+          <div class="formula-text">
+            정액법 &nbsp;&nbsp;&nbsp;&nbsp; <span class="op">→ </span>재조달원가 <span class="op">÷</span> 내용연수<br>
+            정률법 &nbsp;&nbsp;&nbsp;&nbsp; <span class="op">→ </span>재조달원가 <span class="op">×</span> (1−r)ⁿ 으로 잔존가액 계산<br>
+            상환기금법 <span class="op">→ </span>재조달원가 <span class="op">×</span> 상환기금계수
+          </div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">시험 포인트</div>
+        정률법과 상환기금법은 공식이 헷갈리기 쉽습니다. 정률법은 "(1−감가율)ⁿ"으로 잔존가액을 구하는 것, 상환기금법은 기금계수를 이용한다는 구조적 차이를 먼저 이해하세요.
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 감가수정 3법</div></div>
+        <textarea class="note-textarea" id="note-depreciation" placeholder="각 방법의 공식을 직접 써보면서 외워두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('depreciation')">저장</button>
+        <div class="saved-notes" id="saved-depreciation"></div>
+      </div>
+    </div>
+
+    <!-- ⑦ 수익환원법 -->
+    <div class="page" id="page-income">
+      <div class="page-header">
+        
+        <div class="page-tag">수익방식 · Method 5</div>
+        <div class="page-title">수익환원법</div>
+        <div class="page-desc">부동산에서 발생하는 순수익을 환원이율로 나누어 현재가치를 산정합니다. 직접환원법과 DCF법이 핵심.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">직접환원법 산식</div>
+        <div class="formula-block">
+          <div class="formula-label">직접환원법</div>
+          <div class="formula-text">
+            수익가액 <span class="op">= </span>순수익(NOI) <span class="op">÷</span> 환원이율(R)
+          </div>
+        </div>
+      </div>
+
+      <div class="example">
+        <div class="example-label">계산 예시</div>
+        <div class="example-body">
+          연간 순수익(NOI): <strong>500만 원</strong><br>
+          환원이율: <strong>5%</strong><br><br>
+          수익가액 = 500만 ÷ 0.05 = <strong class="hl">1억 원</strong>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">NOI 산정 구조</div>
+        <div class="formula-block">
+          <div class="formula-label">순수익(NOI) 산정</div>
+          <div class="formula-text">
+            총수익(PGI)<br>
+            <span class="op">−</span> 공실손실 · 대손충당금<br>
+            <span class="op">= </span>유효총수익(EGI)<br>
+            <span class="op">−</span> 운영경비(OE)<br>
+            <span class="op">= </span>순영업수익(NOI)
+          </div>
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 수익환원법</div></div>
+        <textarea class="note-textarea" id="note-income" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('income')">저장</button>
+        <div class="saved-notes" id="saved-income"></div>
+      </div>
+    </div>
+
+    <!-- ⑧ 시산가액 -->
+    <div class="page" id="page-sisan">
+      <div class="page-header">
+        
+        <div class="page-tag">핵심 개념</div>
+        <div class="page-title">시산가액(試算價額) & 조정</div>
+        <div class="page-desc">각 방식으로 일단 계산해 본 중간 가액. 최종 감정평가액이 아닙니다. 이 둘의 개념 구분이 시험 핵심.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">개념 정의</div>
+        <div class="formula-block">
+          <div class="formula-label">한 줄 정의</div>
+          <div class="formula-text">시산가액 = 3방식 중 하나로 계산해서 나온 "중간 후보 가격"</div>
+        </div>
+        <p style="font-size:13.5px;color:var(--text2);margin-top:12px;line-height:1.7">"시산(試算)"은 "시험 삼아 계산한다"는 뜻입니다. 비교방식·원가방식·수익방식을 각각 돌리면 세 개의 시산가액이 나오고, 이를 조정한 것이 최종 감정평가액입니다.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">시산가액 조정 기준 3가지</div>
+        <div class="concept-grid">
+          <div class="concept-card blue">
+            <div class="card-label blue">기준 1</div>
+            <div class="card-title">물건의 성격</div>
+            <div class="card-body">토지→비교방식 / 건물→원가방식 / 수익성 물건→수익방식에 가중</div>
+          </div>
+          <div class="concept-card teal">
+            <div class="card-label teal">기준 2</div>
+            <div class="card-title">자료 신뢰도</div>
+            <div class="card-body">사례 수, 시점 근접성, 자료 적정성이 높은 방식에 가중</div>
+          </div>
+          <div class="concept-card amber" style="grid-column: span 2">
+            <div class="card-label amber">기준 3</div>
+            <div class="card-title">평가 목적</div>
+            <div class="card-body">담보평가 → 보수적 / 보상평가 → 시장가치 반영 / 경매 → 실현가능가액</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">시험 필수 서술</div>
+        계산만 하고 끝내면 감점! "비교방식 시산가액 ○○원, 원가방식 시산가액 ○○원이며, 토지의 특성상 시장성을 가장 잘 반영하는 비교방식에 주가중하여 최종 감정평가액을 ○○원으로 결정함" — 이런 식의 조정 근거 서술이 반드시 필요합니다.
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 시산가액</div></div>
+        <textarea class="note-textarea" id="note-sisan" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('sisan')">저장</button>
+        <div class="saved-notes" id="saved-sisan"></div>
+      </div>
+    </div>
+
+    <!-- DAY 2 — 비교방식 심화 -->
+    <div class="page" id="page-day2-factor">
+      <div class="page-header">
+        
+        <div class="page-tag">DAY 2 · 비교방식 심화</div>
+        <div class="page-title">요인비교표 보정 계산</div>
+        <div class="page-desc">지역요인과 개별요인을 세부 항목별로 쪼개서 비교하는 방법. 비교방식 계산의 핵심 파트예요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">지역요인 세부 항목</div>
+        <table class="study-table">
+          <thead><tr><th>항목</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td>가로조건</td><td>도로 폭·포장·계통</td></tr>
+            <tr><td>접근조건</td><td>교통시설·편의시설 접근성</td></tr>
+            <tr><td>환경조건</td><td>주변 환경·혐오시설 유무</td></tr>
+            <tr><td>행정조건</td><td>용도지역·지구·구역</td></tr>
+            <tr><td>기타조건</td><td>기타 지역 특성</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">개별요인 세부 항목</div>
+        <table class="study-table">
+          <thead><tr><th>항목</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td>가로조건</td><td>접면도로 폭·포장·방향</td></tr>
+            <tr><td>접근조건</td><td>역·버스정류장까지 거리</td></tr>
+            <tr><td>획지조건</td><td>면적·형상·고저·각지 여부</td></tr>
+            <tr><td>환경조건</td><td>주변 토지 이용 상황</td></tr>
+            <tr><td>행정조건</td><td>용도지역·건폐율·용적률</td></tr>
+            <tr><td>기타조건</td><td>기타 개별 특성</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">요인비교 계산 방법</div>
+        <div class="formula-block">
+          <div class="formula-label">개별요인 산식</div>
+          <div class="formula-text">
+            개별요인 <span class="op">= </span>가로조건 <span class="op">×</span> 접근조건 <span class="op">×</span> 획지조건<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="op">×</span> 환경조건 <span class="op">×</span> 행정조건 <span class="op">×</span> 기타조건
+          </div>
+        </div>
+        <div class="formula-block">
+          <div class="formula-label">요인비교치 — 핵심 공식</div>
+          <div class="formula-text">
+            요인비교치 <span class="op">= </span>대상 요인값 <span class="op">÷</span> 사례 요인값
+          </div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">가장 자주 틀리는 포인트</div>
+          항상 <strong>대상 ÷ 사례</strong> 순서! 사례 ÷ 대상으로 거꾸로 나누면 완전히 반대 결과가 나와요.
+        </div>
+        <div class="example">
+          <div class="example-label">계산 예시</div>
+          <div class="example-body">
+            대상: 가로 1.00 × 획지 1.05 × 환경 1.00 = <strong>1.050</strong><br>
+            사례: 가로 1.00 × 획지 1.00 × 환경 0.98 = <strong>0.980</strong><br><br>
+            개별요인 비교치 = 1.050 ÷ 0.980 = <strong class="hl">1.0714</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 요인비교표</div></div>
+        <textarea class="note-textarea" id="note-day2-factor" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day2-factor')">저장</button>
+        <div class="saved-notes" id="saved-day2-factor"></div>
+      </div>
+    </div>
+
+    <!-- DAY 2 — 공시지가기준법 실전 -->
+    <div class="page" id="page-day2-pricelist2">
+      <div class="page-header">
+        
+        <div class="page-tag">DAY 2 · 비교방식 심화</div>
+        <div class="page-title">공시지가기준법 실전 — 그 밖의 요인</div>
+        <div class="page-desc">공시지가기준법에만 있는 특별한 보정치. 공시지가와 실제 시장가격의 격차를 메우는 역할을 해요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">그 밖의 요인이란?</div>
+        <p style="font-size:13.5px;color:var(--text2);line-height:1.8">
+          공시지가는 실제 시장가격보다 낮게 책정되는 경우가 많아요. 시점수정·지역요인·개별요인만으로는 이 격차를 다 메울 수 없을 때, <span class="hl">그 밖의 요인</span>으로 추가 보정합니다.
+        </p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">쉽게 이해하기</div>
+        <div class="example">
+          <div class="example-label">왜 필요한가?</div>
+          <div class="example-body">
+            공시지가는 정부가 정하는 공식 땅값인데, 실제 시장 거래가격보다 <strong>항상 낮아요.</strong><br>
+            예) 실제 시장가격 1억 / 공시지가 8,000만 원<br><br>
+            공시지가기준법으로 아무리 보정해도 출발점이 낮으니까 실제 시장가격에 못 미치는 문제가 생겨요.<br>
+            이 <strong>격차를 메우는 것</strong>이 "그 밖의 요인"이에요.
+          </div>
+        </div>
+        <div class="example">
+          <div class="example-label">3가지 방법 비유</div>
+          <div class="example-body">
+            <strong>방법 1 — 거래사례 이용</strong><br>
+            "근처에서 실제로 팔린 게 있으니까 그걸 기준으로 격차를 계산하자"<br>
+            → 가장 직접적이고 정확해요.<br><br>
+            <strong>방법 2 — 평가선례 이용</strong><br>
+            "실제 거래는 없는데, 예전에 감정평가사가 평가한 게 있네. 그걸 기준으로 하자"<br>
+            → 거래사례가 없을 때 차선책이에요.<br><br>
+            <strong>방법 3 — 현실화율 이용</strong><br>
+            "거래도 없고 평가도 없어. 공시지가가 시장가의 몇 %인지로 역산하자"<br>
+            → 예) 현실화율 90% → 1 ÷ 0.9 = 1.111배 올려주면 돼요.
+          </div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">한 줄 요약</div>
+          공시지가가 시장가보다 낮으니까, 그 차이를 메우는 보정치 — 재료(거래사례·평가선례·현실화율)에 따라 구하는 방법만 달라질 뿐이에요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">그 밖의 요인 산정 방법 — 3가지</div>
+        <table class="study-table">
+          <thead><tr><th>상황</th><th>방법</th></tr></thead>
+          <tbody>
+            <tr><td>거래사례 있음</td><td>거래사례비교법으로 역산 (가장 일반적, 시험 주출제)</td></tr>
+            <tr><td>거래사례 없고 평가선례 있음</td><td>과거 감정평가액으로 역산</td></tr>
+            <tr><td>둘 다 없음</td><td>공시지가 현실화율 이용 (1 ÷ 현실화율)</td></tr>
+          </tbody>
+        </table>
+
+        <div class="formula-block">
+          <div class="formula-label">방법 1 — 거래사례 이용 (시험 주출제)</div>
+          <div class="formula-text">
+            그 밖의 요인 <span class="op">= </span>거래사례비교법 비교가액<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="op">÷</span> (공시지가 <span class="op">×</span> 시점수정 <span class="op">×</span> 지역요인 <span class="op">×</span> 개별요인)
+          </div>
+        </div>
+        <div class="formula-block">
+          <div class="formula-label">방법 2 — 평가선례 이용</div>
+          <div class="formula-text">
+            그 밖의 요인 <span class="op">= </span>과거 감정평가액<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="op">÷</span> (당시 공시지가 <span class="op">×</span> 시점수정 <span class="op">×</span> 지역요인 <span class="op">×</span> 개별요인)
+          </div>
+        </div>
+        <div class="formula-block">
+          <div class="formula-label">방법 3 — 공시지가 현실화율 이용</div>
+          <div class="formula-text">
+            그 밖의 요인 <span class="op">= </span>1 <span class="op">÷</span> 공시지가 현실화율<br>
+            예) 현실화율 90% → 1 ÷ 0.90 <span class="op">= </span>1.111
+          </div>
+        </div>
+        <div class="example">
+          <div class="example-label">계산 예시</div>
+          <div class="example-body">
+            거래사례비교법 비교가액: <strong>100,000,000원</strong><br>
+            공시지가 × 시점수정 × 지역·개별요인: <strong>90,000,000원</strong><br><br>
+            그 밖의 요인 = 100,000,000 ÷ 90,000,000 = <strong class="hl">1.111</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 그 밖의 요인</div></div>
+        <textarea class="note-textarea" id="note-day2-pricelist2" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day2-pricelist2')">저장</button>
+        <div class="saved-notes" id="saved-day2-pricelist2"></div>
+      </div>
+    </div>
+
+    <!-- DAY 2 — 토지 평가 종합 -->
+    <div class="page" id="page-day2-land">
+      <div class="page-header">
+        
+        <div class="page-tag">DAY 2 · 비교방식 심화</div>
+        <div class="page-title">토지 평가 종합 — 시험 출제 패턴</div>
+        <div class="page-desc">토지 평가 문제는 항상 이 구조로 나와요. 흐름을 외워두면 어떤 문제도 길을 잃지 않아요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">토지 평가 3단계 흐름</div>
+        <div class="flow">
+          <div class="flow-item">
+            <div class="flow-num">01</div>
+            <div class="flow-content">
+              <div class="flow-name">공시지가기준법으로 비준가액 산정</div>
+              <div class="flow-desc">공시지가 × 시점수정 × 지역요인 × 개별요인 × 그 밖의 요인</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">02</div>
+            <div class="flow-content">
+              <div class="flow-name">거래사례비교법으로 비교가액 산정</div>
+              <div class="flow-desc">사례가액 × 사정보정 × 시점수정 × 지역요인 × 개별요인</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">03</div>
+            <div class="flow-content">
+              <div class="flow-name">시산가액 조정 → 최종 감정평가액 결정</div>
+              <div class="flow-desc">두 시산가액 비교 후 조정 근거 서술 → 최종가액 결정</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">시험 핵심 포인트 3가지</div>
+        <div class="cheat-warns">
+          <div class="cheat-warn">공시지가기준법은 토지 평가에서 <strong>반드시</strong> 적용 — 빠뜨리면 감점</div>
+          <div class="cheat-warn">요인비교는 항상 <strong>대상 ÷ 사례</strong> 순서 — 거꾸로 하면 완전히 틀림</div>
+          <div class="cheat-warn">시산가액 조정 근거 <strong>한 줄 서술</strong> 필수 — 계산만 하면 감점</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">⭐ 감정평가액 결정 기준 — 중요!</div>
+        <div class="tip">
+          <div class="tip-label">법령상 원칙</div>
+          토지는 <strong>공시지가기준법이 주된 방법</strong>이에요. (감정평가에 관한 규칙)<br>
+          거래사례비교법은 검증 수단으로 활용!
+        </div>
+        <table class="study-table">
+          <thead><tr><th>문제 조건</th><th>감정평가액 결정</th></tr></thead>
+          <tbody>
+            <tr><td>조건 없음</td><td><strong>비준가액 채택</strong> (공시지가기준법이 주된 방법)</td></tr>
+            <tr><td>"비교방식에 가중하여 결정"</td><td>비교가액 채택</td></tr>
+            <tr><td>"공시지가기준법에 의하여 결정"</td><td>비준가액 채택</td></tr>
+            <tr><td>"산술평균하여 결정"</td><td>(비준가액 + 비교가액) ÷ 2</td></tr>
+          </tbody>
+        </table>
+        <div class="example">
+          <div class="example-label">예시 — 조건 없는 경우 답안 서술</div>
+          <div class="example-body">
+            비준가액: <strong>59,482,500원</strong><br>
+            비교가액: <strong>58,140,000원</strong><br><br>
+            → 토지 평가 시 공시지가기준법이 주된 방법이므로<br>
+            &nbsp;&nbsp;&nbsp;비준가액에 주가중하여 감정평가액을<br>
+            &nbsp;&nbsp;&nbsp;<strong class="hl">59,482,500원으로 결정함</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 토지 평가 종합</div></div>
+        <textarea class="note-textarea" id="note-day2-land" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day2-land')">저장</button>
+        <div class="saved-notes" id="saved-day2-land"></div>
+      </div>
+    </div>
+
+    <!-- DAY 3 — 감가수정 3법 완전 정복 -->
+    <div class="page" id="page-day3-depreciation">
+      <div class="page-header">
+        <div class="page-tag">DAY 3 · 원가방식 심화</div>
+        <div class="page-title">감가수정 3법 완전 정복</div>
+        <div class="page-desc">개념은 잡혔으니 오늘은 계산을 완벽하게 익혀요. 공식을 손으로 써보면서 외워두세요!</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">정액법</div>
+        <div class="formula-block">
+          <div class="formula-label">정액법 산식</div>
+          <div class="formula-text">
+            매년 감가액 <span class="op">= </span>재조달원가 <span class="op">÷</span> 내용연수<br>
+            감가누계액 <span class="op">= </span>매년 감가액 <span class="op">×</span> 경과연수<br>
+            적산가액 &nbsp;<span class="op">= </span>재조달원가 <span class="op">−</span> 감가누계액
+          </div>
+        </div>
+        <div class="example">
+          <div class="example-label">계산 예시 (재조달원가 1억 / 내용연수 40년 / 경과연수 10년)</div>
+          <div class="example-body">
+            매년 감가액 = 1억 ÷ 40 = <strong>250만 원</strong><br>
+            감가누계액 = 250만 × 10 = <strong>2,500만 원</strong><br>
+            적산가액 = 1억 − 2,500만 = <strong class="hl">7,500만 원</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">정률법</div>
+        <div class="formula-block">
+          <div class="formula-label">정률법 산식</div>
+          <div class="formula-text">
+            적산가액 <span class="op">= </span>재조달원가 <span class="op">×</span> (1<span class="op">−</span>r)ⁿ<br>
+            r <span class="op">= </span>감가율 &nbsp;&nbsp; n <span class="op">= </span>경과연수
+          </div>
+        </div>
+        <div class="example">
+          <div class="example-label">계산 예시 (재조달원가 1억 / 감가율 5% / 경과연수 10년)</div>
+          <div class="example-body">
+            적산가액 = 1억 × (1−0.05)¹⁰<br>
+            = 1억 × (0.95)¹⁰<br>
+            = 1억 × 0.5987<br>
+            = <strong class="hl">59,870,000원</strong><br><br>
+            초기에 감가 많고 → 시간 지날수록 감가액 줄어듦!
+          </div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">정률법 핵심 포인트</div>
+          잔존가액 = 재조달원가 × <strong>(1−r)ⁿ</strong> — n은 내용연수가 아니라 <strong>경과연수!</strong>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">상환기금법</div>
+        <div class="formula-block">
+          <div class="formula-label">상환기금법 산식</div>
+          <div class="formula-text">
+            매년 감가액 <span class="op">= </span>재조달원가 <span class="op">×</span> 상환기금계수<br>
+            상환기금계수 <span class="op">= </span>r <span class="op">÷</span> [(1<span class="op">+</span>r)ⁿ <span class="op">−</span> 1]<br>
+            r <span class="op">= </span>적립이율 &nbsp;&nbsp; n <span class="op">= </span>내용연수
+          </div>
+        </div>
+        <div class="example">
+          <div class="example-label">계산 예시 (재조달원가 1억 / 내용연수 40년 / 이율 5% / 계수 0.00828)</div>
+          <div class="example-body">
+            매년 감가액 = 1억 × 0.00828 = <strong>828,000원</strong><br><br>
+            시험에서는 계수값을 주므로 → <strong>재조달원가 × 계수</strong>만 계산하면 끝!
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">3가지 방법 최종 비교</div>
+        <table class="study-table">
+          <thead><tr><th>방법</th><th>매년 감가액</th><th>특징</th></tr></thead>
+          <tbody>
+            <tr><td>정액법</td><td><strong>동일</strong></td><td>가장 단순 / 이자 미반영</td></tr>
+            <tr><td>정률법</td><td><strong>초기↑ 후기↓</strong></td><td>초기 감가 많음</td></tr>
+            <tr><td>상환기금법</td><td><strong>동일</strong></td><td>이자 반영 / 매년 감가액 가장 적음</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 감가수정 3법</div></div>
+        <textarea class="note-textarea" id="note-day3-depreciation" placeholder="공식을 직접 써보면서 외워두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day3-depreciation')">저장</button>
+        <div class="saved-notes" id="saved-day3-depreciation"></div>
+      </div>
+    </div>
+
+    <!-- DAY 3 — 재조달원가 산정 3방법 -->
+    <div class="page" id="page-day3-recon">
+      <div class="page-header">
+        <div class="page-tag">DAY 3 · 원가방식 심화</div>
+        <div class="page-title">재조달원가 산정 3방법</div>
+        <div class="page-desc">원가법의 출발점인 재조달원가를 어떻게 구하는지 3가지 방법을 익혀요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">3가지 방법 비교</div>
+        <table class="study-table">
+          <thead><tr><th>방법</th><th>내용</th><th>언제 쓰나</th></tr></thead>
+          <tbody>
+            <tr><td>직접법</td><td>실제 공사비 내역을 직접 산정</td><td>자료 충분할 때</td></tr>
+            <tr><td>간접법</td><td>유사 건물 사례를 이용해 간접 산정</td><td>유사 사례 있을 때</td></tr>
+            <tr><td>단위비교법</td><td>㎡당 단가 × 연면적</td><td>가장 많이 씀 (시험 주출제)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">단위비교법 계산</div>
+        <div class="formula-block">
+          <div class="formula-label">단위비교법 산식</div>
+          <div class="formula-text">
+            재조달원가 <span class="op">= </span>㎡당 단가 <span class="op">×</span> 연면적(㎡)
+          </div>
+        </div>
+        <div class="example">
+          <div class="example-label">계산 예시</div>
+          <div class="example-body">
+            ㎡당 단가: <strong>500,000원</strong> / 연면적: <strong>200㎡</strong><br><br>
+            재조달원가 = 500,000 × 200 = <strong class="hl">100,000,000원 (1억)</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 재조달원가 산정</div></div>
+        <textarea class="note-textarea" id="note-day3-recon" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day3-recon')">저장</button>
+        <div class="saved-notes" id="saved-day3-recon"></div>
+      </div>
+    </div>
+
+    <!-- DAY 3 — 건물 평가 종합 -->
+    <div class="page" id="page-day3-building">
+      <div class="page-header">
+        <div class="page-tag">DAY 3 · 원가방식 심화</div>
+        <div class="page-title">건물 평가 종합 흐름</div>
+        <div class="page-desc">건물 평가 문제는 항상 이 4단계로 풀어요. 흐름을 외워두면 어떤 문제도 길을 잃지 않아요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">건물 평가 4단계 흐름</div>
+        <div class="flow">
+          <div class="flow-item">
+            <div class="flow-num">01</div>
+            <div class="flow-content">
+              <div class="flow-name">재조달원가 산정</div>
+              <div class="flow-desc">단위비교법: ㎡당 단가 × 연면적</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">02</div>
+            <div class="flow-content">
+              <div class="flow-name">감가수정</div>
+              <div class="flow-desc">정액법 / 정률법 / 상환기금법 중 문제 조건에 맞게 선택</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">03</div>
+            <div class="flow-content">
+              <div class="flow-name">적산가액 산정</div>
+              <div class="flow-desc">재조달원가 − 감가누계액 = 적산가액</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">04</div>
+            <div class="flow-content">
+              <div class="flow-name">최종 감정평가액 결정</div>
+              <div class="flow-desc">건물은 원가방식이 주된 방법 → 적산가액 채택</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">⭐ 핵심 정리</div>
+        <div class="formula-block">
+          <div class="formula-label">3가지 방법 계산 흐름 차이</div>
+          <div class="formula-text">
+            정액법 &nbsp;&nbsp;&nbsp;&nbsp; <span class="op">→ </span>매년 감가액 × 경과연수 = 감가누계액 → 재조달원가 − 감가누계액<br>
+            상환기금법 <span class="op">→ </span>매년 감가액 × 경과연수 = 감가누계액 → 재조달원가 − 감가누계액<br>
+            정률법 &nbsp;&nbsp;&nbsp;&nbsp; <span class="op">→ </span>재조달원가 × (1−r)ⁿ = 적산가액 <strong>(바로!)</strong>
+          </div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">핵심</div>
+          정액법·상환기금법 → <strong>2단계</strong> (감가누계액 → 적산가액)<br>
+          정률법 → <strong>1단계</strong> (바로 적산가액!)
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">기본문제 풀이</div>
+
+        <div class="example">
+          <div class="example-label">예제 1 — 정액법 (연면적 150㎡ / ㎡당 600,000원 / 내용연수 50년 / 경과 15년)</div>
+          <div class="example-body">
+            재조달원가 = 600,000 × 150 = <strong>90,000,000원</strong><br>
+            매년 감가액 = 90,000,000 ÷ 50 = <strong>1,800,000원</strong><br>
+            감가누계액 = 1,800,000 × 15 = <strong>27,000,000원</strong><br>
+            적산가액 = 90,000,000 − 27,000,000 = <strong class="hl">63,000,000원</strong>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">예제 2 — 정률법 (재조달원가 8,000만 / 감가율 4% / 경과 10년)</div>
+          <div class="example-body">
+            적산가액 = 80,000,000 × (1−0.04)¹⁰<br>
+            = 80,000,000 × 0.6648<br>
+            = <strong class="hl">53,184,000원</strong>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">예제 3 — 상환기금법 (재조달원가 1억 / 내용연수 40년 / 경과 10년 / 계수 0.00828)</div>
+          <div class="example-body">
+            매년 감가액 = 100,000,000 × 0.00828 = <strong>828,000원</strong><br>
+            감가누계액 = 828,000 × 10 = <strong>8,280,000원</strong><br>
+            적산가액 = 100,000,000 − 8,280,000 = <strong class="hl">91,720,000원</strong>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">예제 4 — 건물 평가 종합 (연면적 200㎡ / ㎡당 800,000원 / 내용연수 40년 / 경과 8년 / 정액법)</div>
+          <div class="example-body">
+            재조달원가 = 800,000 × 200 = <strong>160,000,000원</strong><br>
+            매년 감가액 = 160,000,000 ÷ 40 = <strong>4,000,000원</strong><br>
+            감가누계액 = 4,000,000 × 8 = <strong>32,000,000원</strong><br>
+            적산가액 = 160,000,000 − 32,000,000 = <strong class="hl">128,000,000원</strong><br><br>
+            건물은 원가법이 주된 방법 → <strong>감정평가액 = 128,000,000원</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 건물 평가 종합</div></div>
+        <textarea class="note-textarea" id="note-day3-building" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day3-building')">저장</button>
+        <div class="saved-notes" id="saved-day3-building"></div>
+      </div>
+    </div>
+
+    <!-- DAY 4 — NOI 산정 실전 계산 -->
+    <div class="page" id="page-day4-noi">
+      <div class="page-header">
+        <div class="page-tag">DAY 4 · 수익방식 심화</div>
+        <div class="page-title">NOI 산정 실전 계산</div>
+        <div class="page-desc">수익환원법의 핵심 입력값인 NOI를 정확하게 산정하는 방법을 익혀요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">NOI 산정 흐름</div>
+        <div class="formula-block">
+          <div class="formula-label">NOI 산정 단계</div>
+          <div class="formula-text">
+            PGI (잠재총수익) &nbsp;<span class="op">= </span>월임대료 <span class="op">×</span> 12<br>
+            <span class="op">−</span> 공실손실 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="op">= </span>PGI <span class="op">×</span> 공실률<br>
+            <span class="op">−</span> 대손충당금<br>
+            <span class="op">= </span>EGI (유효총수익)<br>
+            <span class="op">−</span> 운영경비(OE) &nbsp;&nbsp;<span class="op">= </span>관리비·수선비·보험료·재산세 등<br>
+            <span class="op">= </span>NOI (순영업수익)
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">운영경비(OE) 포함 항목</div>
+        <table class="study-table">
+          <thead><tr><th>포함 항목</th><th>미포함 항목</th></tr></thead>
+          <tbody>
+            <tr><td>관리비, 수선유지비</td><td>원금상환액 (부채서비스)</td></tr>
+            <tr><td>보험료, 재산세</td><td>소득세, 법인세</td></tr>
+            <tr><td>광고비, 회계비용</td><td>감가상각비</td></tr>
+          </tbody>
+        </table>
+        <div class="tip">
+          <div class="tip-label">시험 포인트</div>
+          운영경비에 <strong>감가상각비는 포함 안 해요!</strong> 수익방식은 현금흐름 기준이라 비현금 항목 제외.
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">계산 예시</div>
+        <div class="example">
+          <div class="example-label">NOI 산정 예시</div>
+          <div class="example-body">
+            월임대료: <strong>2,000,000원</strong><br>
+            공실률: <strong>5%</strong><br>
+            연간 운영경비: <strong>3,000,000원</strong><br><br>
+            PGI = 2,000,000 × 12 = <strong>24,000,000원</strong><br>
+            공실손실 = 24,000,000 × 0.05 = <strong>1,200,000원</strong><br>
+            EGI = 24,000,000 − 1,200,000 = <strong>22,800,000원</strong><br>
+            NOI = 22,800,000 − 3,000,000 = <strong class="hl">19,800,000원</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — NOI 산정</div></div>
+        <textarea class="note-textarea" id="note-day4-noi" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day4-noi')">저장</button>
+        <div class="saved-notes" id="saved-day4-noi"></div>
+      </div>
+    </div>
+
+    <!-- DAY 4 — 환원이율 결정방법 -->
+    <div class="page" id="page-day4-caprate">
+      <div class="page-header">
+        <div class="page-tag">DAY 4 · 수익방식 심화</div>
+        <div class="page-title">환원이율 결정방법</div>
+        <div class="page-desc">수익환원법에서 NOI를 나누는 환원이율을 어떻게 결정하는지 3가지 방법을 익혀요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">환원이율 결정 3가지 방법</div>
+        <table class="study-table">
+          <thead><tr><th>방법</th><th>내용</th><th>특징</th></tr></thead>
+          <tbody>
+            <tr><td>시장추출법</td><td>유사 부동산의 실제 거래사례에서 NOI ÷ 거래가격으로 역산</td><td>가장 신뢰도 높음</td></tr>
+            <tr><td>적산법</td><td>무위험률 + 위험할증률 + 유동성할증률 + 관리부담률</td><td>논리적 구성</td></tr>
+            <tr><td>Band of Investment</td><td>자기자본비율 × 자기자본수익률 + 타인자본비율 × 저당이율</td><td>자본구조 반영</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">시장추출법 계산</div>
+        <div class="formula-block">
+          <div class="formula-label">시장추출법 산식</div>
+          <div class="formula-text">
+            환원이율 <span class="op">= </span>NOI <span class="op">÷</span> 거래가격
+          </div>
+        </div>
+        <div class="example">
+          <div class="example-label">계산 예시</div>
+          <div class="example-body">
+            유사 부동산 거래가격: <strong>500,000,000원</strong><br>
+            연간 NOI: <strong>25,000,000원</strong><br><br>
+            환원이율 = 25,000,000 ÷ 500,000,000 = <strong class="hl">5%</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">적산법 계산</div>
+        <div class="formula-block">
+          <div class="formula-label">적산법 산식</div>
+          <div class="formula-text">
+            환원이율 <span class="op">= </span>무위험률 <span class="op">+</span> 위험할증률 <span class="op">+</span> 유동성할증률 <span class="op">+</span> 관리부담률
+          </div>
+        </div>
+        <div class="example">
+          <div class="example-label">계산 예시</div>
+          <div class="example-body">
+            무위험률: <strong>2%</strong> (국채이율)<br>
+            위험할증률: <strong>1.5%</strong><br>
+            유동성할증률: <strong>1%</strong><br>
+            관리부담률: <strong>0.5%</strong><br><br>
+            환원이율 = 2 + 1.5 + 1 + 0.5 = <strong class="hl">5%</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">환원이율과 부동산 가치 관계</div>
+        환원이율 ↑ → 수익가액 ↓ (위험 클수록 가치 낮게 평가)<br>
+        금리 ↑ → 환원이율 ↑ → 부동산 가격 ↓
+      </div>
+
+      <div class="section">
+        <div class="section-title">Band of Investment 상세</div>
+        <div class="formula-block">
+          <div class="formula-label">Band of Investment 산식</div>
+          <div class="formula-text">
+            환원이율<br>
+            = (자기자본비율 × 자기자본수익률)<br>
+            + (타인자본비율 × 저당이율)<br><br>
+            ※ 자기자본비율 + 타인자본비율 = 1 (100%)
+          </div>
+        </div>
+        <div class="example">
+          <div class="example-label">쉬운 비유 — 5억짜리 상가 매입 시</div>
+          <div class="example-body">
+            내 돈(자기자본): <strong>2억 (40%)</strong> → 연 6% 수익 원함<br>
+            빌린 돈(대출): <strong>3억 (60%)</strong> → 연 4% 이자 부담<br><br>
+            환원이율 = (0.4 × 6%) + (0.6 × 4%)<br>
+            = 2.4% + 2.4%<br>
+            = <strong class="hl">4.8%</strong>
+          </div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">한 줄 요약</div>
+          "내 돈과 빌린 돈을 섞어서 투자했으니까,<br>
+          각각의 수익률을 <strong>비율대로 섞은 게</strong> 환원이율이다!"
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">3가지 방법 최종 비교</div>
+        <table class="study-table">
+          <thead><tr><th>방법</th><th>핵심</th><th>특징</th></tr></thead>
+          <tbody>
+            <tr><td>시장추출법</td><td>NOI ÷ 거래가격</td><td>실제 시장에서 역산. 가장 신뢰도 높음</td></tr>
+            <tr><td>적산법</td><td>무위험률 + 각종 할증률</td><td>논리적으로 구성. 더하기만 하면 됨</td></tr>
+            <tr><td>Band of Investment</td><td>자기자본 + 타인자본 가중평균</td><td>자본구조 반영. 대출 낀 투자에 적합</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 환원이율</div></div>
+        <textarea class="note-textarea" id="note-day4-caprate" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day4-caprate')">저장</button>
+        <div class="saved-notes" id="saved-day4-caprate"></div>
+      </div>
+    </div>
+
+    <!-- DAY 4 — DCF법 기초 -->
+    <div class="page" id="page-day4-dcf">
+      <div class="page-header">
+        <div class="page-tag">DAY 4 · 수익방식 심화</div>
+        <div class="page-title">DCF법 기초 <span style="font-size:16px;font-weight:400;color:var(--text2);font-family:var(--mono)">(Discounted Cash Flow)</span></div>
+        <div class="page-desc">직접환원법의 확장판. 연도별로 NOI를 세분화해서 현재가치로 환산하는 방법이에요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">DCF법 직관적 이해</div>
+        <div class="example">
+          <div class="example-label">한 줄 요약</div>
+          <div class="example-body">
+            <strong>부동산 현재 가치</strong><br>
+            = 앞으로 매년 받을 순수익(NOI)의 현재가치 합<br>
+            + 나중에 팔 때 받을 돈(기말복귀가액)의 현재가치
+          </div>
+        </div>
+        <div class="example">
+          <div class="example-label">상가 5년 보유 예시</div>
+          <div class="example-body">
+            1년차 임대수익 1,000만 → 오늘 가치로 환산<br>
+            2년차 임대수익 1,000만 → 오늘 가치로 환산<br>
+            3년차 임대수익 1,000만 → 오늘 가치로 환산<br>
+            4년차 임대수익 1,000만 → 오늘 가치로 환산<br>
+            5년차 임대수익 1,000만 → 오늘 가치로 환산<br>
+            + 5년 후 팔 때 받는 돈 → 오늘 가치로 환산<br><br>
+            <strong class="hl">= 이 상가의 현재 가치!</strong>
+          </div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">할인율(r)과 가치의 관계</div>
+          할인율(r) ↑ → 미래 돈의 현재가치 ↓ → 부동산 가치 ↓<br>
+          즉, <strong>위험한 부동산일수록 할인율 높음 → 현재가치 낮음!</strong><br>
+          이게 직접환원법의 환원이율과 같은 논리예요 😊
+        </div>
+      </div>
+        <table class="study-table">
+          <thead><tr><th>구분</th><th>직접환원법</th><th>DCF법</th></tr></thead>
+          <tbody>
+            <tr><td>NOI</td><td>매년 동일하다고 가정</td><td>연도별로 다르게 설정</td></tr>
+            <tr><td>계산</td><td>NOI ÷ 환원이율</td><td>연도별 NOI 현재가치 합산</td></tr>
+            <tr><td>복잡도</td><td>단순</td><td>복잡하지만 정교함</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">DCF법 산식</div>
+        <div class="formula-block">
+          <div class="formula-label">DCF법 기본 구조</div>
+          <div class="formula-text">
+            수익가액 <span class="op">= </span>Σ [NOIₜ <span class="op">÷</span> (1<span class="op">+</span>r)ᵗ] <span class="op">+</span> 기말복귀가액 <span class="op">÷</span> (1<span class="op">+</span>r)ⁿ<br><br>
+            r <span class="op">= </span>할인율 &nbsp;&nbsp; t <span class="op">= </span>연도 &nbsp;&nbsp; n <span class="op">= </span>보유기간
+          </div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">DCF법 핵심 포인트</div>
+          구조는 직접환원법과 같아요 — "미래 수익을 현재가치로 환산"<br>
+          다만 연도별로 NOI가 달라지고, 마지막에 <strong>기말복귀가액</strong>(팔 때 받는 돈)도 더해줘요!
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — DCF법</div></div>
+        <textarea class="note-textarea" id="note-day4-dcf" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day4-dcf')">저장</button>
+        <div class="saved-notes" id="saved-day4-dcf"></div>
+      </div>
+    </div>
+
+    <!-- DAY 4 — 수익성 부동산 종합 문제 -->
+    <div class="page" id="page-day4-income">
+      <div class="page-header">
+        <div class="page-tag">DAY 4 · 수익방식 심화</div>
+        <div class="page-title">수익성 부동산 종합 흐름</div>
+        <div class="page-desc">수익성 부동산 평가 문제는 항상 이 흐름으로 풀어요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">수익성 부동산 평가 4단계</div>
+        <div class="flow">
+          <div class="flow-item">
+            <div class="flow-num">01</div>
+            <div class="flow-content">
+              <div class="flow-name">PGI 산정</div>
+              <div class="flow-desc">월임대료 × 12 = 연간 잠재총수익</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">02</div>
+            <div class="flow-content">
+              <div class="flow-name">NOI 산정</div>
+              <div class="flow-desc">PGI − 공실손실 − 운영경비 = NOI</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">03</div>
+            <div class="flow-content">
+              <div class="flow-name">환원이율 결정</div>
+              <div class="flow-desc">시장추출법 / 적산법 / Band of Investment 중 선택</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">04</div>
+            <div class="flow-content">
+              <div class="flow-name">수익가액 산정 → 감정평가액</div>
+              <div class="flow-desc">NOI ÷ 환원이율 = 수익가액 → 감정평가액</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">물건별 주된 방법 총정리</div>
+        토지 → <strong>공시지가기준법</strong> (비준가액)<br>
+        건물 → <strong>원가법</strong> (적산가액)<br>
+        수익성 부동산 → <strong>수익환원법</strong> (수익가액)
+      </div>
+
+      <div class="section">
+        <div class="section-title">기본문제 풀이</div>
+
+        <div class="example">
+          <div class="example-label">예제 1 — NOI 산정 (월임대료 300만 / 공실률 8% / 운영경비 500만)</div>
+          <div class="example-body">
+            PGI = 3,000,000 × 12 = <strong>36,000,000원</strong><br>
+            EGI = 36,000,000 × (1−0.08) = <strong>33,120,000원</strong><br>
+            NOI = 33,120,000 − 5,000,000 = <strong class="hl">28,120,000원</strong>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">예제 2 — 직접환원법 (월임대료 250만 / 공실률 5% / 운영경비 400만 / 환원이율 6%)</div>
+          <div class="example-body">
+            NOI = (2,500,000 × 12) × 0.95 − 4,000,000 = <strong>24,500,000원</strong><br>
+            수익가액 = 24,500,000 ÷ 0.06 = <strong class="hl">408,333,333원</strong>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">예제 3 — 환원이율 시장추출법 (거래가격 8억 / 월임대료 350만 / 공실률 5% / 운영경비 600만)</div>
+          <div class="example-body">
+            NOI = (3,500,000 × 12) × 0.95 − 6,000,000 = <strong>33,900,000원</strong><br>
+            환원이율 = 33,900,000 ÷ 800,000,000 = <strong class="hl">4.24%</strong>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">예제 4 — 환원이율 적산법 (무위험 2.5% / 위험 1.5% / 유동성 0.8% / 관리 0.7%)</div>
+          <div class="example-body">
+            환원이율 = 2.5 + 1.5 + 0.8 + 0.7 = <strong class="hl">5.5%</strong>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">예제 5 — 수익성 부동산 종합 (월임대료 400만 / 공실률 10% / 운영경비 800만 / 환원이율 적산법)</div>
+          <div class="example-body">
+            환원이율 = 3 + 1.5 + 1 + 0.5 = <strong>6%</strong><br>
+            NOI = (4,000,000 × 12) × 0.9 − 8,000,000 = <strong>35,200,000원</strong><br>
+            수익가액 = 35,200,000 ÷ 0.06 = <strong class="hl">586,666,667원</strong>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">예제 6 — Band of Investment (자기자본 40%·7% / 타인자본 60%·4%)</div>
+          <div class="example-body">
+            환원이율 = (0.4 × 7%) + (0.6 × 4%)<br>
+            = 2.8% + 2.4% = <strong class="hl">5.2%</strong>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">예제 7 — DCF법 (보유 3년 / NOI 1천만·1100만·1200만 / 기말복귀 2억 / 할인율 5%)</div>
+          <div class="example-body">
+            1년차 = 10,000,000 ÷ 1.0500 = 9,523,810원<br>
+            2년차 = 11,000,000 ÷ 1.1025 = 9,977,324원<br>
+            3년차 = 12,000,000 ÷ 1.1576 = 10,366,276원<br>
+            기말복귀 = 200,000,000 ÷ 1.1576 = 172,771,252원<br><br>
+            수익가액 = 9,523,810 + 9,977,324 + 10,366,276 + 172,771,252<br>
+            = <strong class="hl">202,638,662원</strong>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 수익성 부동산 종합</div></div>
+        <textarea class="note-textarea" id="note-day4-income" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day4-income')">저장</button>
+        <div class="saved-notes" id="saved-day4-income"></div>
+      </div>
+    </div>
+
+    <!-- DAY 5 — 토지 평가 -->
+    <div class="page" id="page-day5-land">
+      <div class="page-header">
+        <div class="page-tag">DAY 5 · 물건 유형별 적용 ①</div>
+        <div class="page-title">토지 평가 — 나지·임야·농경지</div>
+        <div class="page-desc">토지 유형별로 평가 방법이 조금씩 달라져요. 유형별 특징과 적용 방법을 익혀요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">토지 유형별 평가 방법</div>
+        <table class="study-table">
+          <thead><tr><th>유형</th><th>주된 방법</th><th>특징</th></tr></thead>
+          <tbody>
+            <tr><td>나지 (裸地)</td><td>공시지가기준법 + 거래사례비교법</td><td>건물 없는 순수 토지. 가장 기본형.</td></tr>
+            <tr><td>임야 (林野)</td><td>공시지가기준법 + 거래사례비교법</td><td>산림·임야. 개별요인에 경사도·임상 반영</td></tr>
+            <tr><td>농경지 (農耕地)</td><td>공시지가기준법 + 거래사례비교법</td><td>전·답·과수원. 수익방식 병행 가능</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">나지 평가 흐름</div>
+        <div class="flow">
+          <div class="flow-item">
+            <div class="flow-num">01</div>
+            <div class="flow-content">
+              <div class="flow-name">공시지가기준법</div>
+              <div class="flow-desc">공시지가 × 시점수정 × 지역요인 × 개별요인 × 그 밖의 요인 = 비준가액</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">02</div>
+            <div class="flow-content">
+              <div class="flow-name">거래사례비교법</div>
+              <div class="flow-desc">사례가액 × 사정보정 × 시점수정 × 지역요인 × 개별요인 = 비교가액</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">03</div>
+            <div class="flow-content">
+              <div class="flow-name">시산가액 조정 → 감정평가액</div>
+              <div class="flow-desc">조건 없으면 비준가액 채택 / 조정 근거 서술 필수</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">임야·농경지 개별요인 특수 항목</div>
+        <table class="study-table">
+          <thead><tr><th>유형</th><th>추가 고려 항목</th></tr></thead>
+          <tbody>
+            <tr><td>임야</td><td>경사도, 임상(나무 종류·밀도), 토양상태, 접근성</td></tr>
+            <tr><td>농경지</td><td>토질, 관개시설, 일조량, 경작 편의성</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">시험 포인트</div>
+        토지 유형이 달라도 <strong>기본 공식은 동일!</strong><br>
+        다만 개별요인 항목이 유형별로 달라지는 것만 주의하면 돼요.
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 토지 평가</div></div>
+        <textarea class="note-textarea" id="note-day5-land" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day5-land')">저장</button>
+        <div class="saved-notes" id="saved-day5-land"></div>
+      </div>
+    </div>
+
+    <!-- DAY 5 — 건물 평가 -->
+    <div class="page" id="page-day5-building">
+      <div class="page-header">
+        <div class="page-tag">DAY 5 · 물건 유형별 적용 ①</div>
+        <div class="page-title">건물 평가</div>
+        <div class="page-desc">건물은 원가법이 주된 방법이에요. 구조·용도·노후도에 따라 재조달원가와 감가수정이 달라져요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">건물 구조별 내용연수</div>
+        <table class="study-table">
+          <thead><tr><th>구조</th><th>내용연수 (기준)</th></tr></thead>
+          <tbody>
+            <tr><td>철근콘크리트 (RC)</td><td>50년</td></tr>
+            <tr><td>철골구조 (S)</td><td>40년</td></tr>
+            <tr><td>조적구조 (벽돌)</td><td>40년</td></tr>
+            <tr><td>목구조</td><td>30년</td></tr>
+            <tr><td>경량철골</td><td>30년</td></tr>
+          </tbody>
+        </table>
+        <div class="tip">
+          <div class="tip-label">시험 포인트</div>
+          내용연수는 문제에서 주어지는 경우가 많아요. 주어지지 않으면 구조별 기준값 적용!
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">감가수정 3원인</div>
+        <table class="study-table">
+          <thead><tr><th>원인</th><th>내용</th><th>예시</th></tr></thead>
+          <tbody>
+            <tr><td>물리적 감가</td><td>시간 경과로 인한 노후화</td><td>균열, 누수, 설비 노후</td></tr>
+            <tr><td>기능적 감가</td><td>기능·설계 구식화</td><td>천장 낮음, 주차 불편</td></tr>
+            <tr><td>경제적 감가</td><td>외부 환경 변화</td><td>주변 혐오시설, 용도지역 변경</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">건물 평가 흐름</div>
+        <div class="formula-block">
+          <div class="formula-label">건물 평가 공식</div>
+          <div class="formula-text">
+            재조달원가 = ㎡당 단가 × 연면적<br>
+            감가누계액 = 재조달원가 × 감가율 × 경과연수 (정액법)<br>
+            적산가액 = 재조달원가 − 감가누계액<br>
+            감정평가액 = 적산가액
+          </div>
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 건물 평가</div></div>
+        <textarea class="note-textarea" id="note-day5-building" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day5-building')">저장</button>
+        <div class="saved-notes" id="saved-day5-building"></div>
+      </div>
+    </div>
+
+    <!-- DAY 5 — 복합부동산 평가 -->
+    <div class="page" id="page-day5-complex">
+      <div class="page-header">
+        <div class="page-tag">DAY 5 · 물건 유형별 적용 ①</div>
+        <div class="page-title">복합부동산 평가</div>
+        <div class="page-desc">토지 + 건물이 함께 있는 물건. 토지와 건물을 각각 평가해서 합산해요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">복합부동산이란?</div>
+        <p style="font-size:15px;color:var(--text2);line-height:1.8">
+          토지 위에 건물이 있는 일반적인 부동산이에요. 단독주택, 상가, 공장 등 대부분의 부동산이 복합부동산이에요.
+          <span class="hl">토지와 건물을 각각 따로 평가한 다음 합산</span>해서 최종 감정평가액을 결정해요.
+        </p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">복합부동산 평가 흐름</div>
+        <div class="flow">
+          <div class="flow-item">
+            <div class="flow-num">01</div>
+            <div class="flow-content">
+              <div class="flow-name">토지 평가</div>
+              <div class="flow-desc">공시지가기준법 + 거래사례비교법 → 비준가액 (토지 감정평가액)</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">02</div>
+            <div class="flow-content">
+              <div class="flow-name">건물 평가</div>
+              <div class="flow-desc">원가법 → 적산가액 (건물 감정평가액)</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">03</div>
+            <div class="flow-content">
+              <div class="flow-name">합산</div>
+              <div class="flow-desc">토지 감정평가액 + 건물 감정평가액 = 복합부동산 감정평가액</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">계산 예시</div>
+        <div class="example">
+          <div class="example-label">복합부동산 평가 예시</div>
+          <div class="example-body">
+            <strong>[토지]</strong><br>
+            공시지가 5,000만 × 시점수정 1.03 × 개별요인 1.05 × 그밖의요인 1.10<br>
+            = 비준가액 <strong>59,482,500원</strong><br><br>
+            <strong>[건물]</strong><br>
+            재조달원가 1억 / 정액법 / 내용연수 40년 / 경과 10년<br>
+            = 적산가액 <strong>75,000,000원</strong><br><br>
+            <strong>[복합부동산 감정평가액]</strong><br>
+            59,482,500 + 75,000,000 = <strong class="hl">134,482,500원</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">시험 포인트</div>
+        복합부동산은 토지·건물 각각 따로 계산하는 게 핵심!<br>
+        <strong>토지 따로 + 건물 따로 → 합산</strong> 이 순서만 기억하면 돼요 😊
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 복합부동산 평가</div></div>
+        <textarea class="note-textarea" id="note-day5-complex" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day5-complex')">저장</button>
+        <div class="saved-notes" id="saved-day5-complex"></div>
+      </div>
+    </div>
+
+    <!-- ⑩ 용어정리 -->
+    <div class="page" id="page-glossary">
+      <div class="page-header">
+        
+        <div class="page-tag">Glossary</div>
+        <div class="page-title">용어정리</div>
+        <div class="page-desc">공부하면서 나온 핵심 용어들을 모아뒀어요. 계속 추가됩니다.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">비교방식 용어</div>
+        <div class="glossary-list">
+          <div class="glossary-item">
+            <div class="glossary-term blue">사정보정 (事情補正)</div>
+            <div class="glossary-def">비정상적인 거래(급매·친족 거래·강매 등)를 정상 시장 거래 가격으로 되돌리는 작업. 정상 거래면 1.000, 급매로 10% 저가 거래 시 × 1.111.</div>
+            <div class="glossary-ex">예) 급매 9,000만 → 사정보정 후 정상가 1억 / 보정치 = 1억÷9,000만 = 1.111</div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-term blue">시점수정 (時點修正)</div>
+            <div class="glossary-def">사례 거래시점과 기준시점 사이의 지가 변동을 반영하는 작업. 지가변동률을 이용해 계산.</div>
+            <div class="glossary-ex">예) 3개월간 지가 3% 상승 → 시점수정치 = 1.030</div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-term blue">지역요인 (地域要因)</div>
+            <div class="glossary-def">사례 토지가 속한 지역과 대상 토지가 속한 지역 간의 환경적 차이를 비교·보정하는 요인.</div>
+            <div class="glossary-ex">예) 대상 지역이 사례 지역보다 5% 우세 → 지역요인 = 1.050</div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-term blue">개별요인 (個別要因)</div>
+            <div class="glossary-def">같은 지역 내에서 개별 획지(필지)의 특성 차이(형상·접면도로·방위 등)를 비교·보정하는 요인.</div>
+            <div class="glossary-ex">예) 대상이 사례보다 형상·도로조건이 5% 열등 → 개별요인 = 0.950</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">원가방식 용어</div>
+        <div class="glossary-list">
+          <div class="glossary-item">
+            <div class="glossary-term teal">재조달원가 (再調達原價)</div>
+            <div class="glossary-def">기준시점 현재 대상 물건을 새로 만드는 데 드는 비용. 원가법의 출발점. 직접법·간접법·단위비교법으로 산정.</div>
+            <div class="glossary-ex">예) 건물 200㎡, ㎡당 50만 원 → 재조달원가 = 1억 원</div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-term teal">감가수정 (減價修正)</div>
+            <div class="glossary-def">물리적 감가(노후화)·기능적 감가(구식화)·경제적 감가(외부 요인)를 반영해 재조달원가에서 가치 감소분을 차감하는 작업.</div>
+            <div class="glossary-ex">정액법 / 정률법 / 상환기금법 세 가지 방법으로 계산</div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-term teal">적산가액 (積算價額)</div>
+            <div class="glossary-def">원가법의 최종 결과값. 재조달원가에서 감가수정액을 뺀 금액.</div>
+            <div class="glossary-ex">예) 재조달원가 1억, 감가 25% → 적산가액 = 7,500만 원</div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-term teal">내용연수 (耐用年數)</div>
+            <div class="glossary-def">건물 등이 경제적으로 사용 가능한 총 기간. 감가수정 계산의 기준이 됨.</div>
+            <div class="glossary-ex">예) 철근콘크리트 건물 내용연수 = 40~50년</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">수익방식 용어</div>
+        <div class="glossary-list">
+          <div class="glossary-item">
+            <div class="glossary-term amber">PGI — Potential Gross Income (잠재총수익)</div>
+            <div class="glossary-def">공실 없이 100% 임대됐을 때 받을 수 있는 최대 임대수입. NOI 산정의 출발점.</div>
+            <div class="glossary-ex">예) 월세 200만 × 12개월 = PGI 2,400만 원</div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-term amber">EGI — Effective Gross Income (유효총수익)</div>
+            <div class="glossary-def">PGI에서 공실손실과 대손충당금을 뺀 실제로 거둘 수 있는 수익.</div>
+            <div class="glossary-ex">EGI = PGI − 공실손실 − 대손충당금</div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-term amber">OE — Operating Expenses (운영경비)</div>
+            <div class="glossary-def">부동산을 운영하는 데 드는 비용. 관리비·수선유지비·보험료·재산세 등 포함.</div>
+            <div class="glossary-ex">EGI − OE = NOI</div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-term amber">NOI — Net Operating Income (순영업수익)</div>
+            <div class="glossary-def">총수익에서 공실손실과 운영경비를 모두 뺀 순수익. 수익환원법의 핵심 입력값.</div>
+            <div class="glossary-ex">PGI → −공실손실 → EGI → −운영경비(OE) → NOI</div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-term amber">환원이율 (還元利率)</div>
+            <div class="glossary-def">순수익을 수익가액으로 변환하는 비율. 투자자가 요구하는 수익률 개념. 위험이 클수록 높아지고, 높을수록 수익가액은 낮아짐.</div>
+            <div class="glossary-ex">금리↑ → 환원이율↑ → 수익가액↓ / 예) NOI 500만 ÷ 5% = 수익가액 1억</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">공통 용어</div>
+        <div class="glossary-list">
+          <div class="glossary-item">
+            <div class="glossary-term purple">시산가액 (試算價額)</div>
+            <div class="glossary-def">각 감정평가 방식을 적용해 일단 계산해 본 중간 가액. 최종 감정평가액이 아님. 3방식을 적용하면 3개의 시산가액이 나옴.</div>
+            <div class="glossary-ex">시산가액 조정 → 최종 감정평가액 결정</div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-term purple">기준시점 (基準時點)</div>
+            <div class="glossary-def">감정평가액을 결정하는 기준이 되는 날짜. 통상 감정평가 의뢰일 또는 현장조사 완료일.</div>
+            <div class="glossary-ex">시점수정은 사례 거래시점 → 기준시점으로 보정</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 핵심공식카드 -->
+    <div class="page" id="page-formulas">
+      <div class="page-header">
+        <div class="page-tag">시험 직전 · 공식 총정리</div>
+        <div class="page-title">📐 핵심공식카드</div>
+        <div class="page-desc">DAY 1~4에서 배운 모든 계산식을 한 페이지에 모았어요. 시험 직전에 빠르게 훑어보세요!</div>
+      </div>
+
+      <!-- 비교방식 -->
+      <div class="section">
+        <div class="section-title">① 비교방식</div>
+        <div class="formula-card-grid">
+
+          <div class="formula-card blue">
+            <div class="formula-card-title">거래사례비교법</div>
+            <div class="formula-card-body">
+              비교가액 = 사례가액<br>
+              × 사정보정<br>
+              × 시점수정<br>
+              × 지역요인<br>
+              × 개별요인
+            </div>
+          </div>
+
+          <div class="formula-card blue">
+            <div class="formula-card-title">공시지가기준법</div>
+            <div class="formula-card-body">
+              비준가액 = 공시지가<br>
+              × 시점수정<br>
+              × 지역요인<br>
+              × 개별요인<br>
+              × 그 밖의 요인
+            </div>
+          </div>
+
+          <div class="formula-card blue">
+            <div class="formula-card-title">요인비교치</div>
+            <div class="formula-card-body">
+              요인비교치<br>
+              = 대상 요인값<br>
+              ÷ 사례 요인값<br><br>
+              ※ 항상 대상 ÷ 사례!
+            </div>
+          </div>
+
+          <div class="formula-card blue">
+            <div class="formula-card-title">그 밖의 요인 (역산)</div>
+            <div class="formula-card-body">
+              그 밖의 요인<br>
+              = 거래사례비교법 비교가액<br>
+              ÷ (공시지가 × 시점수정<br>
+              × 지역요인 × 개별요인)
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 원가방식 -->
+      <div class="section">
+        <div class="section-title">② 원가방식</div>
+        <div class="formula-card-grid">
+
+          <div class="formula-card teal">
+            <div class="formula-card-title">원가법 기본</div>
+            <div class="formula-card-body">
+              재조달원가<br>
+              = ㎡당 단가 × 연면적<br><br>
+              적산가액<br>
+              = 재조달원가 − 감가누계액
+            </div>
+          </div>
+
+          <div class="formula-card teal">
+            <div class="formula-card-title">정액법</div>
+            <div class="formula-card-body">
+              매년 감가액<br>
+              = 재조달원가 ÷ 내용연수<br><br>
+              감가누계액<br>
+              = 매년 감가액 × 경과연수
+            </div>
+          </div>
+
+          <div class="formula-card teal">
+            <div class="formula-card-title">정률법</div>
+            <div class="formula-card-body">
+              적산가액<br>
+              = 재조달원가 × (1−r)ⁿ<br><br>
+              r = 감가율<br>
+              n = 경과연수<br>
+              ※ 바로 적산가액!
+            </div>
+          </div>
+
+          <div class="formula-card teal">
+            <div class="formula-card-title">상환기금법</div>
+            <div class="formula-card-body">
+              매년 감가액<br>
+              = 재조달원가 × 상환기금계수<br><br>
+              상환기금계수<br>
+              = r ÷ [(1+r)ⁿ − 1]
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 수익방식 -->
+      <div class="section">
+        <div class="section-title">③ 수익방식</div>
+        <div class="formula-card-grid">
+
+          <div class="formula-card amber">
+            <div class="formula-card-title">NOI 산정</div>
+            <div class="formula-card-body">
+              PGI = 월임대료 × 12<br>
+              − 공실손실 (PGI × 공실률)<br>
+              = EGI<br>
+              − 운영경비 (OE)<br>
+              = NOI
+            </div>
+          </div>
+
+          <div class="formula-card amber">
+            <div class="formula-card-title">직접환원법</div>
+            <div class="formula-card-body">
+              수익가액<br>
+              = NOI ÷ 환원이율(R)<br><br>
+              환원이율 ↑ → 수익가액 ↓<br>
+              환원이율 ↓ → 수익가액 ↑
+            </div>
+          </div>
+
+          <div class="formula-card amber">
+            <div class="formula-card-title">환원이율 — 시장추출법</div>
+            <div class="formula-card-body">
+              환원이율<br>
+              = NOI ÷ 거래가격
+            </div>
+          </div>
+
+          <div class="formula-card amber">
+            <div class="formula-card-title">환원이율 — 적산법</div>
+            <div class="formula-card-body">
+              환원이율<br>
+              = 무위험률<br>
+              + 위험할증률<br>
+              + 유동성할증률<br>
+              + 관리부담률
+            </div>
+          </div>
+
+          <div class="formula-card amber" style="grid-column: span 2">
+            <div class="formula-card-title">DCF법 (Discounted Cash Flow)</div>
+            <div class="formula-card-body">
+              수익가액<br>
+              = Σ [NOIₜ ÷ (1+r)ᵗ] + 기말복귀가액 ÷ (1+r)ⁿ<br><br>
+              r = 할인율 / t = 연도 / n = 보유기간<br>
+              ※ 매년 받을 NOI + 팔 때 받는 돈을 전부 현재가치로 환산
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 시산가액 조정 -->
+      <div class="section">
+        <div class="section-title">시산가액 조정 & 감정평가액 결정</div>
+        <div class="formula-card-grid">
+
+          <div class="formula-card purple">
+            <div class="formula-card-title">물건별 주된 방법</div>
+            <div class="formula-card-body">
+              토지 → 공시지가기준법<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(비준가액 채택)<br>
+              건물 → 원가법<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(적산가액 채택)<br>
+              수익성 부동산 → 수익환원법<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(수익가액 채택)
+            </div>
+          </div>
+
+          <div class="formula-card purple">
+            <div class="formula-card-title">토지 감정평가액 결정</div>
+            <div class="formula-card-body">
+              조건 없음 → 비준가액<br>
+              비교방식 가중 → 비교가액<br>
+              산술평균 → 두 값 평균<br><br>
+              ※ 반드시 조정 근거 서술!
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ⑨ 핵심노트 -->
+    <div class="page" id="page-cheatsheet">
+      <div class="page-header">
+        
+        <div class="page-tag">시험 직전 최종 정리</div>
+        <div class="page-title">★ 핵심노트</div>
+        <div class="page-desc">시험 직전 5분, 이것만 보고 들어가세요. 키워드와 산식 위주로 압축했습니다.</div>
+      </div>
+
+      <!-- 3방식 산식 -->
+      <div class="section">
+        <div class="section-title">3방식 6방법 — 산식 압축</div>
+
+        <div class="cheat-block blue">
+          <div class="cheat-tag blue">① 비교방식</div>
+          <div class="cheat-row">
+            <span class="cheat-name">거래사례비교법</span>
+            <span class="cheat-formula">사례가액 × 사정보정 × 시점수정 × 지역요인 × 개별요인</span>
+          </div>
+          <div class="cheat-row">
+            <span class="cheat-name">공시지가기준법</span>
+            <span class="cheat-formula">공시지가 × 시점수정 × 지역요인 × 개별요인 × 그밖의요인</span>
+          </div>
+        </div>
+
+        <div class="cheat-block teal">
+          <div class="cheat-tag teal">② 원가방식</div>
+          <div class="cheat-row">
+            <span class="cheat-name">원가법</span>
+            <span class="cheat-formula">재조달원가 − 감가수정액 = 적산가액</span>
+          </div>
+          <div class="cheat-row">
+            <span class="cheat-name">적산법(임대료)</span>
+            <span class="cheat-formula">기초가액 × 기대이율 + 필요제경비</span>
+          </div>
+        </div>
+
+        <div class="cheat-block amber">
+          <div class="cheat-tag amber">③ 수익방식</div>
+          <div class="cheat-row">
+            <span class="cheat-name">수익환원법(직접)</span>
+            <span class="cheat-formula">NOI ÷ 환원이율(R) = 수익가액</span>
+          </div>
+          <div class="cheat-row">
+            <span class="cheat-name">NOI 산정</span>
+            <span class="cheat-formula">PGI → −공실 → EGI → −운영경비 → NOI</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 감가수정 3법 -->
+      <div class="section">
+        <div class="section-title">감가수정 3법 — 비교</div>
+        <div class="cheat-block teal">
+          <div class="cheat-row">
+            <span class="cheat-name">정액법</span>
+            <span class="cheat-formula">매년 동일 감가 / 감가율 = 경과연수 ÷ 내용연수</span>
+          </div>
+          <div class="cheat-row">
+            <span class="cheat-name">정률법</span>
+            <span class="cheat-formula">잔존가액 = 재조달원가 × (1−r)ⁿ / 초기 감가 많음</span>
+          </div>
+          <div class="cheat-row">
+            <span class="cheat-name">상환기금법</span>
+            <span class="cheat-formula">기금계수 이용 / 이자율 반영 / 가장 복잡</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 시산가액 조정 -->
+      <div class="section">
+        <div class="section-title">시산가액 조정 — 3가지 기준</div>
+        <div class="cheat-block purple">
+          <div class="cheat-row">
+            <span class="cheat-name">물건 성격</span>
+            <span class="cheat-formula">토지→비교방식 / 건물→원가방식 / 수익성→수익방식</span>
+          </div>
+          <div class="cheat-row">
+            <span class="cheat-name">자료 신뢰도</span>
+            <span class="cheat-formula">사례 수·시점 근접성·적정성이 높은 방식에 가중</span>
+          </div>
+          <div class="cheat-row">
+            <span class="cheat-name">평가 목적</span>
+            <span class="cheat-formula">담보→보수적 / 보상→시장가치 / 경매→실현가능가액</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 감정평가서 순서 -->
+      <div class="section">
+        <div class="section-title">감정평가서 작성 8단계</div>
+        <div class="cheat-steps">
+          <div class="cheat-step"><span class="step-num">01</span>기본사항 확인 — 의뢰인·목적·기준시점·대상물건</div>
+          <div class="cheat-step"><span class="step-num">02</span>대상물건 확인 및 조사 — 소재지·지목·면적·현장조사</div>
+          <div class="cheat-step"><span class="step-num">03</span>자료수집 및 시장조사 — 공시지가·거래사례·비용자료</div>
+          <div class="cheat-step"><span class="step-num">04</span>감정평가 방법 선정 — 주방법 + 다른방법</div>
+          <div class="cheat-step cheat-step-key"><span class="step-num" style="background:var(--accent);color:#ffffff">05</span>방식 적용 (계산!) — 시산가액 산출</div>
+          <div class="cheat-step cheat-step-key"><span class="step-num" style="background:var(--accent);color:#ffffff">06</span>시산가액 조정 — 가중치 근거 서술 필수!</div>
+          <div class="cheat-step cheat-step-key"><span class="step-num" style="background:var(--accent);color:#ffffff">07</span>감정평가액 결정 — 단가 × 수량 = 최종가액</div>
+          <div class="cheat-step"><span class="step-num">08</span>감정평가 의견 — 근거·특이사항·조건 서술</div>
+        </div>
+      </div>
+
+      <!-- 자주 틀리는 포인트 -->
+      <div class="section">
+        <div class="section-title">시험장에서 자주 틀리는 것들</div>
+        <div class="cheat-warns">
+          <div class="cheat-warn">토지 평가 시 <strong>공시지가기준법은 필수</strong> — 빠뜨리면 감점</div>
+          <div class="cheat-warn"><strong>시산가액 ≠ 감정평가액</strong> — 조정 근거 서술 없으면 감점</div>
+          <div class="cheat-warn">정률법 공식: 잔존가액 = 재조달원가 × <strong>(1−r)ⁿ</strong> (n = 경과연수)</div>
+          <div class="cheat-warn">NOI 산정 순서: PGI → EGI → NOI (<strong>공실 빼고 경비 빼는 순서</strong> 주의)</div>
+          <div class="cheat-warn">시점수정: 지가 상승 3% → <strong>×1.03</strong> / 하락 3% → <strong>×0.97</strong></div>
+        </div>
+      </div>
+
+      <!-- 물건별 주 적용 방식 -->
+      <div class="section">
+        <div class="section-title">물건 유형별 주 적용 방식</div>
+        <div class="cheat-block gray">
+          <div class="cheat-row"><span class="cheat-name">토지</span><span class="cheat-formula hl-blue">공시지가기준법(필수) + 거래사례비교법</span></div>
+          <div class="cheat-row"><span class="cheat-name">건물</span><span class="cheat-formula hl-teal">원가법 주</span></div>
+          <div class="cheat-row"><span class="cheat-name">복합부동산</span><span class="cheat-formula">토지(비교) + 건물(원가) 합산</span></div>
+          <div class="cheat-row"><span class="cheat-name">임대료</span><span class="cheat-formula hl-teal">적산법 + 수익분석법</span></div>
+          <div class="cheat-row"><span class="cheat-name">수익성 부동산</span><span class="cheat-formula hl">수익환원법 주</span></div>
+        </div>
+      </div>
+
+      <!-- 용어 정리 -->
+      <div class="section">
+        <div class="section-title">핵심 용어 정리</div>
+        <div class="cheat-block gray">
+          <div class="cheat-tag gray">TERMS</div>
+          <div class="cheat-row">
+            <span class="cheat-name">사정보정</span>
+            <span class="cheat-formula">비정상 거래(급매·친족 등)를 정상 거래 가격으로 되돌리는 작업<br>정상 거래 → 1.000 / 급매(10% 저가) → 1.111</span>
+          </div>
+          <div class="cheat-row">
+            <span class="cheat-name">재조달원가</span>
+            <span class="cheat-formula">지금 이 시점에 해당 물건을 새로 만드는 데 드는 비용<br>원가법의 출발점 / 산정: 직접법·간접법·단위비교법(㎡×단가)</span>
+          </div>
+          <div class="cheat-row">
+            <span class="cheat-name">적산가액</span>
+            <span class="cheat-formula">원가법의 최종 결과값<br>재조달원가 − 감가수정액 = 적산가액</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- 오른쪽 패널 -->
+  <aside class="right-panel">
+    <div class="panel-title">학습 진행</div>
+
+    <div class="progress-wrap">
+      <div class="progress-label"><span>비교방식</span><span id="prog-val-comparison">0%</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="prog-comparison" style="width:0%;background:var(--blue)"></div></div>
+
+      <div class="progress-label"><span>원가방식</span><span id="prog-val-cost">0%</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="prog-cost" style="width:0%;background:var(--teal)"></div></div>
+
+      <div class="progress-label"><span>수익방식</span><span id="prog-val-income">0%</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="prog-income" style="width:0%;background:var(--amber)"></div></div>
+
+      <div class="progress-label"><span>핵심개념</span><span id="prog-val-sisan">0%</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="prog-sisan" style="width:0%;background:var(--purple)"></div></div>
+    </div>
+
+    <div class="panel-title" style="margin-top:8px">핵심 공식 카드</div>
+
+    <div class="quick-card">
+      <div class="quick-card-title">거래사례비교법</div>
+      <div class="quick-card-val">사례가액 × 사정보정<br>× 시점수정 × 지역·개별요인</div>
+    </div>
+    <div class="quick-card">
+      <div class="quick-card-title">공시지가기준법</div>
+      <div class="quick-card-val">공시지가 × 시점수정<br>× 지역·개별 × 그밖의요인</div>
+    </div>
+    <div class="quick-card">
+      <div class="quick-card-title">원가법</div>
+      <div class="quick-card-val">재조달원가 − 감가수정액</div>
+    </div>
+    <div class="quick-card">
+      <div class="quick-card-title">수익환원법 (직접)</div>
+      <div class="quick-card-val">NOI ÷ 환원이율(R)</div>
+    </div>
+
+    <div class="panel-title" style="margin-top:16px">키워드</div>
+    <div class="tag-list">
+      <span class="tag blue">비교방식</span>
+      <span class="tag blue">거래사례</span>
+      <span class="tag blue">공시지가</span>
+      <span class="tag teal">원가방식</span>
+      <span class="tag teal">재조달원가</span>
+      <span class="tag teal">감가수정</span>
+      <span class="tag amber">수익방식</span>
+      <span class="tag amber">NOI</span>
+      <span class="tag amber">환원이율</span>
+      <span class="tag purple">시산가액</span>
+      <span class="tag purple">조정</span>
+    </div>
+  </aside>
+
+</div>
+
+<script>
+  // 날짜 표시
+  const d = new Date();
+  document.getElementById('today-date').textContent =
+    `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
+
+  // DAY 토글
+  function toggleDay(id) {
+    const children = document.getElementById(id);
+    const arrow = document.getElementById('arrow-' + id);
+    children.classList.toggle('closed');
+    arrow.classList.toggle('closed');
+  }
+
+  // 페이지 전환
+  function goPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    const page = document.getElementById('page-' + id);
+    if (page) page.classList.add('active');
+    const nav = document.querySelector(`[data-page="${id}"]`);
+    if (nav) {
+      nav.classList.add('active');
+      nav.querySelector('.nav-dot').style.background = getNavColor(id);
+    }
+    loadNotes(id);
+    window.scrollTo(0, 0);
+  }
+
+  function getNavColor(id) {
+    if (['comparison','pricelist'].includes(id)) return 'var(--blue)';
+    if (['cost','depreciation'].includes(id)) return 'var(--teal)';
+    if (['income'].includes(id)) return 'var(--amber)';
+    if (['sisan'].includes(id)) return 'var(--purple)';
+    if (['cheatsheet'].includes(id)) return 'var(--red)';
+    if (['glossary'].includes(id)) return 'var(--teal)';
+    if (['formulas'].includes(id)) return 'var(--blue)';
+    if (['day2-factor','day2-pricelist2','day2-land'].includes(id)) return 'var(--blue)';
+    if (['day3-depreciation','day3-recon','day3-building'].includes(id)) return 'var(--teal)';
+    if (['day4-noi','day4-caprate','day4-dcf','day4-income'].includes(id)) return 'var(--amber)';
+    if (['day5-land','day5-building','day5-complex'].includes(id)) return 'var(--purple)';
+    return 'var(--accent)';
+  }
+
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', () => goPage(item.dataset.page));
+  });
+
+  // 메모 저장/로드
+  function saveNote(key) {
+    const val = document.getElementById('note-' + key).value.trim();
+    if (!val) return;
+    const notes = JSON.parse(localStorage.getItem('notes-' + key) || '[]');
+    notes.push({ text: val, date: new Date().toLocaleString('ko-KR') });
+    localStorage.setItem('notes-' + key, JSON.stringify(notes));
+    document.getElementById('note-' + key).value = '';
+    renderNotes(key);
+    updateProgress(key);
+  }
+
+  function loadNotes(key) {
+    const container = document.getElementById('saved-' + key);
+    if (!container) return;
+    renderNotes(key);
+  }
+
+  function renderNotes(key) {
+    const container = document.getElementById('saved-' + key);
+    if (!container) return;
+    const notes = JSON.parse(localStorage.getItem('notes-' + key) || '[]');
+    container.innerHTML = notes.map((n, i) => `
+      <div class="saved-note-item">
+        <div class="note-date">${n.date}</div>
+        ${n.text.replace(/\n/g, '<br>')}
+        <button class="note-del" onclick="deleteNote('${key}', ${i})">×</button>
+      </div>`).join('');
+  }
+
+  function deleteNote(key, i) {
+    const notes = JSON.parse(localStorage.getItem('notes-' + key) || '[]');
+    notes.splice(i, 1);
+    localStorage.setItem('notes-' + key, JSON.stringify(notes));
+    renderNotes(key);
+    updateProgress(key);
+  }
+
+  function updateProgress(key) {
+    const noteCount = JSON.parse(localStorage.getItem('notes-' + key) || '[]').length;
+    const pct = Math.min(noteCount * 20, 100);
+    const map = { comparison: 'comparison', pricelist: 'comparison', cost: 'cost', depreciation: 'cost', income: 'income', sisan: 'sisan', overview: null, 'report-flow': null };
+    const progKey = map[key];
+    if (!progKey) return;
+    const allKeys = Object.entries(map).filter(([k,v]) => v === progKey).map(([k]) => k);
+    const total = allKeys.reduce((acc, k) => acc + JSON.parse(localStorage.getItem('notes-' + k) || '[]').length, 0);
+    const finalPct = Math.min(total * 15, 100);
+    document.getElementById('prog-' + progKey).style.width = finalPct + '%';
+    document.getElementById('prog-val-' + progKey).textContent = finalPct + '%';
+  }
+
+  // 초기 로드
+  goPage('overview');
+  ['comparison','pricelist','cost','depreciation','income','sisan','overview','report-flow'].forEach(k => {
+    updateProgress(k);
+  });
+</script>
+</body>
+</html>
