@@ -1046,16 +1046,16 @@
         <span class="day-arrow closed" id="arrow-day7">▾</span>
       </div>
       <div class="day-children closed" id="day7">
-        <div class="nav-item coming">
-          <div class="nav-dot" style="background:var(--border2)"></div>
+        <div class="nav-item" data-page="day7-machine">
+          <div class="nav-dot" style="background:var(--text2)"></div>
           기계기구
         </div>
-        <div class="nav-item coming">
-          <div class="nav-dot" style="background:var(--border2)"></div>
+        <div class="nav-item" data-page="day7-factory">
+          <div class="nav-dot" style="background:var(--text2)"></div>
           공장
         </div>
-        <div class="nav-item coming">
-          <div class="nav-dot" style="background:var(--border2)"></div>
+        <div class="nav-item" data-page="day7-forest">
+          <div class="nav-dot" style="background:var(--text2)"></div>
           산림·과수원
         </div>
       </div>
@@ -2848,11 +2848,256 @@
         필요제경비 항목 꼭 기억: 감가상각비 + 유지관리비 + 손해보험료 + 공조공과
       </div>
 
+      <div class="section">
+        <div class="section-title">기본문제 풀이</div>
+
+        <div class="example">
+          <div class="example-label">예제 1 — 적산법 (기초가액 3억 / 기대이율 4% / 필요제경비 500만)</div>
+          <div class="example-body">
+            기초가액 × 기대이율 = 300,000,000 × 0.04 = <strong>12,000,000원</strong><br>
+            필요제경비 = 2,000,000 + 1,500,000 + 500,000 + 1,000,000 = <strong>5,000,000원</strong><br>
+            임대료 = 12,000,000 + 5,000,000 = <strong class="hl">17,000,000원</strong>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">예제 2 — 구분건물 거래사례비교법 (사례 4억 / 시점 2%↑ / 층별 3%우세 / 향별 2%열등)</div>
+          <div class="example-body">
+            비교가액 = 400,000,000 × 1.000 × 1.020 × 1.030 × 0.980<br>
+            = <strong class="hl">412,315,200원</strong>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">예제 3 — 적산법 월임대료 (토지 2억 + 건물 1.5억 / 기대이율 5% / 필요제경비 700만)</div>
+          <div class="example-body">
+            기초가액 = 200,000,000 + 150,000,000 = <strong>350,000,000원</strong><br>
+            연간 임대료 = 350,000,000 × 0.05 + 7,000,000 = <strong>24,500,000원</strong><br>
+            월 임대료 = 24,500,000 ÷ 12 = <strong class="hl">2,041,667원</strong>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">예제 4 — 종합 (적산법 → 수익환원법 / 기초가액 5억 / 기대이율 4% / 필요제경비 800만 / 공실 5% / 운영경비 300만 / 환원이율 5%)</div>
+          <div class="example-body">
+            <strong>[STEP 1] 적산법 → 연간 임대료(PGI)</strong><br>
+            임대료 = 500,000,000 × 0.04 + 8,000,000 = <strong>28,000,000원</strong><br><br>
+            <strong>[STEP 2] 수익환원법 → 감정평가액</strong><br>
+            EGI = 28,000,000 × 0.95 = 26,600,000원<br>
+            NOI = 26,600,000 - 3,000,000 = 23,600,000원<br>
+            수익가액 = 23,600,000 ÷ 0.05 = <strong class="hl">472,000,000원</strong>
+          </div>
+        </div>
+
+      </div>
+
       <div class="note-area">
         <div class="note-header"><div class="note-title">내 학습 메모 — 임대료 평가</div></div>
         <textarea class="note-textarea" id="note-day6-rent" placeholder="기억할 것들을 적어두세요..."></textarea>
         <button class="note-save" onclick="saveNote('day6-rent')">저장</button>
         <div class="saved-notes" id="saved-day6-rent"></div>
+      </div>
+    </div>
+
+    <!-- DAY 7 — 기계기구 -->
+    <div class="page" id="page-day7-machine">
+      <div class="page-header">
+        <div class="page-tag">DAY 7 · 물건 유형별 적용 ③</div>
+        <div class="page-title">기계기구 평가</div>
+        <div class="page-desc">공장·사업장에 설치된 기계·설비를 평가하는 방법. 원가법이 주된 방법이에요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">기계기구 평가 방법</div>
+        <table class="study-table">
+          <thead><tr><th>방법</th><th>내용</th><th>비고</th></tr></thead>
+          <tbody>
+            <tr><td>원가법</td><td>재조달원가 − 감가수정액</td><td>주된 방법</td></tr>
+            <tr><td>거래사례비교법</td><td>유사 기계 거래사례 비교</td><td>보조 방법</td></tr>
+            <tr><td>수익환원법</td><td>수익 창출 기계에 적용</td><td>보조 방법</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">기계기구 감가수정 특징</div>
+        <table class="study-table">
+          <thead><tr><th>구분</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td>내용연수</td><td>건물보다 짧음 (보통 5~15년)</td></tr>
+            <tr><td>감가수정 방법</td><td>정액법·정률법 주로 적용</td></tr>
+            <tr><td>관찰감가</td><td>실제 마모·손상 상태를 직접 관찰해서 감가</td></tr>
+            <tr><td>기능적 감가</td><td>구형 기계의 기술적 열위 반영</td></tr>
+          </tbody>
+        </table>
+        <div class="tip">
+          <div class="tip-label">시험 포인트</div>
+          기계기구는 <strong>관찰감가</strong>가 중요해요! 건물처럼 단순히 연수로만 계산하지 않고 실제 상태를 직접 보고 감가해요.
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">재조달원가 산정 방법</div>
+        <table class="study-table">
+          <thead><tr><th>방법</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td>복성원가</td><td>동일 기계를 새로 만드는 비용</td></tr>
+            <tr><td>대체원가</td><td>동일 기능을 하는 새 기계의 현재 가격</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">계산 예시</div>
+        <div class="example">
+          <div class="example-label">기계기구 적산가액 (정액법)</div>
+          <div class="example-body">
+            재조달원가: <strong>50,000,000원</strong><br>
+            내용연수: <strong>10년</strong> / 경과연수: <strong>4년</strong><br><br>
+            매년 감가액 = 50,000,000 ÷ 10 = <strong>5,000,000원</strong><br>
+            감가누계액 = 5,000,000 × 4 = <strong>20,000,000원</strong><br>
+            적산가액 = 50,000,000 − 20,000,000 = <strong class="hl">30,000,000원</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 기계기구</div></div>
+        <textarea class="note-textarea" id="note-day7-machine" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day7-machine')">저장</button>
+        <div class="saved-notes" id="saved-day7-machine"></div>
+      </div>
+    </div>
+
+    <!-- DAY 7 — 공장 -->
+    <div class="page" id="page-day7-factory">
+      <div class="page-header">
+        <div class="page-tag">DAY 7 · 물건 유형별 적용 ③</div>
+        <div class="page-title">공장 평가</div>
+        <div class="page-desc">공장은 토지 + 건물 + 기계기구를 모두 합산해서 평가해요. 복합부동산의 확장판이에요!</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">공장 평가 흐름</div>
+        <div class="flow">
+          <div class="flow-item">
+            <div class="flow-num">01</div>
+            <div class="flow-content">
+              <div class="flow-name">토지 평가</div>
+              <div class="flow-desc">공시지가기준법 + 거래사례비교법 → 비준가액</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">02</div>
+            <div class="flow-content">
+              <div class="flow-name">건물 평가</div>
+              <div class="flow-desc">원가법 → 적산가액</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">03</div>
+            <div class="flow-content">
+              <div class="flow-name">기계기구 평가</div>
+              <div class="flow-desc">원가법(정액법·정률법) → 적산가액</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">04</div>
+            <div class="flow-content">
+              <div class="flow-name">합산</div>
+              <div class="flow-desc">토지 + 건물 + 기계기구 = 공장 감정평가액</div>
+            </div>
+          </div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">핵심 포인트</div>
+          공장 = 토지 + 건물 + 기계기구 <strong>각각 따로 평가 후 합산!</strong><br>
+          복합부동산(토지+건물)에서 기계기구만 추가된 개념이에요 😊
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">공장 평가 시 주의사항</div>
+        <table class="study-table">
+          <thead><tr><th>항목</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td>가동 여부</td><td>가동 중인 공장 vs 휴업·폐업 공장 → 평가액 차이</td></tr>
+            <tr><td>특수설비</td><td>건물에 부착된 특수설비는 건물로 볼지 기계로 볼지 판단</td></tr>
+            <tr><td>환경문제</td><td>오염된 토지는 오염 제거 비용 차감</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 공장</div></div>
+        <textarea class="note-textarea" id="note-day7-factory" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day7-factory')">저장</button>
+        <div class="saved-notes" id="saved-day7-factory"></div>
+      </div>
+    </div>
+
+    <!-- DAY 7 — 산림·과수원 -->
+    <div class="page" id="page-day7-forest">
+      <div class="page-header">
+        <div class="page-tag">DAY 7 · 물건 유형별 적용 ③</div>
+        <div class="page-title">산림·과수원 평가</div>
+        <div class="page-desc">산림은 토지 + 입목(나무)을 따로 평가해서 합산해요. 과수원은 토지 + 과수를 합산해요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">산림 평가</div>
+        <table class="study-table">
+          <thead><tr><th>구분</th><th>평가 방법</th></tr></thead>
+          <tbody>
+            <tr><td>산림 토지</td><td>공시지가기준법 + 거래사례비교법</td></tr>
+            <tr><td>입목 (나무)</td><td>거래사례비교법 or 원가법 or 수익환원법</td></tr>
+            <tr><td>산림 전체</td><td>토지 + 입목 합산</td></tr>
+          </tbody>
+        </table>
+        <div class="tip">
+          <div class="tip-label">입목 평가 핵심</div>
+          입목(나무)은 수종·수령·재적(부피)에 따라 가치가 달라요.<br>
+          <strong>벌기령</strong>(벌채 적정 시기)에 가까울수록 가치가 높아요!
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">과수원 평가</div>
+        <table class="study-table">
+          <thead><tr><th>구분</th><th>평가 방법</th></tr></thead>
+          <tbody>
+            <tr><td>과수원 토지</td><td>공시지가기준법 + 거래사례비교법</td></tr>
+            <tr><td>과수 (나무)</td><td>수익환원법 주로 적용 (수익 창출하므로)</td></tr>
+            <tr><td>과수원 전체</td><td>토지 + 과수 합산</td></tr>
+          </tbody>
+        </table>
+        <div class="tip">
+          <div class="tip-label">과수 평가 핵심</div>
+          과수는 매년 과일을 생산하므로 <strong>수익환원법</strong>이 적합해요.<br>
+          수령(나이)에 따라 수확량이 달라지므로 이를 반영해요.
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">산림 vs 과수원 비교</div>
+        <table class="study-table">
+          <thead><tr><th>구분</th><th>산림</th><th>과수원</th></tr></thead>
+          <tbody>
+            <tr><td>주 수익</td><td>목재 (벌채 시)</td><td>과일 (매년)</td></tr>
+            <tr><td>입목·과수 평가</td><td>거래사례·원가·수익</td><td>수익환원법 주</td></tr>
+            <tr><td>핵심 개념</td><td>벌기령</td><td>수령·수확량</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 산림·과수원</div></div>
+        <textarea class="note-textarea" id="note-day7-forest" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day7-forest')">저장</button>
+        <div class="saved-notes" id="saved-day7-forest"></div>
       </div>
     </div>
 
@@ -2913,6 +3158,17 @@
             <div class="glossary-term teal">내용연수 (耐用年數)</div>
             <div class="glossary-def">건물 등이 경제적으로 사용 가능한 총 기간. 감가수정 계산의 기준이 됨.</div>
             <div class="glossary-ex">예) 철근콘크리트 건물 내용연수 = 40~50년</div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-term teal">적산법 (積算法)</div>
+            <div class="glossary-def">
+              "쌓아서(積) 계산하는(算) 방법"으로, 두 가지 의미로 쓰여요.<br><br>
+              ① 임대료 평가의 적산법: 기초가액 × 기대이율 + 필요제경비 = 임대료<br>
+              &nbsp;&nbsp;&nbsp;"임대료 구성요소를 하나씩 쌓아서 계산"<br><br>
+              ② 원가법의 결과값: 재조달원가 − 감가수정액 = 적산가액<br>
+              &nbsp;&nbsp;&nbsp;"비용을 쌓아서 계산한 가액"
+            </div>
+            <div class="glossary-ex">핵심: 구성요소를 하나하나 더해가면서 최종값을 구하는 방식</div>
           </div>
         </div>
       </div>
