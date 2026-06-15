@@ -1071,16 +1071,16 @@
         <span class="day-arrow closed" id="arrow-day8">▾</span>
       </div>
       <div class="day-children closed" id="day8">
-        <div class="nav-item coming">
-          <div class="nav-dot" style="background:var(--border2)"></div>
+        <div class="nav-item" data-page="day8-mining">
+          <div class="nav-dot" style="background:var(--text2)"></div>
           광업재단
         </div>
-        <div class="nav-item coming">
-          <div class="nav-dot" style="background:var(--border2)"></div>
+        <div class="nav-item" data-page="day8-fishery">
+          <div class="nav-dot" style="background:var(--text2)"></div>
           어업권
         </div>
-        <div class="nav-item coming">
-          <div class="nav-dot" style="background:var(--border2)"></div>
+        <div class="nav-item" data-page="day8-intangible">
+          <div class="nav-dot" style="background:var(--text2)"></div>
           무형자산
         </div>
       </div>
@@ -1096,12 +1096,12 @@
         <span class="day-arrow closed" id="arrow-day9">▾</span>
       </div>
       <div class="day-children closed" id="day9">
-        <div class="nav-item coming">
-          <div class="nav-dot" style="background:var(--border2)"></div>
+        <div class="nav-item" data-page="day9-adjust">
+          <div class="nav-dot" style="background:var(--red)"></div>
           시산가액 조정 서술 연습
         </div>
-        <div class="nav-item coming">
-          <div class="nav-dot" style="background:var(--border2)"></div>
+        <div class="nav-item" data-page="day9-report">
+          <div class="nav-dot" style="background:var(--red)"></div>
           감정평가서 전체 작성 실전
         </div>
       </div>
@@ -3093,11 +3093,413 @@
         </table>
       </div>
 
+      <div class="section">
+        <div class="section-title">기본문제 풀이 — DAY 7 전체</div>
+
+        <div class="example">
+          <div class="example-label">예제 1 — 기계기구 (정률법 / 재조달원가 6천만 / 감가율 20% / 경과 3년)</div>
+          <div class="example-body">
+            적산가액 = 60,000,000 × (1−0.20)^3<br>
+            = 60,000,000 × 0.8 × 0.8 × 0.8<br>
+            = <strong class="hl">30,720,000원</strong>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">예제 2 — 공장 종합 (토지+건물+기계기구)</div>
+          <div class="example-body">
+            <strong>[토지]</strong> 공시지가기준법<br>
+            100,000,000 × 1.020 × 1.050 × 1.100 = <strong>117,810,000원</strong><br><br>
+            <strong>[건물]</strong> 정액법 (300㎡ × 60만 / 내용연수 40년 / 경과 10년)<br>
+            재조달원가 = 180,000,000원<br>
+            적산가액 = 180,000,000 × (1 − 10/40) = <strong>135,000,000원</strong><br><br>
+            <strong>[기계기구]</strong> 정률법 (재조달원가 8천만 / 0.85^5 = 0.4437)<br>
+            적산가액 = 80,000,000 × 0.4437 = <strong>35,496,000원</strong><br><br>
+            <strong>[공장 감정평가액]</strong><br>
+            117,810,000 + 135,000,000 + 35,496,000 = <strong class="hl">288,306,000원</strong>
+          </div>
+        </div>
+
+        <div class="example">
+          <div class="example-label">예제 3 — 산림 평가 (토지+입목)</div>
+          <div class="example-body">
+            <strong>[토지]</strong> 공시지가기준법<br>
+            50,000,000 × 1.030 × 0.950 × 1.100 = <strong>53,817,500원</strong><br><br>
+            <strong>[입목]</strong> 거래사례비교법<br>
+            20,000,000 × 1.000 × 1.020 × 1.050 = <strong>21,420,000원</strong><br><br>
+            <strong>[산림 감정평가액]</strong><br>
+            53,817,500 + 21,420,000 = <strong class="hl">75,237,500원</strong>
+          </div>
+        </div>
+
+      </div>
+
       <div class="note-area">
         <div class="note-header"><div class="note-title">내 학습 메모 — 산림·과수원</div></div>
         <textarea class="note-textarea" id="note-day7-forest" placeholder="기억할 것들을 적어두세요..."></textarea>
         <button class="note-save" onclick="saveNote('day7-forest')">저장</button>
         <div class="saved-notes" id="saved-day7-forest"></div>
+      </div>
+    </div>
+
+    <!-- DAY 8 — 광업재단 -->
+    <div class="page" id="page-day8-mining">
+      <div class="page-header">
+        <div class="page-tag">DAY 8 · 특수 물건</div>
+        <div class="page-title">광업재단 평가</div>
+        <div class="page-desc">광산·광업권 등 광업에 관한 재단을 평가하는 방법이에요. 수익방식이 주된 방법이에요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">광업재단이란?</div>
+        <p style="font-size:15px;color:var(--text2);line-height:1.8">
+          광업권·광업용 토지·건물·기계기구·기타 설비 등을 하나로 묶어서 평가하는 것이에요.
+          광산에서 채굴하는 광물의 <span class="hl">미래 수익</span>이 핵심 가치예요.
+        </p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">광업재단 평가 방법</div>
+        <table class="study-table">
+          <thead><tr><th>방법</th><th>내용</th><th>비고</th></tr></thead>
+          <tbody>
+            <tr><td>수익환원법</td><td>광물 채굴 수익을 현재가치로 환산</td><td>주된 방법</td></tr>
+            <tr><td>원가법</td><td>광업재단 구성 자산 각각 원가 합산</td><td>보조 방법</td></tr>
+            <tr><td>거래사례비교법</td><td>유사 광산 거래사례 비교</td><td>사례 있을 때</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">수익환원법 적용 시 핵심 요소</div>
+        <table class="study-table">
+          <thead><tr><th>항목</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td>가채매장량</td><td>실제로 채굴 가능한 광물의 양</td></tr>
+            <tr><td>채굴가능연수</td><td>가채매장량 ÷ 연간 채굴량</td></tr>
+            <tr><td>연간 순수익</td><td>광물 판매수익 − 채굴비용</td></tr>
+            <tr><td>환원이율</td><td>광업 특성상 위험률 반영 (일반 부동산보다 높음)</td></tr>
+          </tbody>
+        </table>
+        <div class="formula-block">
+          <div class="formula-label">광업재단 수익가액</div>
+          <div class="formula-text">
+            수익가액 <span class="op">= </span>연간 순수익 <span class="op">÷</span> 환원이율<br>
+            또는 DCF법으로 채굴가능연수 동안 순수익 현재가치 합산
+          </div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">시험 포인트</div>
+        광업재단 = <strong>수익환원법 주된 방법!</strong><br>
+        가채매장량과 채굴가능연수 개념을 꼭 기억하세요.
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 광업재단</div></div>
+        <textarea class="note-textarea" id="note-day8-mining" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day8-mining')">저장</button>
+        <div class="saved-notes" id="saved-day8-mining"></div>
+      </div>
+    </div>
+
+    <!-- DAY 8 — 어업권 -->
+    <div class="page" id="page-day8-fishery">
+      <div class="page-header">
+        <div class="page-tag">DAY 8 · 특수 물건</div>
+        <div class="page-title">어업권 평가</div>
+        <div class="page-desc">일정 수면에서 어업을 할 수 있는 권리를 평가해요. 수익방식이 주된 방법이에요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">어업권이란?</div>
+        <p style="font-size:15px;color:var(--text2);line-height:1.8">
+          특정 수면(바다·강·호수)에서 <span class="hl">독점적으로 어업을 할 수 있는 권리</span>예요.
+          면허어업·허가어업·신고어업으로 나뉘며, 면허어업이 재산적 가치가 가장 높아요.
+        </p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">어업권 평가 방법</div>
+        <table class="study-table">
+          <thead><tr><th>방법</th><th>내용</th><th>비고</th></tr></thead>
+          <tbody>
+            <tr><td>수익환원법</td><td>어업 수익을 현재가치로 환산</td><td>주된 방법</td></tr>
+            <tr><td>거래사례비교법</td><td>유사 어업권 거래사례 비교</td><td>보조 방법</td></tr>
+            <tr><td>원가법</td><td>어업 시설 원가 합산</td><td>보조 방법</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">어업권 수익환원법 적용</div>
+        <div class="formula-block">
+          <div class="formula-label">어업권 수익가액</div>
+          <div class="formula-text">
+            연간 순수익 <span class="op">= </span>연간 어획수익 <span class="op">−</span> 어업비용<br>
+            수익가액 <span class="op">= </span>연간 순수익 <span class="op">÷</span> 환원이율<br>
+            또는 잔존 면허기간 동안 DCF법 적용
+          </div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">잔존 면허기간 중요!</div>
+          어업권은 <strong>면허기간이 한정</strong>돼 있어요.<br>
+          잔존기간이 짧을수록 가치가 낮아지므로 반드시 반영해야 해요.
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 어업권</div></div>
+        <textarea class="note-textarea" id="note-day8-fishery" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day8-fishery')">저장</button>
+        <div class="saved-notes" id="saved-day8-fishery"></div>
+      </div>
+    </div>
+
+    <!-- DAY 8 — 무형자산 -->
+    <div class="page" id="page-day8-intangible">
+      <div class="page-header">
+        <div class="page-tag">DAY 8 · 특수 물건</div>
+        <div class="page-title">무형자산 평가</div>
+        <div class="page-desc">눈에 보이지 않는 자산 (영업권·특허권·상표권 등)을 평가하는 방법이에요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">무형자산 종류</div>
+        <table class="study-table">
+          <thead><tr><th>종류</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td>영업권</td><td>브랜드·고객기반·기술력 등 초과수익을 창출하는 능력</td></tr>
+            <tr><td>특허권</td><td>발명에 대한 독점적 실시권</td></tr>
+            <tr><td>상표권</td><td>상표를 독점적으로 사용할 수 있는 권리</td></tr>
+            <tr><td>저작권</td><td>창작물에 대한 독점적 권리</td></tr>
+            <tr><td>광업권</td><td>광물을 채굴할 수 있는 권리</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">무형자산 평가 방법</div>
+        <table class="study-table">
+          <thead><tr><th>방법</th><th>내용</th><th>주로 쓰는 경우</th></tr></thead>
+          <tbody>
+            <tr><td>수익환원법</td><td>무형자산으로 인한 초과수익 현재가치 환산</td><td>영업권·특허권</td></tr>
+            <tr><td>원가법</td><td>무형자산 취득·개발에 든 비용</td><td>소프트웨어·개발비</td></tr>
+            <tr><td>거래사례비교법</td><td>유사 무형자산 거래사례 비교</td><td>상표권·저작권</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">영업권 평가 — 초과수익법</div>
+        <div class="formula-block">
+          <div class="formula-label">영업권 수익가액</div>
+          <div class="formula-text">
+            초과수익 <span class="op">= </span>실제수익 <span class="op">−</span> 정상수익<br>
+            영업권 가액 <span class="op">= </span>초과수익 <span class="op">÷</span> 환원이율
+          </div>
+        </div>
+        <div class="example">
+          <div class="example-label">계산 예시</div>
+          <div class="example-body">
+            실제 연간수익: <strong>100,000,000원</strong><br>
+            정상수익 (업계 평균): <strong>70,000,000원</strong><br>
+            초과수익: 100,000,000 − 70,000,000 = <strong>30,000,000원</strong><br>
+            환원이율: <strong>10%</strong><br><br>
+            영업권 가액 = 30,000,000 ÷ 0.10 = <strong class="hl">300,000,000원</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">특수물건 주된 방법 총정리</div>
+        광업재단 → <strong>수익환원법</strong><br>
+        어업권 → <strong>수익환원법</strong><br>
+        무형자산(영업권) → <strong>수익환원법 (초과수익법)</strong><br>
+        공통점: 모두 <strong>수익방식이 주된 방법!</strong>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 무형자산</div></div>
+        <textarea class="note-textarea" id="note-day8-intangible" placeholder="기억할 것들을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day8-intangible')">저장</button>
+        <div class="saved-notes" id="saved-day8-intangible"></div>
+      </div>
+    </div>
+
+    <!-- DAY 9 — 시산가액 조정 서술 연습 -->
+    <div class="page" id="page-day9-adjust">
+      <div class="page-header">
+        <div class="page-tag">DAY 9 · 감정평가서 실전 작성</div>
+        <div class="page-title">시산가액 조정 서술 연습</div>
+        <div class="page-desc">계산만 하면 감점! 시산가액 조정 근거를 정확하게 서술하는 연습을 해요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">왜 서술이 필요한가?</div>
+        <p style="font-size:15px;color:var(--text2);line-height:1.8">
+          시험에서 계산 결과만 쓰면 <span class="hl">감점</span>이에요. 감정평가사는 단순 계산기가 아니라 <span class="hl">판단을 내리는 전문가</span>이기 때문에, 왜 그 가액을 선택했는지 근거를 반드시 서술해야 해요.
+        </p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">물건별 서술 템플릿</div>
+
+        <div class="formula-block">
+          <div class="formula-label">토지 평가 서술 템플릿</div>
+          <div class="formula-text">
+            "비준가액 ○○○원, 비교가액 ○○○원으로 산정되었으며,<br>
+            토지 평가 시 공시지가기준법이 주된 방법이므로<br>
+            비준가액에 주가중하여 감정평가액을 ○○○원으로 결정함."
+          </div>
+        </div>
+
+        <div class="formula-block">
+          <div class="formula-label">건물 평가 서술 템플릿</div>
+          <div class="formula-text">
+            "원가법 적용 결과 적산가액 ○○○원으로 산정되었으며,<br>
+            건물은 원가방식이 주된 방법이므로<br>
+            적산가액을 감정평가액으로 결정함."
+          </div>
+        </div>
+
+        <div class="formula-block">
+          <div class="formula-label">수익성 부동산 서술 템플릿</div>
+          <div class="formula-text">
+            "수익환원법 적용 결과 수익가액 ○○○원으로 산정되었으며,<br>
+            수익성 부동산은 수익방식이 주된 방법이므로<br>
+            수익가액을 감정평가액으로 결정함."
+          </div>
+        </div>
+
+        <div class="formula-block">
+          <div class="formula-label">복합부동산 서술 템플릿</div>
+          <div class="formula-text">
+            "토지 비준가액 ○○○원, 건물 적산가액 ○○○원으로 산정되었으며,<br>
+            각각 주된 방법에 따라 산정된 가액을 합산하여<br>
+            감정평가액을 ○○○원으로 결정함."
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">시산가액 조정 기준 3가지 (복습)</div>
+        <table class="study-table">
+          <thead><tr><th>기준</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td>물건의 성격</td><td>토지→비교 / 건물→원가 / 수익성→수익방식</td></tr>
+            <tr><td>자료 신뢰도</td><td>사례 수·시점 근접성·적정성이 높은 방식에 가중</td></tr>
+            <tr><td>평가 목적</td><td>담보→보수적 / 보상→시장가치 / 경매→실현가능가액</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">서술 시 자주 틀리는 것들</div>
+        <div class="cheat-warns">
+          <div class="cheat-warn"><strong>시산가액과 감정평가액 혼용</strong> — "시산가액 = 감정평가액"이라고 쓰면 안 돼요. 조정 후 결정된 것이 감정평가액!</div>
+          <div class="cheat-warn"><strong>근거 없는 가중</strong> — "비준가액을 채택함"만 쓰면 감점. 왜 채택했는지 이유를 써야 해요.</div>
+          <div class="cheat-warn"><strong>단위 누락</strong> — 반드시 "원" 단위 명시. 천원·만원 단위 혼용 주의!</div>
+          <div class="cheat-warn"><strong>조정 서술 누락</strong> — 계산만 하고 서술 안 하면 배점의 상당 부분 감점!</div>
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 시산가액 조정 서술</div></div>
+        <textarea class="note-textarea" id="note-day9-adjust" placeholder="자주 쓰는 서술 패턴을 직접 써보세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day9-adjust')">저장</button>
+        <div class="saved-notes" id="saved-day9-adjust"></div>
+      </div>
+    </div>
+
+    <!-- DAY 9 — 감정평가서 전체 작성 실전 -->
+    <div class="page" id="page-day9-report">
+      <div class="page-header">
+        <div class="page-tag">DAY 9 · 감정평가서 실전 작성</div>
+        <div class="page-title">감정평가서 전체 작성 실전</div>
+        <div class="page-desc">처음부터 끝까지 한 문제를 완성하는 연습이에요. 이 흐름이 몸에 배야 시험장에서 당황하지 않아요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">실전 답안 작성 순서</div>
+        <div class="flow">
+          <div class="flow-item">
+            <div class="flow-num">01</div>
+            <div class="flow-content">
+              <div class="flow-name">조건 파악</div>
+              <div class="flow-desc">물건 유형 확인 → 어떤 방법을 쓸지 결정 → 주어진 수치 정리</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">02</div>
+            <div class="flow-content">
+              <div class="flow-name">방법 선정 및 계산</div>
+              <div class="flow-desc">주된 방법 + 다른 방법 계산 → 시산가액 산출</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">03</div>
+            <div class="flow-content">
+              <div class="flow-name">시산가액 조정 서술</div>
+              <div class="flow-desc">어느 방식에 주가중할지 근거 서술</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">04</div>
+            <div class="flow-content">
+              <div class="flow-name">감정평가액 결정</div>
+              <div class="flow-desc">단가 × 수량 = 최종 감정평가액 (원 단위 명시)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">실전 종합문제 예시</div>
+        <div class="example">
+          <div class="example-label">문제 — 다음 조건으로 대상 토지의 감정평가액을 구하시오.</div>
+          <div class="example-body">
+            <strong>[공시지가기준법]</strong><br>
+            공시지가 80,000,000 × 시점수정 1.030 × 개별요인 1.050 × 그밖의요인 1.100<br>
+            = 비준가액 <strong>95,634,000원</strong><br><br>
+            <strong>[거래사례비교법]</strong><br>
+            사례가액 90,000,000 × 사정보정 1.000 × 시점수정 1.020 × 개별요인 1.050<br>
+            = 비교가액 <strong>96,390,000원</strong><br><br>
+            <strong>[시산가액 조정]</strong><br>
+            비준가액 95,634,000원, 비교가액 96,390,000원으로 산정되었으며,
+            토지 평가 시 공시지가기준법이 주된 방법이므로
+            비준가액에 주가중하여 감정평가액을 <strong class="hl">95,634,000원으로 결정함.</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">시간 배분 전략</div>
+        <table class="study-table">
+          <thead><tr><th>항목</th><th>배분 시간</th><th>포인트</th></tr></thead>
+          <tbody>
+            <tr><td>문제 읽기 · 조건 파악</td><td>5분</td><td>물건 유형·방법 먼저 체크</td></tr>
+            <tr><td>계산</td><td>20~25분</td><td>실수 없이 천천히</td></tr>
+            <tr><td>서술 작성</td><td>5~10분</td><td>템플릿 외워서 빠르게</td></tr>
+            <tr><td>검토</td><td>5분</td><td>단위·부호 확인</td></tr>
+          </tbody>
+        </table>
+        <div class="tip">
+          <div class="tip-label">시험장 핵심 전략</div>
+          시간이 부족하면 <strong>계산 먼저, 서술 나중에!</strong><br>
+          서술 없으면 감점이지만, 계산 없으면 더 큰 감점이에요.
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 감정평가서 실전</div></div>
+        <textarea class="note-textarea" id="note-day9-report" placeholder="실전 연습하면서 느낀 점을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day9-report')">저장</button>
+        <div class="saved-notes" id="saved-day9-report"></div>
       </div>
     </div>
 
