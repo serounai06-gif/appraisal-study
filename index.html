@@ -1117,16 +1117,16 @@
         <span class="day-arrow closed" id="arrow-day10">▾</span>
       </div>
       <div class="day-children closed" id="day10">
-        <div class="nav-item coming">
-          <div class="nav-dot" style="background:var(--border2)"></div>
-          최근 5개년 기출 풀이
+        <div class="nav-item" data-page="day10-pattern">
+          <div class="nav-dot" style="background:var(--red)"></div>
+          최근 5개년 기출 패턴
         </div>
-        <div class="nav-item coming">
-          <div class="nav-dot" style="background:var(--border2)"></div>
+        <div class="nav-item" data-page="day10-time">
+          <div class="nav-dot" style="background:var(--red)"></div>
           시간 배분 연습
         </div>
-        <div class="nav-item coming">
-          <div class="nav-dot" style="background:var(--border2)"></div>
+        <div class="nav-item" data-page="day10-wrong">
+          <div class="nav-dot" style="background:var(--red)"></div>
           오답 정리
         </div>
       </div>
@@ -3500,6 +3500,204 @@
         <textarea class="note-textarea" id="note-day9-report" placeholder="실전 연습하면서 느낀 점을 적어두세요..."></textarea>
         <button class="note-save" onclick="saveNote('day9-report')">저장</button>
         <div class="saved-notes" id="saved-day9-report"></div>
+      </div>
+    </div>
+
+    <!-- DAY 10 — 시험 전략 -->
+    <div class="page" id="page-day10-pattern">
+      <div class="page-header">
+        <div class="page-tag">DAY 10 · 기출문제 풀기</div>
+        <div class="page-title">최근 5개년 기출 패턴</div>
+        <div class="page-desc">기출문제를 분석하면 출제 패턴이 보여요. 자주 나오는 유형을 먼저 완벽하게 익혀요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">유형별 출제 빈도</div>
+        <table class="study-table">
+          <thead><tr><th>유형</th><th>빈도</th><th>핵심 포인트</th></tr></thead>
+          <tbody>
+            <tr><td>토지 평가 (공시지가+거래사례)</td><td>⭐⭐⭐⭐⭐</td><td>그 밖의 요인 역산, 요인비교표</td></tr>
+            <tr><td>복합부동산 (토지+건물)</td><td>⭐⭐⭐⭐⭐</td><td>토지·건물 각각 계산 후 합산</td></tr>
+            <tr><td>감가수정 3법</td><td>⭐⭐⭐⭐</td><td>정액·정률·상환기금법 구분</td></tr>
+            <tr><td>수익환원법 (직접환원)</td><td>⭐⭐⭐⭐</td><td>NOI 산정 → 환원이율 적용</td></tr>
+            <tr><td>임대료 (적산법)</td><td>⭐⭐⭐</td><td>기초가액 × 기대이율 + 필요제경비</td></tr>
+            <tr><td>DCF법</td><td>⭐⭐⭐</td><td>연도별 NOI 현재가치 합산</td></tr>
+            <tr><td>구분건물 (아파트)</td><td>⭐⭐⭐</td><td>거래사례비교법 + 층별·향별 효용</td></tr>
+            <tr><td>공장·기계기구</td><td>⭐⭐</td><td>토지+건물+기계 합산</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">기출 단골 출제 포인트</div>
+        <div class="cheat-warns">
+          <div class="cheat-warn"><strong>그 밖의 요인 역산</strong> — 거의 매년 출제! 비교가액 ÷ (공시지가 × 보정치들)</div>
+          <div class="cheat-warn"><strong>요인비교 대상÷사례</strong> — 순서 바꾸면 완전히 틀림. 반드시 대상÷사례!</div>
+          <div class="cheat-warn"><strong>시산가액 조정 서술</strong> — 계산만 하면 감점. 한 줄 서술 필수!</div>
+          <div class="cheat-warn"><strong>NOI 산정 순서</strong> — PGI → 공실 차감 → EGI → 운영경비 차감 → NOI</div>
+          <div class="cheat-warn"><strong>정률법 vs 상환기금법</strong> — 정률법은 바로 적산가액, 상환기금법은 매년 감가액 먼저!</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">기출 공략 순서</div>
+        <div class="flow">
+          <div class="flow-item">
+            <div class="flow-num">01</div>
+            <div class="flow-content">
+              <div class="flow-name">최근 1~2개년 기출 먼저</div>
+              <div class="flow-desc">최신 출제 경향 파악 → 자주 나오는 유형 확인</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">02</div>
+            <div class="flow-content">
+              <div class="flow-name">틀린 문제 유형 집중 복습</div>
+              <div class="flow-desc">오답 원인 분석 → 해당 DAY로 돌아가서 재학습</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">03</div>
+            <div class="flow-content">
+              <div class="flow-name">5개년 전체 회독</div>
+              <div class="flow-desc">시간 재고 풀기 → 실전 감각 훈련</div>
+            </div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-item">
+            <div class="flow-num">04</div>
+            <div class="flow-content">
+              <div class="flow-name">시험 직전 핵심노트 최종 점검</div>
+              <div class="flow-desc">공식·서술 템플릿 최종 확인</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 기출 패턴</div></div>
+        <textarea class="note-textarea" id="note-day10-pattern" placeholder="기출 풀면서 자주 틀리는 유형을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day10-pattern')">저장</button>
+        <div class="saved-notes" id="saved-day10-pattern"></div>
+      </div>
+    </div>
+
+    <!-- DAY 10 — 시간 배분 -->
+    <div class="page" id="page-day10-time">
+      <div class="page-header">
+        <div class="page-tag">DAY 10 · 기출문제 풀기</div>
+        <div class="page-title">시간 배분 전략</div>
+        <div class="page-desc">감정평가실무는 시간이 부족한 과목이에요. 시간 배분 전략을 미리 세워두면 당황하지 않아요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">시험 시간 구성</div>
+        <table class="study-table">
+          <thead><tr><th>항목</th><th>시간</th><th>전략</th></tr></thead>
+          <tbody>
+            <tr><td>전체 시험 시간</td><td>120분</td><td>문제 수에 따라 배분</td></tr>
+            <tr><td>문제 읽기·조건 파악</td><td>문제당 3~5분</td><td>물건 유형 먼저 체크</td></tr>
+            <tr><td>계산</td><td>문제당 15~20분</td><td>실수 없이 한 번에</td></tr>
+            <tr><td>서술 작성</td><td>문제당 5분</td><td>템플릿 외워서 빠르게</td></tr>
+            <tr><td>검토</td><td>10~15분</td><td>단위·부호·계산 확인</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">문제 유형별 시간 배분</div>
+        <table class="study-table">
+          <thead><tr><th>문제 유형</th><th>예상 소요시간</th></tr></thead>
+          <tbody>
+            <tr><td>토지 평가 (2방법)</td><td>20~25분</td></tr>
+            <tr><td>복합부동산 (토지+건물)</td><td>25~30분</td></tr>
+            <tr><td>수익환원법 + NOI산정</td><td>20~25분</td></tr>
+            <tr><td>DCF법</td><td>25~30분</td></tr>
+            <tr><td>공장 종합 (3가지 합산)</td><td>30~35분</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">시간 부족할 때 대처법</div>
+        <div class="cheat-warns">
+          <div class="cheat-warn"><strong>계산 먼저, 서술 나중</strong> — 서술 없으면 감점이지만 계산 없으면 더 큰 감점!</div>
+          <div class="cheat-warn"><strong>쉬운 문제 먼저</strong> — 어려운 문제에서 시간 낭비하지 말고 쉬운 것 먼저 완성</div>
+          <div class="cheat-warn"><strong>중간 계산 과정 표시</strong> — 최종 답이 틀려도 과정 점수가 있어요!</div>
+          <div class="cheat-warn"><strong>단위 꼭 명시</strong> — 마지막에 "원" 단위 빠뜨리지 말 것!</div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">실전 팁</div>
+        시험 시작 전 <strong>문제 전체를 훑어보고</strong> 쉬운 것부터 순서를 정하세요!<br>
+        계산기 사용법도 미리 충분히 연습해두세요 😊
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 학습 메모 — 시간 배분</div></div>
+        <textarea class="note-textarea" id="note-day10-time" placeholder="실전 연습하면서 느낀 시간 배분 팁을 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day10-time')">저장</button>
+        <div class="saved-notes" id="saved-day10-time"></div>
+      </div>
+    </div>
+
+    <!-- DAY 10 — 오답 정리 -->
+    <div class="page" id="page-day10-wrong">
+      <div class="page-header">
+        <div class="page-tag">DAY 10 · 기출문제 풀기</div>
+        <div class="page-title">오답 정리</div>
+        <div class="page-desc">틀린 문제를 그냥 넘기면 시험장에서 또 틀려요. 오답 원인을 분석하고 약점을 보완해요.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">오답 유형별 원인과 해결법</div>
+        <table class="study-table">
+          <thead><tr><th>오답 유형</th><th>원인</th><th>해결법</th></tr></thead>
+          <tbody>
+            <tr><td>계산 실수</td><td>빠르게 풀려다 실수</td><td>중간 과정 반드시 적기</td></tr>
+            <tr><td>요인 순서 오류</td><td>대상÷사례 vs 사례÷대상 혼동</td><td>DAY 2 요인비교 복습</td></tr>
+            <tr><td>방법 선정 오류</td><td>어느 방법 쓸지 헷갈림</td><td>물건별 주된 방법 표 암기</td></tr>
+            <tr><td>서술 누락</td><td>시간 부족으로 서술 생략</td><td>템플릿 외워서 빠르게 작성</td></tr>
+            <tr><td>단위 오류</td><td>원·천원·만원 혼용</td><td>답 쓸 때 단위 먼저 확인</td></tr>
+            <tr><td>공식 혼동</td><td>정액법·정률법·상환기금법 헷갈림</td><td>핵심공식카드 반복 확인</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">물건별 주된 방법 최종 정리</div>
+        <table class="study-table">
+          <thead><tr><th>물건</th><th>주된 방법</th><th>결과값</th></tr></thead>
+          <tbody>
+            <tr><td>토지</td><td>공시지가기준법</td><td>비준가액</td></tr>
+            <tr><td>건물</td><td>원가법</td><td>적산가액</td></tr>
+            <tr><td>복합부동산</td><td>토지(비교)+건물(원가) 합산</td><td>합산가액</td></tr>
+            <tr><td>구분건물(아파트)</td><td>거래사례비교법</td><td>비교가액</td></tr>
+            <tr><td>임대료</td><td>적산법</td><td>임대료</td></tr>
+            <tr><td>수익성 부동산</td><td>수익환원법</td><td>수익가액</td></tr>
+            <tr><td>기계기구</td><td>원가법</td><td>적산가액</td></tr>
+            <tr><td>공장</td><td>토지+건물+기계 합산</td><td>합산가액</td></tr>
+            <tr><td>산림</td><td>토지+입목 합산</td><td>합산가액</td></tr>
+            <tr><td>광업재단·어업권</td><td>수익환원법</td><td>수익가액</td></tr>
+            <tr><td>영업권·무형자산</td><td>수익환원법(초과수익법)</td><td>수익가액</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">오답 노트 활용법</div>
+        기출 풀고 틀린 문제는 아래 메모에 적어두세요!<br>
+        <strong>"왜 틀렸는지 + 올바른 풀이"</strong> 두 가지를 꼭 같이 적어야 효과가 있어요 😊
+      </div>
+
+      <div class="note-area">
+        <div class="note-header"><div class="note-title">내 오답 노트</div></div>
+        <textarea class="note-textarea" id="note-day10-wrong" placeholder="틀린 문제 번호 + 왜 틀렸는지 + 올바른 풀이를 적어두세요..."></textarea>
+        <button class="note-save" onclick="saveNote('day10-wrong')">저장</button>
+        <div class="saved-notes" id="saved-day10-wrong"></div>
       </div>
     </div>
 
